@@ -46,17 +46,17 @@
                 </TreeView.ItemContainerStyle>
 
                 <TreeView.Resources>
-                    <HierarchicalDataTemplate DataType="{x:Type local:ServerViewModel}" ItemsSource="{Binding Databases}">
+                    <HierarchicalDataTemplate DataType="{x:Type local:RedisServer}" ItemsSource="{Binding Children}">
                         <StackPanel Orientation="Horizontal">
                             <!--<Image Width="16" Height="16" Margin="3,0" Source="Images\" />-->
-                            <TextBlock Text="{Binding Name}" />
+                            <TextBlock Text="{Binding Display}" />
                         </StackPanel>
                     </HierarchicalDataTemplate>
 
-                    <HierarchicalDataTemplate DataType="{x:Type local:DatabaseViewModel}" ItemsSource="{Binding Children}">
+                    <HierarchicalDataTemplate DataType="{x:Type local:RedisDatabase}" ItemsSource="{Binding Children}">
                         <StackPanel Orientation="Horizontal">
                             <!--<Image Width="16" Height="16" Margin="3,0" Source="Images\" />-->
-                            <TextBlock Text="{Binding Name}" />
+                            <TextBlock Text="{Binding Display}" />
                         </StackPanel>
                     </HierarchicalDataTemplate>
                 </TreeView.Resources>

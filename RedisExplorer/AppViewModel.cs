@@ -21,13 +21,13 @@ namespace RedisExplorer
 
         private string statusBarTextBlock;
 
-        private BindableCollection<ServerViewModel> servers; 
+        private BindableCollection<RedisServer> servers; 
 
         #endregion
 
         #region Properties
 
-        public BindableCollection<ServerViewModel> Servers
+        public BindableCollection<RedisServer> Servers
         {
             get { return servers; }
             set
@@ -46,20 +46,22 @@ namespace RedisExplorer
             this.eventAggregator = eventAggregator;
             eventAggregator.Subscribe(this);
             this.windowManager = windowManager;
-            Servers = new BindableCollection<ServerViewModel>();
+            Servers = new BindableCollection<RedisServer>();
 
             LoadServers();
         }
 
         private void LoadServers()
         {
-            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(",keepAlive = 180,allowAdmin=true");
+            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("192.168.1.1,keepAlive = 180,allowAdmin=true");
 
-            var db1 = new RedisDatabase { Database = redis.GetDatabase(6), Name = "6" };
-            var db2 = new RedisDatabase { Database = redis.GetDatabase(7), Name = "7" };
+            var svm = new RedisServer(redis.GetServer("192.168.1.1", 6379)) { Display = "Redis Server" };
+            var db1 = new RedisDatabase(svm, redis.GetDatabase(6)) { Display = "6" };
+            var db2 = new RedisDatabase(svm, redis.GetDatabase(7)) { Display = "7" };
 
-            var dbcoll = new RedisDatabase[] { db1, db2 };
-            var svm = new ServerViewModel(dbcoll);
+            svm.Children.Add(db1);
+            svm.Children.Add(db2);
+            
             Servers.Add(svm);
         }
 

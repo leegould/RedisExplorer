@@ -1,11 +1,14 @@
-﻿using StackExchange.Redis;
+﻿using Caliburn.Micro;
+
+using StackExchange.Redis;
 
 namespace RedisExplorer.Models
 {
-    public class RedisDatabase
+    public class RedisDatabase : TreeViewItem
     {
-        public IDatabase Database { get; set; }
+        public RedisDatabase(TreeViewItem parent, IDatabase database) : base(parent, false)
+        {
 
-        public string Name { get; set; }
+        }
     }
 }

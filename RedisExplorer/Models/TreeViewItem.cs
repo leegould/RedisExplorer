@@ -2,20 +2,22 @@
 
 using Caliburn.Micro;
 
+using RedisExplorer.Interface;
+
 namespace RedisExplorer.Models
 {
     /// <summary>
     /// Tree View Item view Model
     /// </summary>
     /// <see cref="http://www.codeproject.com/Articles/26288/Simplifying-the-WPF-TreeView-by-Using-the-ViewMode"/>
-    public class TreeViewItemViewModel : PropertyChangedBase
+    public class TreeViewItem : PropertyChangedBase, ITreeViewItemViewModel
     {
         #region Members
 
-        static readonly TreeViewItemViewModel DummyChild = new TreeViewItemViewModel();
+        static readonly TreeViewItem DummyChild = new TreeViewItem();
 
-        readonly ObservableCollection<TreeViewItemViewModel> children;
-        readonly TreeViewItemViewModel parent;
+        readonly ObservableCollection<TreeViewItem> children;
+        readonly TreeViewItem parent;
 
         bool isExpanded;
         bool isSelected;
@@ -24,12 +26,14 @@ namespace RedisExplorer.Models
 
         #region Properties
 
-        public TreeViewItemViewModel Parent
+        public string Display { get; set; }
+
+        public TreeViewItem Parent
         {
             get { return parent; }
         }
 
-        public ObservableCollection<TreeViewItemViewModel> Children
+        public ObservableCollection<TreeViewItem> Children
         {
             get { return children; }
         }
@@ -76,11 +80,11 @@ namespace RedisExplorer.Models
 
         #region Constructors
 
-        protected TreeViewItemViewModel(TreeViewItemViewModel parent, bool lazyLoadChildren)
+        protected TreeViewItem(TreeViewItem parent, bool lazyLoadChildren)
         {
             this.parent = parent;
 
-            children = new ObservableCollection<TreeViewItemViewModel>();
+            children = new ObservableCollection<TreeViewItem>();
 
             if (lazyLoadChildren)
             {
@@ -89,7 +93,7 @@ namespace RedisExplorer.Models
         }
 
         // This is used to create the DummyChild instance.
-        private TreeViewItemViewModel()
+        private TreeViewItem()
         {
         }
 

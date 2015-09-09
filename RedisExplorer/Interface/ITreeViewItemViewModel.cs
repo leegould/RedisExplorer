@@ -7,10 +7,11 @@ namespace RedisExplorer.Interface
 {
     interface ITreeViewItemViewModel : INotifyPropertyChanged
     {
-        ObservableCollection<TreeViewItemViewModel> Children { get; }
+        ObservableCollection<TreeViewItem> Children { get; }
         bool HasDummyChild { get; }
         bool IsExpanded { get; set; }
         bool IsSelected { get; set; }
-        TreeViewItemViewModel Parent { get; }
+        TreeViewItem Parent { get; }
+        string Display { get; set; }
     }
 }

@@ -88,10 +88,9 @@
     <Compile Include="Interface\IApp.cs" />
     <Compile Include="Interface\ITabItem.cs" />
     <Compile Include="Interface\ITreeViewItemViewModel.cs" />
-    <Compile Include="Models\DatabaseViewModel.cs" />
     <Compile Include="Models\RedisDatabase.cs" />
-    <Compile Include="Models\ServerViewModel.cs" />
-    <Compile Include="Models\TreeViewItemViewModel.cs" />
+    <Compile Include="Models\RedisServer.cs" />
+    <Compile Include="Models\TreeViewItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
