@@ -53,15 +53,16 @@ namespace RedisExplorer
 
         private void LoadServers()
         {
-            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("192.168.1.1,keepAlive = 180,allowAdmin=true");
+            //ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("192.168.1.1,keepAlive = 180,allowAdmin=true");
 
-            var svm = new RedisServer(redis.GetServer("192.168.1.1", 6379)) { Display = "Redis Server" };
-            var db1 = new RedisDatabase(svm, redis.GetDatabase(6)) { Display = "6" };
-            var db2 = new RedisDatabase(svm, redis.GetDatabase(7)) { Display = "7" };
+            //var svm = new RedisServer(redis.GetServer("192.168.1.1", 6379)) { Display = "Redis Server" };
+            //var db1 = new RedisDatabase(svm, redis.GetDatabase(6)) { Display = "6" };
+            //var db2 = new RedisDatabase(svm, redis.GetDatabase(7)) { Display = "7" };
 
-            svm.Children.Add(db1);
-            svm.Children.Add(db2);
-            
+            var svm = new RedisServer(null) { Display = "Server" };
+            svm.Children.Add(new RedisDatabase(svm, null) { Display = "1" });
+            svm.Children.Add(new RedisDatabase(svm, null) { Display = "2" });
+
             Servers.Add(svm);
         }
 
