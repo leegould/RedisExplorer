@@ -55,14 +55,14 @@ namespace RedisExplorer
 
         private void LoadServers()
         {
-            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("127.0.0.1,keepAlive = 180,allowAdmin=true");
+            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("192.168.1.161,keepAlive = 180,allowAdmin=true");
 
             foreach(var endpoint in redis.GetEndPoints())
             {
                 var server = redis.GetServer(endpoint);
                 var svm = new RedisServer(server) { Display = "Redis Server" };
 
-                //var info = server.Info("all");
+                var info = server.Info("keyspace");
                 var databases = server.ConfigGet("databases");
                 if (databases != null)
                 {
@@ -70,31 +70,23 @@ namespace RedisExplorer
                     if (int.TryParse(databases.First().Value, out dbcounter))
                     {
                         foreach (var dbnumber in Enumerable.Range(0, dbcounter))
-                        svm.Children.Add(new RedisDatabase(svm, null) {Display = dbnumber.ToString()});
+                        {
+                            var display = dbnumber.ToString();
+                            var dbinfo = info[0].FirstOrDefault(x => x.Key == "db" + display);
+
+                            //if (dbinfo != null)
+                            //{
+                                display += " " + dbinfo.Value;
+                            //}
+
+
+                            svm.Children.Add(new RedisDatabase(svm, redis.GetDatabase(dbnumber)) { Display = display });
+                        }
                     }
                 }
 
                 Servers.Add(svm);
-
             }
-
-
-            //foreach (var infokey in redis.GetServer("127.0.0.1", 6379).Info("Keyspace"))
-            //{
-            //    //var db = new RedisDatabase(svm, null) {Display = infokey.Key};
-            //    //svm.Children.Add(db);
-            //    //Console.WriteLine(infokey.Key);
-            //}
-
-            
-
-            //var db1 = new RedisDatabase(svm, redis.GetDatabase(6)) { Display = "6" };
-            //var db2 = new RedisDatabase(svm, redis.GetDatabase(7)) { Display = "7" };
-
-            //var svm = new RedisServer(null) { Display = "Server" };
-            //svm.Children.Add(new RedisDatabase(svm, null) { Display = "1" });
-            //svm.Children.Add(new RedisDatabase(svm, null) { Display = "2" });
-
         }
 
         #region Properties
