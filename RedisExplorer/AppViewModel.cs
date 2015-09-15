@@ -72,13 +72,15 @@ namespace RedisExplorer
                         foreach (var dbnumber in Enumerable.Range(0, dbcounter))
                         {
                             var display = dbnumber.ToString();
-                            var dbinfo = info[0].FirstOrDefault(x => x.Key == "db" + display);
+                            if (info != null)
+                            {
+                                var dbinfo = info[0].FirstOrDefault(x => x.Key == "db" + display);
 
-                            //if (dbinfo != null)
-                            //{
+                                //if (dbinfo != null)
+                                //{
                                 display += " " + dbinfo.Value;
-                            //}
-
+                                //}
+                            }
 
                             svm.Children.Add(new RedisDatabase(svm, redis.GetDatabase(dbnumber)) { Display = display });
                         }
