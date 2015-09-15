@@ -17,6 +17,9 @@
             <MenuItem Header="File">
                 <MenuItem x:Name="Exit" Header="_Exit"></MenuItem>
             </MenuItem>
+            <MenuItem Header="Server">
+                <MenuItem x:Name="AddServer" Header="_Add Server"></MenuItem>
+            </MenuItem>
         </Menu>
 
         <Grid Background="DarkGray" DockPanel.Dock="Top">

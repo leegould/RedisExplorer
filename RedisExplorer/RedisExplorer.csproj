@@ -85,9 +85,15 @@
     </Compile>
     <Compile Include="AppViewModel.cs" />
     <Compile Include="AppWindowManager.cs" />
+    <Compile Include="Controls\AddConnectionView.xaml.cs">
+      <DependentUpon>AddConnectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AddConnectionViewModel.cs" />
     <Compile Include="Interface\IApp.cs" />
     <Compile Include="Interface\ITabItem.cs" />
     <Compile Include="Interface\ITreeViewItemViewModel.cs" />
+    <Compile Include="Messages\AddConnectionMessage.cs" />
+    <Compile Include="Models\RedisConnection.cs" />
     <Compile Include="Models\RedisDatabase.cs" />
     <Compile Include="Models\RedisServer.cs" />
     <Compile Include="Models\TreeViewItem.cs" />
@@ -123,10 +129,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\AddConnectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\" />
-    <Folder Include="Controls\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

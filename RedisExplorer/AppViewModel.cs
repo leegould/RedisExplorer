@@ -1,10 +1,12 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using System.Dynamic;
 using System.Linq;
 using System.Windows;
 
 using Caliburn.Micro;
 
+using RedisExplorer.Controls;
 using RedisExplorer.Interface;
 using RedisExplorer.Models;
 
@@ -43,7 +45,7 @@ namespace RedisExplorer
 
         public AppViewModel(IEventAggregator eventAggregator, IWindowManager windowManager)
         {
-            this.DisplayName = "RedisExplorer";
+            this.DisplayName = "Redis Explorer";
 
             this.eventAggregator = eventAggregator;
             eventAggregator.Subscribe(this);
@@ -113,6 +115,18 @@ namespace RedisExplorer
         public void Exit()
         {
             Application.Current.Shutdown();
+        }
+
+
+        public void AddServer()
+        {
+            dynamic settings = new ExpandoObject();
+            settings.Width = 300;
+            settings.Height = 250;
+            settings.WindowStartupLocation = WindowStartupLocation.Manual;
+            settings.Title = "Add Server";
+
+            windowManager.ShowWindow(new AddConnectionViewModel(eventAggregator), null, settings);    
         }
 
         #endregion
