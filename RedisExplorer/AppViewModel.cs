@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.Composition;
 using System.Dynamic;
-using System.Linq;
 using System.Windows;
 
 using Caliburn.Micro;
@@ -60,36 +59,7 @@ namespace RedisExplorer
 
             foreach(var endpoint in redis.GetEndPoints())
             {
-                var server = redis.GetServer(endpoint);
-                var svm = new RedisServer(server) { Display = "Redis Server" };
-
-                var info = server.Info("keyspace");
-                var databases = server.ConfigGet("databases");
-                if (databases != null)
-                {
-                    int dbcounter = 0;
-                    if (int.TryParse(databases.First().Value, out dbcounter))
-                    {
-                        foreach (var dbnumber in Enumerable.Range(0, dbcounter))
-                        {
-                            var display = dbnumber.ToString();
-                            if (info != null)
-                            {
-                                var dbinfo = info[0].FirstOrDefault(x => x.Key == "db" + display);
-                                if (!string.IsNullOrEmpty(dbinfo.Value))
-                                {
-                                    display += " (" + dbinfo.Value.Split(',')[0].Split('=')[1] + ")";
-                                }
-                            }
-
-                            var db = new RedisDatabase(svm, redis.GetDatabase(dbnumber)) { Display = display };
-
-                            svm.Children.Add(db);
-                        }
-                    }
-                }
-
-                Servers.Add(svm);
+                Servers.Add(new RedisServer(redis, redis.GetServer(endpoint)) { Display = "Redis Server" });
             }
         }
 
