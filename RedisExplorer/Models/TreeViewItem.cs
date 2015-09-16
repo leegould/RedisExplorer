@@ -36,6 +36,10 @@ namespace RedisExplorer.Models
         public ObservableCollection<TreeViewItem> Children
         {
             get { return children; }
+            //set
+            //{
+            //    children = value;
+            //}
         }
 
         public bool HasDummyChild

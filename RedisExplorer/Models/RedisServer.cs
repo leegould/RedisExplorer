@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using StackExchange.Redis;
+﻿using StackExchange.Redis;
 
 namespace RedisExplorer.Models
 {
@@ -11,6 +6,7 @@ namespace RedisExplorer.Models
     {
         public RedisServer(IServer server) : base(null, false)
         {
+
         }
     }
 }

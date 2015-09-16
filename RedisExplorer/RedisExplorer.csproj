@@ -95,6 +95,7 @@
     <Compile Include="Messages\AddConnectionMessage.cs" />
     <Compile Include="Models\RedisConnection.cs" />
     <Compile Include="Models\RedisDatabase.cs" />
+    <Compile Include="Models\RedisKey.cs" />
     <Compile Include="Models\RedisServer.cs" />
     <Compile Include="Models\TreeViewItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

@@ -15,10 +15,9 @@
 
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
-                <MenuItem x:Name="Exit" Header="_Exit"></MenuItem>
-            </MenuItem>
-            <MenuItem Header="Server">
                 <MenuItem x:Name="AddServer" Header="_Add Server"></MenuItem>
+                
+                <MenuItem x:Name="Exit" Header="_Exit"></MenuItem>
             </MenuItem>
         </Menu>
 
@@ -57,6 +56,13 @@
                     </HierarchicalDataTemplate>
 
                     <HierarchicalDataTemplate DataType="{x:Type local:RedisDatabase}" ItemsSource="{Binding Children}">
+                        <StackPanel Orientation="Horizontal">
+                            <!--<Image Width="16" Height="16" Margin="3,0" Source="Images\" />-->
+                            <TextBlock Text="{Binding Display}" />
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+
+                    <HierarchicalDataTemplate DataType="{x:Type local:RedisKey}" ItemsSource="{Binding Children}">
                         <StackPanel Orientation="Horizontal">
                             <!--<Image Width="16" Height="16" Margin="3,0" Source="Images\" />-->
                             <TextBlock Text="{Binding Display}" />

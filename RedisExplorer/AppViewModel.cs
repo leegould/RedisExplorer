@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.Composition;
+﻿using System.ComponentModel.Composition;
 using System.Dynamic;
 using System.Linq;
 using System.Windows;
@@ -77,14 +76,15 @@ namespace RedisExplorer
                             if (info != null)
                             {
                                 var dbinfo = info[0].FirstOrDefault(x => x.Key == "db" + display);
-
-                                //if (dbinfo != null)
-                                //{
-                                display += " " + dbinfo.Value;
-                                //}
+                                if (!string.IsNullOrEmpty(dbinfo.Value))
+                                {
+                                    display += " (" + dbinfo.Value.Split(',')[0].Split('=')[1] + ")";
+                                }
                             }
 
-                            svm.Children.Add(new RedisDatabase(svm, redis.GetDatabase(dbnumber)) { Display = display });
+                            var db = new RedisDatabase(svm, redis.GetDatabase(dbnumber)) { Display = display };
+
+                            svm.Children.Add(db);
                         }
                     }
                 }
