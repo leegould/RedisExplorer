@@ -34,7 +34,7 @@ namespace RedisExplorer.Models
             }
         }
 
-        private void AddChildren(TreeViewItem item, Queue<string> urn)
+        private static void AddChildren(TreeViewItem item, Queue<string> urn)
         {
             var keystr = urn.Dequeue();
             var key = item.Children.FirstOrDefault(x => x.Display == keystr);
