@@ -8,7 +8,7 @@ namespace RedisExplorer.Models
     {
         private IConnectionMultiplexer connection { get; set; }
 
-        private IServer server { get; set; }
+        public IServer server { get; set; }
 
         public RedisServer(IConnectionMultiplexer connectionMultiplexer, IServer server) : base(null, true)
         {
