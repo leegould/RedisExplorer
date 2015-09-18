@@ -42,6 +42,17 @@ namespace RedisExplorer.Models
             //}
         }
 
+        /// <summary>
+        /// Property to indicate if has children - not including dummy children.
+        /// </summary>
+        public bool HasChildren
+        {
+            get
+            {
+                return Children.Count > 1 || Children.Count == 1 && Children[0] != DummyChild;
+            }
+        }
+
         public bool HasDummyChild
         {
             get { return Children.Count == 1 && Children[0] == DummyChild; }
@@ -76,6 +87,11 @@ namespace RedisExplorer.Models
                 if (value.Equals(isSelected)) return;
 
                 isSelected = value;
+                if (!IsExpanded && HasChildren)
+                {
+                    IsExpanded = true;
+                }
+
                 NotifyOfPropertyChange(() => IsSelected);
             }
         }
