@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="200" d:DesignWidth="300" MinWidth="300" MinHeight="200">
     <StackPanel >
         <GroupBox Header="Server" Margin="10" Height="Auto" Width="Auto">
             <Grid Margin="10">
@@ -19,13 +19,13 @@
                 </Grid.RowDefinitions>
                 
                 <Label Grid.Column="0">Name</Label>
-                <TextBox Grid.Column="1" x:Name="NameTextBox">Redis Server</TextBox>
+                <TextBox Grid.Column="1" x:Name="NameTextBox" Margin="2">Redis Server</TextBox>
 
                 <Label Grid.Column="0" Grid.Row="1">Server Address</Label>
-                <TextBox Grid.Column="1" Grid.Row="1" x:Name="AddressTextBox">localhost</TextBox>
+                <TextBox Grid.Column="1" Grid.Row="1" x:Name="AddressTextBox" Margin="2">localhost</TextBox>
 
                 <Label Grid.Column="0" Grid.Row="2">Port</Label>
-                <TextBox Grid.Column="1" Grid.Row="2" x:Name="PortTextBox">6379</TextBox>
+                <TextBox Grid.Column="1" Grid.Row="2" x:Name="PortTextBox" Margin="2">6379</TextBox>
             </Grid>
         </GroupBox>
 
