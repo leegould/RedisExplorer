@@ -1,19 +1,22 @@
 ﻿using System.Linq;
-
+using Caliburn.Micro;
 using StackExchange.Redis;
 
 namespace RedisExplorer.Models
 {
     public class RedisServer : TreeViewItem
     {
+        private IEventAggregator eventAggregator { get; set; }
+
         private IConnectionMultiplexer connection { get; set; }
 
         public IServer server { get; set; }
 
-        public RedisServer(IConnectionMultiplexer connectionMultiplexer, IServer server) : base(null, true)
+        public RedisServer(IConnectionMultiplexer connectionMultiplexer, IServer server, IEventAggregator eventAggregator) : base(null, true, eventAggregator)
         {
             this.connection = connectionMultiplexer;
             this.server = server;
+            this.eventAggregator = eventAggregator;
         }
 
         protected override void LoadChildren()
@@ -37,7 +40,7 @@ namespace RedisExplorer.Models
                             }
                         }
 
-                        var db = new RedisDatabase(this, connection.GetDatabase(dbnumber)) { Display = display };
+                        var db = new RedisDatabase(this, connection.GetDatabase(dbnumber), eventAggregator) { Display = display };
 
                         Children.Add(db);
                     }

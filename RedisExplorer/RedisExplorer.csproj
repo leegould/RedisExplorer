@@ -89,10 +89,15 @@
       <DependentUpon>AddConnectionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\AddConnectionViewModel.cs" />
+    <Compile Include="Controls\KeyView.xaml.cs">
+      <DependentUpon>KeyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\KeyViewModel.cs" />
     <Compile Include="Interface\IApp.cs" />
     <Compile Include="Interface\ITabItem.cs" />
     <Compile Include="Interface\ITreeViewItemViewModel.cs" />
     <Compile Include="Messages\AddConnectionMessage.cs" />
+    <Compile Include="Messages\TreeItemSelectedMessage.cs" />
     <Compile Include="Models\RedisConnection.cs" />
     <Compile Include="Models\RedisDatabase.cs" />
     <Compile Include="Models\RedisKey.cs" />
@@ -131,6 +136,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\AddConnectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\KeyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

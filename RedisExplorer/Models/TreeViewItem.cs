@@ -3,6 +3,7 @@
 using Caliburn.Micro;
 
 using RedisExplorer.Interface;
+using RedisExplorer.Messages;
 
 namespace RedisExplorer.Models
 {
@@ -16,6 +17,7 @@ namespace RedisExplorer.Models
 
         static readonly TreeViewItem DummyChild = new TreeViewItem();
 
+        private readonly IEventAggregator eventAggregator;
         readonly ObservableCollection<TreeViewItem> children;
         readonly TreeViewItem parent;
 
@@ -79,7 +81,7 @@ namespace RedisExplorer.Models
             }
         }
 
-        public bool IsSelected
+        public virtual bool IsSelected
         {
             get { return isSelected; }
             set
@@ -91,7 +93,10 @@ namespace RedisExplorer.Models
                 {
                     IsExpanded = true;
                 }
-
+                else
+                {
+                    eventAggregator.PublishOnUIThread(new TreeItemSelectedMessage { SelectedItem = this });
+                }
                 NotifyOfPropertyChange(() => IsSelected);
             }
         }
@@ -100,9 +105,10 @@ namespace RedisExplorer.Models
 
         #region Constructors
 
-        protected TreeViewItem(TreeViewItem parent, bool lazyLoadChildren)
+        protected TreeViewItem(TreeViewItem parent, bool lazyLoadChildren, IEventAggregator eventAggregator)
         {
             this.parent = parent;
+            this.eventAggregator = eventAggregator;
 
             children = new ObservableCollection<TreeViewItem>();
 

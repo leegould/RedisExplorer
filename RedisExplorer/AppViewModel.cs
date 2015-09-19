@@ -55,11 +55,25 @@ namespace RedisExplorer
 
         private void LoadServers()
         {
-            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("192.168.1.161,keepAlive = 180,allowAdmin=true");
-
-            foreach(var endpoint in redis.GetEndPoints())
+            ConnectionMultiplexer redis = null;
+            try
             {
-                Servers.Add(new RedisServer(redis, redis.GetServer(endpoint)) { Display = "Redis Server" });
+                redis = ConnectionMultiplexer.Connect("127.0.0.1,keepAlive = 180,allowAdmin=true");
+            }
+            catch (RedisConnectionException rce)
+            {
+                StatusBarTextBlock = rce.ToString();
+            }
+
+            if (redis != null)
+            {
+                foreach (var endpoint in redis.GetEndPoints())
+                {
+                    Servers.Add(new RedisServer(redis, redis.GetServer(endpoint), eventAggregator)
+                    {
+                        Display = "Redis Server"
+                    });
+                }
             }
         }
 
