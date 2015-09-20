@@ -6,6 +6,7 @@ using Caliburn.Micro;
 
 using RedisExplorer.Controls;
 using RedisExplorer.Interface;
+using RedisExplorer.Messages;
 using RedisExplorer.Models;
 
 using StackExchange.Redis;
@@ -13,7 +14,7 @@ using StackExchange.Redis;
 namespace RedisExplorer
 {
     [Export(typeof(AppViewModel))]
-    public sealed class AppViewModel : Conductor<ITabItem>.Collection.OneActive, IApp
+    public sealed class AppViewModel : Conductor<ITabItem>.Collection.OneActive, IApp, IHandle<TreeItemSelectedMessage>
     {
         #region Private members
 
@@ -50,6 +51,9 @@ namespace RedisExplorer
             this.windowManager = windowManager;
             Servers = new BindableCollection<RedisServer>();
 
+            KeyViewModel = new KeyViewModel(eventAggregator);
+            KeyViewModel.ConductWith(this);
+
             LoadServers();
         }
 
@@ -78,6 +82,8 @@ namespace RedisExplorer
         }
 
         #region Properties
+
+        public KeyViewModel KeyViewModel { get; set; }
 
         public string StatusBarTextBlock
         {
@@ -114,5 +120,10 @@ namespace RedisExplorer
         }
 
         #endregion
+
+        public void Handle(TreeItemSelectedMessage message)
+        {
+            StatusBarTextBlock = message.SelectedItem.Display;
+        }
     }
 }

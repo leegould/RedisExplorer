@@ -73,6 +73,8 @@
 
             <GridSplitter Grid.Column="0" Width="2" HorizontalAlignment="Right" VerticalAlignment="Stretch" ResizeBehavior="CurrentAndNext"/>
 
+            <ContentControl Grid.Column="1" x:Name="KeyViewModel"></ContentControl>
+            
         </Grid>
         
     </DockPanel>
