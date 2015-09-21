@@ -1,5 +1,9 @@
 ﻿using System.ComponentModel.Composition;
 using Caliburn.Micro;
+
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 using RedisExplorer.Messages;
 using RedisExplorer.Models;
 
@@ -47,11 +51,24 @@ namespace RedisExplorer.Controls
 
         public void Handle(TreeItemSelectedMessage message)
         {
-            if (message != null && message.SelectedItem.GetType() == typeof(RedisKey) && !message.SelectedItem.HasChildren)
+            if (message != null && message.SelectedItem != null && message.SelectedItem.GetType() == typeof(RedisKey) && !message.SelectedItem.HasChildren)
             {
-                KeyNameTextBox = message.SelectedItem.Display;
+                var item = message.SelectedItem as RedisKey;
 
-                
+                if (item != null)
+                {
+                    KeyNameTextBox = item.GetKeyName();
+                    var value = item.GetValue();
+
+                    try
+                    {
+                        KeyValueTextBox = JObject.Parse(value).ToString(Formatting.Indented);
+                    }
+                    catch (JsonReaderException)
+                    {
+                        KeyValueTextBox = value;
+                    }
+                }
             }
         }
     }

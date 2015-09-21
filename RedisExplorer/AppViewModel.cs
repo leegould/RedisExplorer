@@ -62,7 +62,7 @@ namespace RedisExplorer
             ConnectionMultiplexer redis = null;
             try
             {
-                redis = ConnectionMultiplexer.Connect("127.0.0.1,keepAlive = 180,allowAdmin=true");
+                redis = ConnectionMultiplexer.Connect("192.168.1.161,keepAlive = 180,allowAdmin=true");
             }
             catch (RedisConnectionException rce)
             {

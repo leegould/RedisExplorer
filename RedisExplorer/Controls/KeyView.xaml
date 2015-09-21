@@ -15,6 +15,6 @@
         </Grid.RowDefinitions>
         
         <TextBox x:Name="KeyNameTextBox" Grid.Row="0"></TextBox>
-        <TextBox x:Name="KeyValueRawTextBox" Grid.Row="1"></TextBox>
+        <TextBox x:Name="KeyValueTextBox" Grid.Row="1"></TextBox>
     </Grid>
 </UserControl>

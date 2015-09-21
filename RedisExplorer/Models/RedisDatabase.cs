@@ -31,25 +31,25 @@ namespace RedisExplorer.Models
                     var parts = new Queue<string>(key.ToString().Split(':'));
                     if (parts.Count > 0)
                     {
-                        AddChildren(this, parts, eventAggregator);
+                        AddChildren(this, parts, Database, eventAggregator);
                     }
                 }
             }
         }
 
-        private static void AddChildren(TreeViewItem item, Queue<string> urn, IEventAggregator eventAggregator)
+        private static void AddChildren(TreeViewItem item, Queue<string> urn, IDatabase database, IEventAggregator eventAggregator)
         {
             var keystr = urn.Dequeue();
             var key = item.Children.FirstOrDefault(x => x.Display == keystr);
             if (key == null)
             {
-                key = new RedisKey(item, eventAggregator) { Display = keystr };
+                key = new RedisKey(item, database, eventAggregator) { Display = keystr };
                 item.Children.Add(key);
             }
 
             if (urn.Count > 0)
             {
-                AddChildren(key, urn, eventAggregator);
+                AddChildren(key, urn, database, eventAggregator);
             }
         }
     }
