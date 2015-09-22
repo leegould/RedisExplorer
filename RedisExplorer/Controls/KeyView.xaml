@@ -10,11 +10,24 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         
-        <TextBox x:Name="KeyNameTextBox" Grid.Row="0"></TextBox>
-        <TextBox x:Name="KeyValueTextBox" Grid.Row="1"></TextBox>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
+            <Label Margin="0,0,10,0">Key</Label>
+            <TextBox x:Name="KeyNameTextBox"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="5">
+            <Label>Type</Label>
+            <TextBox x:Name="TypeLabel" MinWidth="50" />
+            <Label>TTL</Label>
+            <TextBox x:Name="TTLLabel" MinWidth="50" />
+            <Label>TTL Seconds</Label>
+            <TextBox x:Name="TTLSecondsLabel" MinWidth="50" />
+        </StackPanel>
+        
+        <TextBox x:Name="KeyValueTextBox" Grid.Row="2"></TextBox>
     </Grid>
 </UserControl>

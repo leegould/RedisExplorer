@@ -1,4 +1,6 @@
-﻿using Caliburn.Micro;
+﻿using System;
+
+using Caliburn.Micro;
 
 using StackExchange.Redis;
 
@@ -8,6 +10,8 @@ namespace RedisExplorer.Models
     {
         public IDatabase Database { get; set; }
 
+        private string KeyName { get; set; }
+
         public RedisKey(TreeViewItem parent, IDatabase database, IEventAggregator eventAggregator) : base(parent, false, eventAggregator)
         {
             this.Database = database;
@@ -15,21 +19,25 @@ namespace RedisExplorer.Models
 
         public string GetKeyName()
         {
-            var keyname = Display;
-
-            if (this.Parent != null)
+            if (string.IsNullOrEmpty(KeyName))
             {
-                var parent = Parent;
-                var parentType = parent.GetType();
+                KeyName = Display;
 
-                while (parentType == typeof(RedisKey))
+                if (Parent != null)
                 {
-                    keyname = parent.Display + ":" + keyname;
-                    parent = parent.Parent;
-                    parentType = parent.GetType();
+                    var parent = Parent;
+                    var parentType = parent.GetType();
+
+                    while (parentType == typeof(RedisKey))
+                    {
+                        KeyName = parent.Display + ":" + KeyName;
+                        parent = parent.Parent;
+                        parentType = parent.GetType();
+                    }
                 }
             }
-            return keyname;
+
+            return KeyName;
         }
 
         public string GetValue()
@@ -46,6 +54,27 @@ namespace RedisExplorer.Models
             }
 
             return string.Empty;
+        }
+
+        public TimeSpan? GetTTL()
+        {
+            var key = GetKeyName();
+            if (Database.KeyExists(key))
+            {
+                return Database.KeyTimeToLive(key);
+            }
+            return null;
+        }
+
+        public RedisType GetType()
+        {
+            var key = GetKeyName();
+            if (Database.KeyExists(key))
+            {
+                return Database.KeyType(key);
+            }
+
+            return RedisType.None;
         }
     }
 }

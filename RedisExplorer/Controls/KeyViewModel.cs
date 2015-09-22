@@ -12,10 +12,19 @@ namespace RedisExplorer.Controls
     [Export(typeof(KeyViewModel))]
     public class KeyViewModel : Screen, IHandle<TreeItemSelectedMessage>
     {
+        #region Members
+
         private readonly IEventAggregator eventAggregator;
 
         private string keyNameTextBox;
         private string keyValueTextBox;
+        private string ttlLabel;
+        private string ttlSecondsLabel;
+        private string typeLabel;
+
+        #endregion
+
+        #region Properties
 
         public string KeyNameTextBox
         {
@@ -43,11 +52,54 @@ namespace RedisExplorer.Controls
             }
         }
 
+        public string TTLLabel
+        {
+            get
+            {
+                return ttlLabel;
+            }
+            set
+            {
+                ttlLabel = value;
+                NotifyOfPropertyChange(() => TTLLabel);
+            }
+        }
+
+        public string TTLSecondsLabel
+        {
+            get
+            {
+                return ttlSecondsLabel;
+            }
+            set
+            {
+                ttlSecondsLabel = value;
+                NotifyOfPropertyChange(() => TTLSecondsLabel);
+            }
+        }
+
+        public string TypeLabel
+        {
+            get
+            {
+                return typeLabel;
+            }
+            set
+            {
+                typeLabel = value;
+                NotifyOfPropertyChange(() => TypeLabel);
+            }
+        }
+
+        #endregion
+
         public KeyViewModel(IEventAggregator eventAggregator)
         {
             this.eventAggregator = eventAggregator;
             eventAggregator.Subscribe(this);
         }
+
+        #region Message Handlers
 
         public void Handle(TreeItemSelectedMessage message)
         {
@@ -58,6 +110,15 @@ namespace RedisExplorer.Controls
                 if (item != null)
                 {
                     KeyNameTextBox = item.GetKeyName();
+                    TypeLabel = item.GetType().ToString();
+
+                    var ttl = item.GetTTL();
+                    if (ttl.HasValue)
+                    {
+                        TTLLabel = ttl.Value.ToString();
+                        TTLSecondsLabel = ttl.Value.TotalSeconds.ToString();
+                    } 
+
                     var value = item.GetValue();
 
                     try
@@ -71,5 +132,7 @@ namespace RedisExplorer.Controls
                 }
             }
         }
+
+        #endregion
     }
 }

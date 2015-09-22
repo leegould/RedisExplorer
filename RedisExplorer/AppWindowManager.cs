@@ -8,12 +8,12 @@ namespace RedisExplorer
     {
         protected override Window EnsureWindow(object model, object view, bool isDialog)
         {
-            // This doesn't get used for first window I believe
-
             var window = base.EnsureWindow(model, view, isDialog);
 
             var m = model as AppViewModel;
-            
+
+            window.SizeToContent = SizeToContent.Manual;
+
             window.Title = "Redis Explorer";
             //window.Icon = new BitmapImage(new Uri("pack://application:,,,/RedisExplorer;component/Assets/Images/arrows.ico"));
 
