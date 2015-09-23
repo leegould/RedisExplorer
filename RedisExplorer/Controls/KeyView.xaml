@@ -28,6 +28,8 @@
             <TextBox x:Name="TTLSecondsLabel" MinWidth="50" />
         </StackPanel>
         
-        <TextBox x:Name="KeyValueTextBox" Grid.Row="2"></TextBox>
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <TextBox x:Name="KeyValueTextBox"></TextBox>
+        </ScrollViewer>
     </Grid>
 </UserControl>
