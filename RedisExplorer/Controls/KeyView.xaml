@@ -10,23 +10,36 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="35"></RowDefinition>
-            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
-            <Label Margin="0,0,10,0">Key</Label>
-            <TextBox x:Name="KeyNameTextBox"></TextBox>
-        </StackPanel>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="5">
-            <Label>Type</Label>
-            <TextBox x:Name="TypeLabel" MinWidth="50" />
+        <Grid Grid.Row="0" Margin="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="75"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label x:Name="TypeLabel">Key</Label>
+            <TextBox x:Name="KeyNameTextBox" Grid.Column="1"></TextBox>
+        </Grid>
+        
+        <Grid Grid.Row="1" Margin="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="75"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="75"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
             <Label>TTL</Label>
-            <TextBox x:Name="TTLLabel" MinWidth="50" />
-            <Label>TTL Seconds</Label>
-            <TextBox x:Name="TTLSecondsLabel" MinWidth="50" />
-        </StackPanel>
+
+            <TextBox x:Name="TTLLabel" MinWidth="50" Grid.Column="1"/>
+
+            <Label Grid.Column="2"> : Seconds</Label>
+            <TextBox x:Name="TTLSecondsLabel" MinWidth="50"  Grid.Column="3"/>
+        </Grid>
         
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <TextBox x:Name="KeyValueTextBox"></TextBox>
