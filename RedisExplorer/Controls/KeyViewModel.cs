@@ -86,8 +86,15 @@ namespace RedisExplorer.Controls
             }
             set
             {
-                typeLabel = value;
-                NotifyOfPropertyChange(() => TypeLabel);
+                if (string.IsNullOrEmpty(value))
+                {
+                    typeLabel = "Type";
+                }
+                else
+                {
+                    typeLabel = value;
+                    NotifyOfPropertyChange(() => TypeLabel);
+                }
             }
         }
 
@@ -97,6 +104,8 @@ namespace RedisExplorer.Controls
         {
             this.eventAggregator = eventAggregator;
             eventAggregator.Subscribe(this);
+
+            TypeLabel = string.Empty;
         }
 
         #region Message Handlers
