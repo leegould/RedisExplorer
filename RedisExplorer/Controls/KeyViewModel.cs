@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Composition;
+using System.Windows.Controls;
 using Caliburn.Micro;
 
 using Newtonsoft.Json;
@@ -16,6 +17,7 @@ namespace RedisExplorer.Controls
 
         private readonly IEventAggregator eventAggregator;
 
+        private bool hasSelected;
         private string keyNameTextBox;
         private string keyValueTextBox;
         private string ttlLabel;
@@ -25,6 +27,19 @@ namespace RedisExplorer.Controls
         #endregion
 
         #region Properties
+
+        public bool HasSelected
+        {
+            get
+            {
+                return hasSelected;
+            }
+            set
+            {
+                hasSelected = value;
+                NotifyOfPropertyChange(() => HasSelected);
+            }
+        }
 
         public string KeyNameTextBox
         {
@@ -86,15 +101,8 @@ namespace RedisExplorer.Controls
             }
             set
             {
-                if (string.IsNullOrEmpty(value))
-                {
-                    typeLabel = "Type";
-                }
-                else
-                {
-                    typeLabel = value;
-                    NotifyOfPropertyChange(() => TypeLabel);
-                }
+                typeLabel = value;
+                NotifyOfPropertyChange(() => TypeLabel);
             }
         }
 
@@ -105,7 +113,14 @@ namespace RedisExplorer.Controls
             this.eventAggregator = eventAggregator;
             eventAggregator.Subscribe(this);
 
-            TypeLabel = string.Empty;
+            SetDefault();
+        }
+
+        public void SetDefault()
+        {
+            TypeLabel = "Type";
+            TTLLabel = "None";
+            TTLSecondsLabel = "None";
         }
 
         #region Message Handlers

@@ -35,7 +35,6 @@
             </Grid.ColumnDefinitions>
             
             <Label>TTL</Label>
-
             <TextBox x:Name="TTLLabel" MinWidth="50" Grid.Column="1"/>
 
             <Label Grid.Column="2"> / Seconds</Label>
