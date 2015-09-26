@@ -1,7 +1,7 @@
 ﻿using System;
 
 using Caliburn.Micro;
-
+using RedisExplorer.Messages;
 using StackExchange.Redis;
 
 namespace RedisExplorer.Models
@@ -10,11 +10,14 @@ namespace RedisExplorer.Models
     {
         public IDatabase Database { get; set; }
 
+        private IEventAggregator eventAggregator { get; set; }
+
         private string KeyName { get; set; }
 
         public RedisKey(TreeViewItem parent, IDatabase database, IEventAggregator eventAggregator) : base(parent, false, eventAggregator)
         {
             this.Database = database;
+            this.eventAggregator = eventAggregator;
         }
 
         public string GetKeyName()
@@ -54,6 +57,22 @@ namespace RedisExplorer.Models
             }
 
             return string.Empty;
+        }
+
+        public bool SaveValue(string value, TimeSpan? expiry = null)
+        {
+            var key = GetKeyName();
+            if (Database.KeyExists(key))
+            {
+                var ktype = Database.KeyType(key);
+                if (ktype == RedisType.String)
+                {
+                    eventAggregator.PublishOnUIThread(new RedisKeyUpdatedMessage { Item = this });
+                    return Database.StringSet(key, value, expiry);
+                }
+            }
+
+            return false;
         }
 
         public TimeSpan? GetTTL()

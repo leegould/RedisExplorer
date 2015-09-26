@@ -6,7 +6,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 using RedisExplorer.Messages;
-using RedisExplorer.Models;
+using StackExchange.Redis;
+using RedisKey = RedisExplorer.Models.RedisKey;
 
 namespace RedisExplorer.Controls
 {
@@ -14,6 +15,8 @@ namespace RedisExplorer.Controls
     public class KeyViewModel : Screen, IHandle<TreeItemSelectedMessage>
     {
         #region Members
+
+        private RedisKey item;
 
         private readonly IEventAggregator eventAggregator;
 
@@ -123,13 +126,25 @@ namespace RedisExplorer.Controls
             TTLSecondsLabel = "None";
         }
 
+        #region Button Actions
+
+        public void SaveButton()
+        {
+            if (item.SaveValue(KeyValueTextBox))
+            {
+                
+            }
+        }
+
+        #endregion
+
         #region Message Handlers
 
         public void Handle(TreeItemSelectedMessage message)
         {
             if (message != null && message.SelectedItem != null && message.SelectedItem.GetType() == typeof(RedisKey) && !message.SelectedItem.HasChildren)
             {
-                var item = message.SelectedItem as RedisKey;
+                item = message.SelectedItem as RedisKey;
 
                 if (item != null)
                 {

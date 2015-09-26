@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="500">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -39,9 +39,11 @@
 
             <Label Grid.Column="2"> / Seconds</Label>
             <TextBox x:Name="TTLSecondsLabel" MinWidth="50"  Grid.Column="3"/>
+            
+            <Button x:Name="SaveButton" Grid.Column="4">Save</Button>
         </Grid>
         
-        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="2" Margin="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <TextBox x:Name="KeyValueTextBox"></TextBox>
         </ScrollViewer>
     </Grid>
