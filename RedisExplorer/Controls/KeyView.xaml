@@ -32,6 +32,7 @@
                 <ColumnDefinition Width="75"></ColumnDefinition>
                 <ColumnDefinition Width="100"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             
             <Label>TTL</Label>
@@ -40,7 +41,9 @@
             <Label Grid.Column="2"> / Seconds</Label>
             <TextBox x:Name="TTLSecondsLabel" MinWidth="50"  Grid.Column="3"/>
             
-            <Button x:Name="SaveButton" Grid.Column="4">Save</Button>
+            <Button x:Name="DeleteButton" Grid.Column="4">Delete</Button>
+            <Button x:Name="SaveButton" Grid.Column="5">Save</Button>
+
         </Grid>
         
         <ScrollViewer Grid.Row="2" Margin="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">

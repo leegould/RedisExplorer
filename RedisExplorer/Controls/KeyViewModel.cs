@@ -136,6 +136,14 @@ namespace RedisExplorer.Controls
             }
         }
 
+        public void DeleteButton()
+        {
+            if (item.Delete())
+            {
+                
+            }
+        }
+
         #endregion
 
         #region Message Handlers

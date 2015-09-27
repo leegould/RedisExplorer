@@ -75,6 +75,16 @@ namespace RedisExplorer.Models
             return false;
         }
 
+        public bool Delete()
+        {
+            var key = GetKeyName();
+            if (Database.KeyExists(key))
+            {
+                return Database.KeyDelete(key);
+            }
+            return false;
+        }
+
         public TimeSpan? GetTTL()
         {
             var key = GetKeyName();
