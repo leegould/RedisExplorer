@@ -1,13 +1,12 @@
 ﻿using System.ComponentModel.Composition;
-using System.Windows.Controls;
+
 using Caliburn.Micro;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 using RedisExplorer.Messages;
-using StackExchange.Redis;
-using RedisKey = RedisExplorer.Models.RedisKey;
+using RedisExplorer.Models;
 
 namespace RedisExplorer.Controls
 {

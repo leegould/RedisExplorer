@@ -4,6 +4,8 @@ using System.Windows;
 
 using Caliburn.Micro;
 
+using Newtonsoft.Json.Linq;
+
 using RedisExplorer.Controls;
 using RedisExplorer.Interface;
 using RedisExplorer.Messages;
@@ -59,10 +61,11 @@ namespace RedisExplorer
 
         private void LoadServers()
         {
+            //JObject
             ConnectionMultiplexer redis = null;
             try
             {
-                redis = ConnectionMultiplexer.Connect("localhost,keepAlive = 180,allowAdmin=true");
+                redis = ConnectionMultiplexer.Connect("192.168.1.161,keepAlive = 180,allowAdmin=true");
             }
             catch (RedisConnectionException rce)
             {

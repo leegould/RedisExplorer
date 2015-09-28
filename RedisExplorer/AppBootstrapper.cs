@@ -24,6 +24,7 @@ namespace RedisExplorer
             container.Singleton<IWindowManager, AppWindowManager>();
             container.Singleton<IEventAggregator, EventAggregator>();
             container.PerRequest<IApp, AppViewModel>();
+
         }
 
         protected override object GetInstance(Type service, string key)
