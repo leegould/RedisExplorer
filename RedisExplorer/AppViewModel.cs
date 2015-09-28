@@ -61,7 +61,9 @@ namespace RedisExplorer
 
         private void LoadServers()
         {
-            //JObject
+            
+            //JObject servers = Properties.Settings.Default.Servers; // TODO:
+            
             ConnectionMultiplexer redis = null;
             try
             {
