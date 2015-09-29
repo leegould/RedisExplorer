@@ -8,15 +8,14 @@ namespace RedisExplorer.Models
 {
     public class RedisKey : TreeViewItem
     {
-        public IDatabase Database { get; set; }
-
         private IEventAggregator eventAggregator { get; set; }
+
+        private IDatabase Database { get; set; }
 
         private string KeyName { get; set; }
 
-        public RedisKey(TreeViewItem parent, IDatabase database, IEventAggregator eventAggregator) : base(parent, false, eventAggregator)
+        public RedisKey(TreeViewItem parent, IEventAggregator eventAggregator) : base(parent, false, eventAggregator)
         {
-            this.Database = database;
             this.eventAggregator = eventAggregator;
         }
 
@@ -43,9 +42,31 @@ namespace RedisExplorer.Models
             return KeyName;
         }
 
+        public IDatabase GetDatabase()
+        {
+            if (Database == null)
+            {
+                if (Parent != null)
+                {
+                    var parent = Parent;
+                    var parentType = parent.GetType();
+
+                    while (parentType != typeof(RedisDatabase))
+                    {
+                        parent = parent.Parent;
+                        parentType = parent.GetType();
+                    }
+
+                    Database = ((RedisDatabase)parent).GetDatabase();
+                }
+            }
+            return Database;
+        }
+
         public string GetValue()
         {
             var key = GetKeyName();
+            var db = GetDatabase();
             if (Database.KeyExists(key))
             {
                 var ktype = Database.KeyType(key);

@@ -61,29 +61,9 @@ namespace RedisExplorer
 
         private void LoadServers()
         {
-            
             //JObject servers = Properties.Settings.Default.Servers; // TODO:
-            
-            ConnectionMultiplexer redis = null;
-            try
-            {
-                redis = ConnectionMultiplexer.Connect("192.168.1.161,keepAlive = 180,allowAdmin=true");
-            }
-            catch (RedisConnectionException rce)
-            {
-                StatusBarTextBlock = rce.ToString();
-            }
 
-            if (redis != null)
-            {
-                foreach (var endpoint in redis.GetEndPoints())
-                {
-                    Servers.Add(new RedisServer(redis, redis.GetServer(endpoint), eventAggregator)
-                    {
-                        Display = "Redis Server"
-                    });
-                }
-            }
+            Servers.Add(new RedisServer("Redis Server", "192.168.1.161,keepAlive = 180,allowAdmin=true", eventAggregator));
         }
 
         #region Properties
