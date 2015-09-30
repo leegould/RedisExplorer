@@ -25,9 +25,9 @@ namespace RedisExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::Newtonsoft.Json.Linq.JObject Servers {
+        public global::System.Collections.Specialized.StringCollection Servers {
             get {
-                return ((global::Newtonsoft.Json.Linq.JObject)(this["Servers"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["Servers"]));
             }
             set {
                 this["Servers"] = value;

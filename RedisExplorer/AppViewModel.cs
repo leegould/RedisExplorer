@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.Composition;
+﻿using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel.Composition;
 using System.Dynamic;
 using System.Windows;
 
@@ -10,13 +12,12 @@ using RedisExplorer.Controls;
 using RedisExplorer.Interface;
 using RedisExplorer.Messages;
 using RedisExplorer.Models;
-
-using StackExchange.Redis;
+using RedisExplorer.Properties;
 
 namespace RedisExplorer
 {
     [Export(typeof(AppViewModel))]
-    public sealed class AppViewModel : Conductor<ITabItem>.Collection.OneActive, IApp, IHandle<TreeItemSelectedMessage>
+    public sealed class AppViewModel : Conductor<ITabItem>.Collection.OneActive, IApp, IHandle<TreeItemSelectedMessage>, IHandle<AddConnectionMessage>
     {
         #region Private members
 
@@ -61,9 +62,14 @@ namespace RedisExplorer
 
         private void LoadServers()
         {
-            //JObject servers = Properties.Settings.Default.Servers; // TODO:
-
-            Servers.Add(new RedisServer("Redis Server", "192.168.1.161,keepAlive = 180,allowAdmin=true", eventAggregator));
+            if (Settings.Default.Servers != null)
+            {
+                foreach (var connection in Settings.Default.Servers)
+                {
+                    var server = new RedisConnection(connection);
+                    Servers.Add(new RedisServer(server.Name, server.Address + ",keepAlive = 180,allowAdmin=true", eventAggregator));
+                }
+            }
         }
 
         #region Properties
@@ -109,6 +115,27 @@ namespace RedisExplorer
         public void Handle(TreeItemSelectedMessage message)
         {
             StatusBarTextBlock = message.SelectedItem.Display;
+        }
+
+        public void Handle(AddConnectionMessage message)
+        {
+            StringCollection connections = Settings.Default.Servers ?? new StringCollection();
+
+            var newconn = new RedisConnection
+            {
+                Name = message.Connection.Name,
+                Address = message.Connection.Address,
+                Port = message.Connection.Port
+            };
+
+            connections.Add(newconn.ToString());
+
+            Settings.Default.Servers = connections;
+            Settings.Default.Save();
+
+            Servers.Clear();
+
+            LoadServers();
         }
     }
 }
