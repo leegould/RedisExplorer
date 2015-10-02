@@ -64,13 +64,15 @@ namespace RedisExplorer.Controls
         public AddConnectionViewModel(IEventAggregator eventAggregator)
         {
             this.eventAggregator = eventAggregator;
+            this.NameTextBox = "Redis Server";
+            this.AddressTextBox = "localhost";
+            this.PortTextBox = "6379";
         }
 
         #region Button Actions
 
         public void SaveButton()
         {
-
             var connection = new RedisConnection
                              {
                                  Address = AddressTextBox,
@@ -79,6 +81,8 @@ namespace RedisExplorer.Controls
                              };
 
             eventAggregator.PublishOnUIThread(new AddConnectionMessage { Connection = connection });
+
+            TryClose();
         }
 
         public void CancelButton()

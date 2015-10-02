@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:RedisExplorer.Models"
+             xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="500" MinWidth="500" MinHeight="300">
     <DockPanel>
@@ -50,6 +51,17 @@
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type local:RedisServer}" ItemsSource="{Binding Children}">
                         <StackPanel Orientation="Horizontal">
+                            <StackPanel.ContextMenu>
+                                <ContextMenu Name="cm">  <!--cal:Action.TargetWithoutContext="{Binding Source={x:Reference RedisServer}, Path=DataContext}">-->
+                                    <MenuItem Header="Delete">  <!--cal:Message.Attach="[Event Click] = [Action Delete($datacontext)]">-->
+                                    </MenuItem>
+                                </ContextMenu>
+                                <!--<ContextMenu Name="cm" cal:Action.TargetWithoutContext="{Binding Source={x:Reference RedisServer}, Path=DataContext}">
+                                    <MenuItem Header="Delete" cal:Message.Attach="[Event Click] = [Action Delete($datacontext)]">
+                                    </MenuItem>
+                                </ContextMenu>-->
+                            </StackPanel.ContextMenu>
+
                             <!--<Image Width="16" Height="16" Margin="3,0" Source="Images\" />-->
                             <TextBlock Text="{Binding Display}" />
                         </StackPanel>

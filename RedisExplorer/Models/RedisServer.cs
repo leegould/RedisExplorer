@@ -73,5 +73,10 @@ namespace RedisExplorer.Models
                 }
             }
         }
+
+        public async void Delete(object source)
+        {
+
+        }
     }
 }
