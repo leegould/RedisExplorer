@@ -82,7 +82,7 @@ namespace RedisExplorer.Models
             if (Settings.Default.Servers != null)
             {
                 var servers = new StringCollection();
-                servers.AddRange(Settings.Default.Servers.Cast<string>().Where(x => x.Contains(server.Display + ';')).ToArray());
+                servers.AddRange(Settings.Default.Servers.Cast<string>().ToArray().Where(x => !x.StartsWith(server.Display + ";")).ToArray());
                 Settings.Default.Servers = servers;
                 Settings.Default.Save();
 
