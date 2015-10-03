@@ -1,5 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections.Specialized;
+using System.Linq;
 using Caliburn.Micro;
+using RedisExplorer.Messages;
+using RedisExplorer.Properties;
 using StackExchange.Redis;
 
 namespace RedisExplorer.Models
@@ -74,9 +77,17 @@ namespace RedisExplorer.Models
             }
         }
 
-        public async void Delete(object source)
+        public async void Delete(RedisServer server)
         {
+            if (Settings.Default.Servers != null)
+            {
+                var servers = new StringCollection();
+                servers.AddRange(Settings.Default.Servers.Cast<string>().Where(x => x.Contains(server.Display + ';')).ToArray());
+                Settings.Default.Servers = servers;
+                Settings.Default.Save();
 
+                eventAggregator.PublishOnUIThread(new DeleteConnectionMessage());
+            }
         }
     }
 }

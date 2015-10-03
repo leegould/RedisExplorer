@@ -52,8 +52,8 @@
                     <HierarchicalDataTemplate DataType="{x:Type local:RedisServer}" ItemsSource="{Binding Children}">
                         <StackPanel Orientation="Horizontal">
                             <StackPanel.ContextMenu>
-                                <ContextMenu Name="cm">  <!--cal:Action.TargetWithoutContext="{Binding Source={x:Reference RedisServer}, Path=DataContext}">-->
-                                    <MenuItem Header="Delete">  <!--cal:Message.Attach="[Event Click] = [Action Delete($datacontext)]">-->
+                                <ContextMenu Name="cm">
+                                    <MenuItem Header="Delete" cal:Message.Attach="[Event Click] = [Action Delete($dataContext)]">
                                     </MenuItem>
                                 </ContextMenu>
                                 <!--<ContextMenu Name="cm" cal:Action.TargetWithoutContext="{Binding Source={x:Reference RedisServer}, Path=DataContext}">

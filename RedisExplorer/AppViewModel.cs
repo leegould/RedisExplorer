@@ -1,13 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.ComponentModel.Composition;
 using System.Dynamic;
 using System.Windows;
-
 using Caliburn.Micro;
-
-using Newtonsoft.Json.Linq;
-
 using RedisExplorer.Controls;
 using RedisExplorer.Interface;
 using RedisExplorer.Messages;
@@ -17,7 +12,7 @@ using RedisExplorer.Properties;
 namespace RedisExplorer
 {
     [Export(typeof(AppViewModel))]
-    public sealed class AppViewModel : Conductor<ITabItem>.Collection.OneActive, IApp, IHandle<TreeItemSelectedMessage>, IHandle<AddConnectionMessage>
+    public sealed class AppViewModel : Conductor<ITabItem>.Collection.OneActive, IApp, IHandle<TreeItemSelectedMessage>, IHandle<AddConnectionMessage>, IHandle<DeleteConnectionMessage>
     {
         #region Private members
 
@@ -62,6 +57,7 @@ namespace RedisExplorer
 
         private void LoadServers()
         {
+            Servers.Clear();
             if (Settings.Default.Servers != null)
             {
                 foreach (var connection in Settings.Default.Servers)
@@ -133,8 +129,11 @@ namespace RedisExplorer
             Settings.Default.Servers = connections;
             Settings.Default.Save();
 
-            Servers.Clear();
+            LoadServers();
+        }
 
+        public void Handle(DeleteConnectionMessage message)
+        {
             LoadServers();
         }
     }
