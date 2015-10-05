@@ -52,16 +52,11 @@
                     <HierarchicalDataTemplate DataType="{x:Type local:RedisServer}" ItemsSource="{Binding Children}">
                         <StackPanel Orientation="Horizontal">
                             <StackPanel.ContextMenu>
-                                <ContextMenu Name="cm">
+                                <ContextMenu Name="scm">
                                     <MenuItem Header="Delete" cal:Message.Attach="[Event Click] = [Action Delete($dataContext)]">
                                     </MenuItem>
                                 </ContextMenu>
-                                <!--<ContextMenu Name="cm" cal:Action.TargetWithoutContext="{Binding Source={x:Reference RedisServer}, Path=DataContext}">
-                                    <MenuItem Header="Delete" cal:Message.Attach="[Event Click] = [Action Delete($datacontext)]">
-                                    </MenuItem>
-                                </ContextMenu>-->
                             </StackPanel.ContextMenu>
-
                             <!--<Image Width="16" Height="16" Margin="3,0" Source="Images\" />-->
                             <TextBlock Text="{Binding Display}" />
                         </StackPanel>
@@ -69,6 +64,12 @@
 
                     <HierarchicalDataTemplate DataType="{x:Type local:RedisDatabase}" ItemsSource="{Binding Children}">
                         <StackPanel Orientation="Horizontal">
+                            <StackPanel.ContextMenu>
+                                <ContextMenu Name="dbcm">
+                                    <MenuItem Header="Flush" cal:Message.Attach="[Event Click] = [Action Flush($dataContext)]">
+                                    </MenuItem>
+                                </ContextMenu>
+                            </StackPanel.ContextMenu>
                             <!--<Image Width="16" Height="16" Margin="3,0" Source="Images\" />-->
                             <TextBlock Text="{Binding Display}" />
                         </StackPanel>

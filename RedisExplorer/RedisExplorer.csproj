@@ -98,6 +98,7 @@
     <Compile Include="Interface\ITreeViewItemViewModel.cs" />
     <Compile Include="Messages\AddConnectionMessage.cs" />
     <Compile Include="Messages\DeleteConnectionMessage.cs" />
+    <Compile Include="Messages\FlushDbMessage.cs" />
     <Compile Include="Messages\RedisKeyUpdatedMessage.cs" />
     <Compile Include="Messages\TreeItemSelectedMessage.cs" />
     <Compile Include="Models\RedisConnection.cs" />

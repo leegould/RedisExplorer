@@ -7,7 +7,7 @@ using StackExchange.Redis;
 
 namespace RedisExplorer.Models
 {
-    public class RedisServer : TreeViewItem
+    public class RedisServer : TreeViewItem, IHandle<FlushDbMessage>
     {
         private IEventAggregator eventAggregator { get; set; }
 
@@ -16,6 +16,7 @@ namespace RedisExplorer.Models
         public RedisServer(string displayName, string connectionString, IEventAggregator eventAggregator) : base(null, true, eventAggregator)
         {
             this.eventAggregator = eventAggregator;
+            eventAggregator.Subscribe(this);
             Display = displayName;
 
             try
@@ -77,7 +78,7 @@ namespace RedisExplorer.Models
             }
         }
 
-        public async void Delete(RedisServer server)
+        public void Delete(RedisServer server)
         {
             if (Settings.Default.Servers != null)
             {
@@ -88,6 +89,12 @@ namespace RedisExplorer.Models
 
                 eventAggregator.PublishOnUIThread(new DeleteConnectionMessage());
             }
+        }
+
+        public void Handle(FlushDbMessage message)
+        {
+            Children.Clear();
+            LoadChildren();
         }
     }
 }
