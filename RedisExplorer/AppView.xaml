@@ -53,6 +53,9 @@
                         <StackPanel Orientation="Horizontal">
                             <StackPanel.ContextMenu>
                                 <ContextMenu Name="scm">
+                                    <MenuItem Header="Reload" cal:Message.Attach="[Event Click] = [Action Reload($dataContext)]">
+                                    </MenuItem>
+                                    <Separator></Separator>
                                     <MenuItem Header="Delete" cal:Message.Attach="[Event Click] = [Action Delete($dataContext)]">
                                     </MenuItem>
                                 </ContextMenu>

@@ -78,6 +78,12 @@ namespace RedisExplorer.Models
             }
         }
 
+        public void Reload(RedisServer server)
+        {
+            Children.Clear();
+            LoadChildren();
+        }
+
         public void Delete(RedisServer server)
         {
             if (Settings.Default.Servers != null)
