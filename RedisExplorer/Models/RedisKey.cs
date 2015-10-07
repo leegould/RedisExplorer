@@ -67,13 +67,13 @@ namespace RedisExplorer.Models
         {
             var key = GetKeyName();
             var db = GetDatabase();
-            if (Database.KeyExists(key))
+            if (db.KeyExists(key))
             {
-                var ktype = Database.KeyType(key);
+                var ktype = db.KeyType(key);
 
                 if (ktype == RedisType.String)
                 {
-                    return Database.StringGet(key);
+                    return db.StringGet(key);
                 }
             }
 
@@ -99,9 +99,11 @@ namespace RedisExplorer.Models
         public bool Delete()
         {
             var key = GetKeyName();
-            if (Database.KeyExists(key))
+            var db = GetDatabase();
+
+            if (db.KeyExists(key))
             {
-                return Database.KeyDelete(key);
+                return db.KeyDelete(key);
             }
             return false;
         }
@@ -109,19 +111,23 @@ namespace RedisExplorer.Models
         public TimeSpan? GetTTL()
         {
             var key = GetKeyName();
-            if (Database.KeyExists(key))
+            var db = GetDatabase();
+
+            if (db.KeyExists(key))
             {
-                return Database.KeyTimeToLive(key);
+                return db.KeyTimeToLive(key);
             }
             return null;
         }
 
-        public RedisType GetType()
+        public RedisType GetKeyType()
         {
             var key = GetKeyName();
-            if (Database.KeyExists(key))
+            var db = GetDatabase();
+
+            if (db != null && db.KeyExists(key))
             {
-                return Database.KeyType(key);
+                return db.KeyType(key);
             }
 
             return RedisType.None;

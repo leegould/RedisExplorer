@@ -80,6 +80,12 @@
 
                     <HierarchicalDataTemplate DataType="{x:Type local:RedisKey}" ItemsSource="{Binding Children}">
                         <StackPanel Orientation="Horizontal">
+                            <StackPanel.ContextMenu>
+                                <ContextMenu Name="kcm">
+                                    <MenuItem Header="Delete" cal:Message.Attach="[Event Click] = [Action Delete()]">
+                                    </MenuItem>
+                                </ContextMenu>
+                            </StackPanel.ContextMenu>
                             <!--<Image Width="16" Height="16" Margin="3,0" Source="Images\" />-->
                             <TextBlock Text="{Binding Display}" />
                         </StackPanel>

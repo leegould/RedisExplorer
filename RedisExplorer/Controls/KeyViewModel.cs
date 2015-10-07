@@ -156,7 +156,7 @@ namespace RedisExplorer.Controls
                 if (item != null)
                 {
                     KeyNameTextBox = item.GetKeyName();
-                    TypeLabel = item.GetType().ToString();
+                    TypeLabel = item.GetKeyType().ToString();
 
                     var ttl = item.GetTTL();
                     if (ttl.HasValue)
