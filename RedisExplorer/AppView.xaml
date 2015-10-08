@@ -83,6 +83,13 @@
                             <StackPanel.ContextMenu>
                                 <ContextMenu Name="kcm">
                                     <MenuItem Header="Delete" cal:Message.Attach="[Event Click] = [Action Delete()]">
+                                        <Style TargetType="MenuItem">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=CanDelete}" Value="false">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
                                     </MenuItem>
                                 </ContextMenu>
                             </StackPanel.ContextMenu>

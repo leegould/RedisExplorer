@@ -19,6 +19,11 @@ namespace RedisExplorer.Models
             this.eventAggregator = eventAggregator;
         }
 
+        public bool CanDelete
+        {
+            get { return !HasChildren; }
+        }
+
         public string GetKeyName()
         {
             if (string.IsNullOrEmpty(KeyName))
