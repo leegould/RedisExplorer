@@ -7,6 +7,11 @@
              xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="500" MinWidth="500" MinHeight="300">
+    
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
+    </UserControl.Resources>
+    
     <DockPanel>
         <StatusBar MaxHeight="25" DockPanel.Dock="Bottom">
             <StatusBarItem>
@@ -82,15 +87,7 @@
                         <StackPanel Orientation="Horizontal">
                             <StackPanel.ContextMenu>
                                 <ContextMenu Name="kcm">
-                                    <MenuItem Header="Delete" cal:Message.Attach="[Event Click] = [Action Delete()]">
-                                        <Style TargetType="MenuItem">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Path=CanDelete}" Value="false">
-                                                    <Setter Property="Visibility" Value="Collapsed" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </MenuItem>
+                                    <MenuItem Header="Delete" cal:Message.Attach="[Event Click] = [Action Delete()]" Visibility="{Binding Path=CanDelete, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource booleanToVisibilityConverter}}"></MenuItem>
                                 </ContextMenu>
                             </StackPanel.ContextMenu>
                             <!--<Image Width="16" Height="16" Margin="3,0" Source="Images\" />-->
