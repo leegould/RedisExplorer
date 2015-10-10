@@ -129,6 +129,7 @@ namespace RedisExplorer.Controls
 
         public void SaveButton()
         {
+            item.KeyName = keyNameTextBox; 
             if (item.SaveValue(KeyValueTextBox))
             {
                 
@@ -181,7 +182,10 @@ namespace RedisExplorer.Controls
 
         public void Handle(AddKeyMessage message)
         {
-            throw new System.NotImplementedException();
+            item = new RedisKey(message.ParentDatabase, eventAggregator);
+            SetDefault();
+            KeyNameTextBox = string.Empty;
+            KeyValueTextBox = string.Empty;
         }
 
         #endregion

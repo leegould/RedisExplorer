@@ -72,7 +72,7 @@ namespace RedisExplorer.Models
 
         public void Add()
         {
-            eventAggregator.PublishOnUIThread(new AddKeyMessage { ParentDatabase = GetDatabase() });
+            eventAggregator.PublishOnUIThread(new AddKeyMessage { ParentDatabase = this });
         }
     }
 }

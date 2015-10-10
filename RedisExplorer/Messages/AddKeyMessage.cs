@@ -1,9 +1,9 @@
-﻿using StackExchange.Redis;
+﻿using RedisExplorer.Models;
 
 namespace RedisExplorer.Messages
 {
     public class AddKeyMessage
     {
-        public IDatabase ParentDatabase { get; set; }
+        public RedisDatabase ParentDatabase { get; set; }
     }
 }

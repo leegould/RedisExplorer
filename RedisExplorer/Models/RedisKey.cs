@@ -12,7 +12,7 @@ namespace RedisExplorer.Models
 
         private IDatabase Database { get; set; }
 
-        private string KeyName { get; set; }
+        public string KeyName { get; set; }
 
         public RedisKey(TreeViewItem parent, IEventAggregator eventAggregator) : base(parent, false, eventAggregator)
         {
