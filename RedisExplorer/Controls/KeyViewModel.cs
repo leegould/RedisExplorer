@@ -11,7 +11,7 @@ using RedisExplorer.Models;
 namespace RedisExplorer.Controls
 {
     [Export(typeof(KeyViewModel))]
-    public class KeyViewModel : Screen, IHandle<TreeItemSelectedMessage>
+    public class KeyViewModel : Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>
     {
         #region Members
 
@@ -177,6 +177,11 @@ namespace RedisExplorer.Controls
                     }
                 }
             }
+        }
+
+        public void Handle(AddKeyMessage message)
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion

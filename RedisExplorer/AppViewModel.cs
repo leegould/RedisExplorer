@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+﻿using System;
+using System.Collections.Specialized;
 using System.ComponentModel.Composition;
 using System.Dynamic;
 using System.Windows;
@@ -136,5 +137,7 @@ namespace RedisExplorer
         {
             LoadServers();
         }
+
+        
     }
 }

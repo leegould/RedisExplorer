@@ -76,6 +76,9 @@
                                 <ContextMenu Name="dbcm">
                                     <MenuItem Header="Flush" cal:Message.Attach="[Event Click] = [Action Flush($dataContext)]">
                                     </MenuItem>
+                                    <Separator></Separator>
+                                    <MenuItem Header="Add Key" cal:Message.Attach="[Event Click] = [Action Add]">
+                                    </MenuItem>
                                 </ContextMenu>
                             </StackPanel.ContextMenu>
                             <!--<Image Width="16" Height="16" Margin="3,0" Source="Images\" />-->

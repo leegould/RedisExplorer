@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using Caliburn.Micro;
 using RedisExplorer.Messages;
-using RedisExplorer.Properties;
 using StackExchange.Redis;
 
 namespace RedisExplorer.Models
@@ -70,6 +68,11 @@ namespace RedisExplorer.Models
             Children.Clear();
 
             eventAggregator.PublishOnUIThread(new FlushDbMessage { dbNumber = dbNumber});
+        }
+
+        public void Add()
+        {
+            eventAggregator.PublishOnUIThread(new AddKeyMessage { ParentDatabase = GetDatabase() });
         }
     }
 }
