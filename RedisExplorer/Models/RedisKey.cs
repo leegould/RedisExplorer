@@ -10,91 +10,169 @@ namespace RedisExplorer.Models
     {
         private IEventAggregator eventAggregator { get; set; }
 
-        private IDatabase Database { get; set; }
+        private IDatabase database { get; set; }
 
-        public string KeyName { get; set; }
+        private string keyName;
+
+        private string keyValue;
+
+        private RedisType keyType;
+
+        private TimeSpan? ttl;
 
         public RedisKey(TreeViewItem parent, IEventAggregator eventAggregator) : base(parent, false, eventAggregator)
         {
             this.eventAggregator = eventAggregator;
         }
 
+        protected IDatabase Database
+        {
+            get
+            {
+                if (database != null || Parent == null)
+                {
+                    return database;
+                }
+
+                var parent = Parent;
+                var parentType = parent.GetType();
+
+                while (parentType != typeof(RedisDatabase))
+                {
+                    parent = parent.Parent;
+                    parentType = parent.GetType();
+                }
+
+                database = ((RedisDatabase)parent).GetDatabase();
+                return database;
+            }
+            set
+            {
+                database = value;
+            }
+        }
+
+        public string KeyName
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(keyName))
+                {
+                    return keyName;
+                }
+
+                keyName = Display;
+
+                if (Parent == null)
+                {
+                    return KeyName;
+                }
+
+                var parent = Parent;
+                var parentType = parent.GetType();
+
+                while (parentType == typeof(RedisKey))
+                {
+                    KeyName = parent.Display + ":" + KeyName;
+                    parent = parent.Parent;
+                    parentType = parent.GetType();
+                }
+
+                return keyName;
+            }
+            set
+            {
+                keyName = value;
+            }
+        }
+
+        public string KeyValue
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(keyValue))
+                {
+                    return keyValue;
+                }
+
+                var key = KeyName;
+                var db = Database;
+                if (db.KeyExists(key))
+                {
+                    var ktype = db.KeyType(key);
+
+                    if (ktype == RedisType.String)
+                    {
+                        return db.StringGet(key);
+                    }
+                }
+
+                return string.Empty;   
+            }
+            set
+            {
+                keyValue = value;
+            }
+        }
+
+        public RedisType KeyType
+        {
+            get
+            {
+                if (keyType != RedisType.None)
+                {
+                    return keyType;
+                }
+
+                var key = KeyName;
+                var db = Database;
+
+                if (db != null && db.KeyExists(key))
+                {
+                    return db.KeyType(key);
+                }
+
+                return RedisType.None;
+            }
+            set
+            {
+                keyType = value;
+            }
+        }
+
+        public TimeSpan? TTL
+        {
+            get
+            {
+                if (ttl != null)
+                {
+                    return ttl;
+                }
+
+                var key = KeyName;
+                var db = Database;
+
+                return db.KeyExists(key) ? db.KeyTimeToLive(key) : null;
+            }
+            set
+            {
+                ttl = value;
+            }
+        }
+
         public bool CanDelete
         {
             get { return !HasChildren; }
         }
-
-        public string GetKeyName()
+        
+        public bool SaveValue()
         {
-            if (string.IsNullOrEmpty(KeyName))
+            if (Database.KeyExists(KeyName))
             {
-                KeyName = Display;
-
-                if (Parent != null)
-                {
-                    var parent = Parent;
-                    var parentType = parent.GetType();
-
-                    while (parentType == typeof(RedisKey))
-                    {
-                        KeyName = parent.Display + ":" + KeyName;
-                        parent = parent.Parent;
-                        parentType = parent.GetType();
-                    }
-                }
-            }
-
-            return KeyName;
-        }
-
-        public IDatabase GetDatabase()
-        {
-            if (Database == null)
-            {
-                if (Parent != null)
-                {
-                    var parent = Parent;
-                    var parentType = parent.GetType();
-
-                    while (parentType != typeof(RedisDatabase))
-                    {
-                        parent = parent.Parent;
-                        parentType = parent.GetType();
-                    }
-
-                    Database = ((RedisDatabase)parent).GetDatabase();
-                }
-            }
-            return Database;
-        }
-
-        public string GetValue()
-        {
-            var key = GetKeyName();
-            var db = GetDatabase();
-            if (db.KeyExists(key))
-            {
-                var ktype = db.KeyType(key);
-
-                if (ktype == RedisType.String)
-                {
-                    return db.StringGet(key);
-                }
-            }
-
-            return string.Empty;
-        }
-
-        public bool SaveValue(string value, TimeSpan? expiry = null)
-        {
-            var key = GetKeyName();
-            if (Database.KeyExists(key))
-            {
-                var ktype = Database.KeyType(key);
-                if (ktype == RedisType.String)
+                if (KeyType == RedisType.String)
                 {
                     eventAggregator.PublishOnUIThread(new RedisKeyUpdatedMessage { Item = this });
-                    return Database.StringSet(key, value, expiry);
+                    return Database.StringSet(KeyName, KeyValue, TTL);
                 }
             }
 
@@ -103,39 +181,10 @@ namespace RedisExplorer.Models
 
         public bool Delete()
         {
-            var key = GetKeyName();
-            var db = GetDatabase();
+            var key = KeyName;
+            var db = Database;
 
-            if (db.KeyExists(key))
-            {
-                return db.KeyDelete(key);
-            }
-            return false;
-        }
-
-        public TimeSpan? GetTTL()
-        {
-            var key = GetKeyName();
-            var db = GetDatabase();
-
-            if (db.KeyExists(key))
-            {
-                return db.KeyTimeToLive(key);
-            }
-            return null;
-        }
-
-        public RedisType GetKeyType()
-        {
-            var key = GetKeyName();
-            var db = GetDatabase();
-
-            if (db != null && db.KeyExists(key))
-            {
-                return db.KeyType(key);
-            }
-
-            return RedisType.None;
+            return db.KeyExists(key) && db.KeyDelete(key);
         }
     }
 }

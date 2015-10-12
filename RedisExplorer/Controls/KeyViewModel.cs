@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.ComponentModel.Composition;
 
 using Caliburn.Micro;
 
@@ -129,8 +130,10 @@ namespace RedisExplorer.Controls
 
         public void SaveButton()
         {
-            item.KeyName = keyNameTextBox; 
-            if (item.SaveValue(KeyValueTextBox))
+            item.KeyName = keyNameTextBox;
+            item.KeyValue = keyValueTextBox;
+            //item.TTL = TimeSpan.FromSeconds(double.Parse(TTLSecondsLabel));
+            if (item.SaveValue())
             {
                 
             }
@@ -156,17 +159,17 @@ namespace RedisExplorer.Controls
 
                 if (item != null)
                 {
-                    KeyNameTextBox = item.GetKeyName();
-                    TypeLabel = item.GetKeyType().ToString();
+                    KeyNameTextBox = item.KeyName;
+                    TypeLabel = item.KeyType.ToString();
 
-                    var ttl = item.GetTTL();
+                    var ttl = item.TTL;
                     if (ttl.HasValue)
                     {
                         TTLLabel = ttl.Value.ToString();
                         TTLSecondsLabel = ttl.Value.TotalSeconds.ToString();
                     } 
 
-                    var value = item.GetValue();
+                    var value = item.KeyValue;
 
                     try
                     {
