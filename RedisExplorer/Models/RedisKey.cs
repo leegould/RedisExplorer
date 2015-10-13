@@ -167,16 +167,24 @@ namespace RedisExplorer.Models
         
         public bool SaveValue()
         {
-            if (Database.KeyExists(KeyName))
+            bool newkey = Database.KeyExists(KeyName);
+            bool saved = false;
+
+            if (KeyType == RedisType.String || KeyType == RedisType.None)
             {
-                if (KeyType == RedisType.String)
-                {
-                    eventAggregator.PublishOnUIThread(new RedisKeyUpdatedMessage { Item = this });
-                    return Database.StringSet(KeyName, KeyValue, TTL);
-                }
+                saved = Database.StringSet(KeyName, KeyValue, TTL);
             }
 
-            return false;
+            if (newkey)
+            {
+                eventAggregator.PublishOnUIThread(new RedisKeyAddedMessage { Item = this });
+            }
+            else 
+            {
+                eventAggregator.PublishOnUIThread(new RedisKeyUpdatedMessage { Item = this });
+            }
+
+            return saved;
         }
 
         public bool Delete()

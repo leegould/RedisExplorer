@@ -13,7 +13,7 @@ using RedisExplorer.Properties;
 namespace RedisExplorer
 {
     [Export(typeof(AppViewModel))]
-    public sealed class AppViewModel : Conductor<ITabItem>.Collection.OneActive, IApp, IHandle<TreeItemSelectedMessage>, IHandle<AddConnectionMessage>, IHandle<DeleteConnectionMessage>
+    public sealed class AppViewModel : Conductor<ITabItem>.Collection.OneActive, IApp, IHandle<TreeItemSelectedMessage>, IHandle<AddConnectionMessage>, IHandle<DeleteConnectionMessage>, IHandle<RedisKeyAddedMessage>
     {
         #region Private members
 
@@ -111,7 +111,7 @@ namespace RedisExplorer
 
         public void Handle(TreeItemSelectedMessage message)
         {
-            StatusBarTextBlock = message.SelectedItem.Display;
+            StatusBarTextBlock = "Selected : " + message.SelectedItem.Display;
         }
 
         public void Handle(AddConnectionMessage message)
@@ -130,14 +130,20 @@ namespace RedisExplorer
             Settings.Default.Servers = connections;
             Settings.Default.Save();
 
+            StatusBarTextBlock = "Connection Added : " + newconn.Name;
+
             LoadServers();
         }
 
         public void Handle(DeleteConnectionMessage message)
         {
+            StatusBarTextBlock = "Connection Deleted";
             LoadServers();
         }
 
-        
+        public void Handle(RedisKeyAddedMessage message)
+        {
+            StatusBarTextBlock = "Added Key : " + message.Item.KeyName;
+        }
     }
 }
