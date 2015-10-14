@@ -52,6 +52,23 @@ namespace RedisExplorer.Models
             }
         }
 
+        protected RedisDatabase GetParentDatabase
+        {
+            get
+            {
+                var parent = Parent;
+                var parentType = parent.GetType();
+
+                while (parentType != typeof(RedisDatabase))
+                {
+                    parent = parent.Parent;
+                    parentType = parent.GetType();
+                }
+
+                return ((RedisDatabase)parent);
+            }
+        }
+
         public string KeyName
         {
             get
@@ -193,6 +210,11 @@ namespace RedisExplorer.Models
             var db = Database;
 
             return db.KeyExists(key) && db.KeyDelete(key);
+        }
+
+        public void Add()
+        {
+            eventAggregator.PublishOnUIThread(new AddKeyMessage { ParentDatabase = GetParentDatabase, KeyBase = KeyName });
         }
     }
 }

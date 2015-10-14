@@ -187,7 +187,7 @@ namespace RedisExplorer.Controls
         {
             item = new RedisKey(message.ParentDatabase, eventAggregator);
             SetDefault();
-            KeyNameTextBox = string.Empty;
+            KeyNameTextBox = message.KeyBase;
             KeyValueTextBox = string.Empty;
         }
 

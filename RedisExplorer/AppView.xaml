@@ -58,11 +58,9 @@
                         <StackPanel Orientation="Horizontal">
                             <StackPanel.ContextMenu>
                                 <ContextMenu Name="scm">
-                                    <MenuItem Header="Reload" cal:Message.Attach="[Event Click] = [Action Reload($dataContext)]">
-                                    </MenuItem>
+                                    <MenuItem Header="Reload" cal:Message.Attach="[Event Click] = [Action Reload($dataContext)]"></MenuItem>
                                     <Separator></Separator>
-                                    <MenuItem Header="Delete" cal:Message.Attach="[Event Click] = [Action Delete($dataContext)]">
-                                    </MenuItem>
+                                    <MenuItem Header="Delete" cal:Message.Attach="[Event Click] = [Action Delete($dataContext)]"></MenuItem>
                                 </ContextMenu>
                             </StackPanel.ContextMenu>
                             <!--<Image Width="16" Height="16" Margin="3,0" Source="Images\" />-->
@@ -74,11 +72,9 @@
                         <StackPanel Orientation="Horizontal">
                             <StackPanel.ContextMenu>
                                 <ContextMenu Name="dbcm">
-                                    <MenuItem Header="Flush" cal:Message.Attach="[Event Click] = [Action Flush($dataContext)]">
-                                    </MenuItem>
+                                    <MenuItem Header="Flush" cal:Message.Attach="[Event Click] = [Action Flush($dataContext)]"></MenuItem>
                                     <Separator></Separator>
-                                    <MenuItem Header="Add Key" cal:Message.Attach="[Event Click] = [Action Add]">
-                                    </MenuItem>
+                                    <MenuItem Header="Add Key" cal:Message.Attach="[Event Click] = [Action Add]"></MenuItem>
                                 </ContextMenu>
                             </StackPanel.ContextMenu>
                             <!--<Image Width="16" Height="16" Margin="3,0" Source="Images\" />-->
@@ -91,6 +87,8 @@
                             <StackPanel.ContextMenu>
                                 <ContextMenu Name="kcm">
                                     <MenuItem Header="Delete" cal:Message.Attach="[Event Click] = [Action Delete()]" Visibility="{Binding Path=CanDelete, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource booleanToVisibilityConverter}}"></MenuItem>
+                                    <Separator></Separator>
+                                    <MenuItem Header="Add Key" cal:Message.Attach="[Event Click] = [Action Add]"></MenuItem>
                                 </ContextMenu>
                             </StackPanel.ContextMenu>
                             <!--<Image Width="16" Height="16" Margin="3,0" Source="Images\" />-->
