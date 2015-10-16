@@ -23,8 +23,7 @@ namespace RedisExplorer.Controls
         private bool hasSelected;
         private string keyNameTextBox;
         private string keyValueTextBox;
-        private string ttlLabel;
-        private string ttlSecondsLabel;
+        private DateTime? ttlDateTimePicker;
         private string typeLabel;
 
         #endregion
@@ -70,29 +69,16 @@ namespace RedisExplorer.Controls
             }
         }
 
-        public string TTLLabel
+        public DateTime? TTLDateTimePicker
         {
             get
             {
-                return ttlLabel;
+                return ttlDateTimePicker;
             }
             set
             {
-                ttlLabel = value;
-                NotifyOfPropertyChange(() => TTLLabel);
-            }
-        }
-
-        public string TTLSecondsLabel
-        {
-            get
-            {
-                return ttlSecondsLabel;
-            }
-            set
-            {
-                ttlSecondsLabel = value;
-                NotifyOfPropertyChange(() => TTLSecondsLabel);
+                ttlDateTimePicker = value;
+                NotifyOfPropertyChange(() => TTLDateTimePicker);
             }
         }
 
@@ -121,9 +107,8 @@ namespace RedisExplorer.Controls
 
         public void SetDefault()
         {
-            TypeLabel = "Type";
-            TTLLabel = "None";
-            TTLSecondsLabel = "None";
+            TypeLabel = "String";
+            TTLDateTimePicker = null;
         }
 
         #region Button Actions
@@ -165,8 +150,7 @@ namespace RedisExplorer.Controls
                     var ttl = item.TTL;
                     if (ttl.HasValue)
                     {
-                        TTLLabel = ttl.Value.ToString();
-                        TTLSecondsLabel = ttl.Value.TotalSeconds.ToString();
+                        TTLDateTimePicker = DateTime.Now + ttl.Value;
                     } 
 
                     var value = item.KeyValue;
