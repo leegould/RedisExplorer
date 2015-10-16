@@ -117,7 +117,10 @@ namespace RedisExplorer.Controls
         {
             item.KeyName = keyNameTextBox;
             item.KeyValue = keyValueTextBox;
-            //item.TTL = TimeSpan.FromSeconds(double.Parse(TTLSecondsLabel));
+            if (TTLDateTimePicker.HasValue)
+            {
+                item.TTL = new TimeSpan((TTLDateTimePicker.Value - DateTime.Now).Ticks); 
+            }
             if (item.SaveValue())
             {
                 
@@ -151,7 +154,11 @@ namespace RedisExplorer.Controls
                     if (ttl.HasValue)
                     {
                         TTLDateTimePicker = DateTime.Now + ttl.Value;
-                    } 
+                    }
+                    else
+                    {
+                        TTLDateTimePicker = null;
+                    }
 
                     var value = item.KeyValue;
 
