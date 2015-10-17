@@ -119,7 +119,7 @@ namespace RedisExplorer.Controls
             item.KeyValue = keyValueTextBox;
             if (TTLDateTimePicker.HasValue)
             {
-                item.TTL = new TimeSpan((TTLDateTimePicker.Value - DateTime.Now).Ticks); 
+                item.TTL = new TimeSpan((TTLDateTimePicker.Value - DateTime.Now).Ticks);
             }
             if (item.SaveValue())
             {
