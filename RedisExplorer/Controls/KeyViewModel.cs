@@ -135,6 +135,11 @@ namespace RedisExplorer.Controls
             }
         }
 
+        public void ClearButton()
+        {
+            TTLDateTimePicker = null;
+        }
+
         #endregion
 
         #region Message Handlers
