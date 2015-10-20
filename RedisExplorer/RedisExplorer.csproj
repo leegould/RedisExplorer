@@ -177,10 +177,17 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets\" />
+    <Resource Include="Assets\redis-icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="redis.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\database-icon.png" />
+    <Resource Include="Assets\key-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\folder-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

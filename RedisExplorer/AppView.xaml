@@ -63,7 +63,7 @@
                                     <MenuItem Header="Delete" cal:Message.Attach="[Event Click] = [Action Delete($dataContext)]"></MenuItem>
                                 </ContextMenu>
                             </StackPanel.ContextMenu>
-                            <!--<Image Width="16" Height="16" Margin="3,0" Source="Images\" />-->
+                            <Image Name="img" Width="15" Height="15" Margin="3,1" Source="Assets/redis-icon.png"/>
                             <TextBlock Text="{Binding Display}" />
                         </StackPanel>
                     </HierarchicalDataTemplate>
@@ -77,7 +77,7 @@
                                     <MenuItem Header="Add Key" cal:Message.Attach="[Event Click] = [Action Add]"></MenuItem>
                                 </ContextMenu>
                             </StackPanel.ContextMenu>
-                            <!--<Image Width="16" Height="16" Margin="3,0" Source="Images\" />-->
+                            <Image Name="img" Width="14" Height="14" Margin="3,2" Source="Assets/database-icon.png"/>
                             <TextBlock Text="{Binding Display}" />
                         </StackPanel>
                     </HierarchicalDataTemplate>
@@ -91,7 +91,7 @@
                                     <MenuItem Header="Add Key" cal:Message.Attach="[Event Click] = [Action Add]"></MenuItem>
                                 </ContextMenu>
                             </StackPanel.ContextMenu>
-                            <!--<Image Width="16" Height="16" Margin="3,0" Source="Images\" />-->
+                            <Image Name="img" Width="15" Height="15" Margin="3,1" Source="Assets/folder-icon.png"/>
                             <TextBlock Text="{Binding Display}" />
                         </StackPanel>
                     </HierarchicalDataTemplate>
