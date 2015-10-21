@@ -91,7 +91,20 @@
                                     <MenuItem Header="Add Key" cal:Message.Attach="[Event Click] = [Action Add]"></MenuItem>
                                 </ContextMenu>
                             </StackPanel.ContextMenu>
-                            <Image Name="img" Width="15" Height="15" Margin="3,1" Source="Assets/folder-icon.png"/>
+                            <Image Name="img" Width="15" Height="15" Margin="3,1">
+                                <Image.Resources>
+                                    <Style TargetType="{x:Type Image}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding HasChildren}" Value="true">
+                                                <Setter Property="Image.Source" Value="Assets/folder-icon.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding HasChildren}" Value="false">
+                                                <Setter Property="Image.Source" Value="Assets/key-icon.png" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Resources>
+                            </Image>
                             <TextBlock Text="{Binding Display}" />
                         </StackPanel>
                     </HierarchicalDataTemplate>
