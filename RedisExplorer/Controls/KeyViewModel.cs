@@ -140,6 +140,16 @@ namespace RedisExplorer.Controls
             TTLDateTimePicker = null;
         }
 
+        public void OneHourButton()
+        {
+            TTLDateTimePicker = DateTime.Now.AddHours(1);
+        }
+
+        public void TwentyFourHoursButton()
+        {
+            TTLDateTimePicker = DateTime.Now.AddHours(24);
+        }
+
         #endregion
 
         #region Message Handlers
