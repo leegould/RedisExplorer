@@ -54,9 +54,11 @@
                 <ColumnDefinition Width="60*"></ColumnDefinition>
                 <ColumnDefinition Width="20*"></ColumnDefinition>
                 <ColumnDefinition Width="20*"></ColumnDefinition>
+                <ColumnDefinition Width="20*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Button x:Name="DeleteButton" Grid.Column="1" Margin="5,0">Delete</Button>
-            <Button x:Name="SaveButton" Grid.Column="2" Margin="5,0">Save</Button>
+            <Button x:Name="ReloadButton" Grid.Column="2" Margin="5,0">Reload</Button>
+            <Button x:Name="SaveButton" Grid.Column="3" Margin="5,0">Save</Button>
         </Grid>
         
         <ScrollViewer Grid.Row="3" Margin="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">

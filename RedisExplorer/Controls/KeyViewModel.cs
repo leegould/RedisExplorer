@@ -135,6 +135,11 @@ namespace RedisExplorer.Controls
             }
         }
 
+        public void ReloadButton()
+        {
+            // TODO
+        }
+
         public void ClearButton()
         {
             TTLDateTimePicker = null;
