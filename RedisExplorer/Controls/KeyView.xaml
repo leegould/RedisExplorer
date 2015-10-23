@@ -62,7 +62,7 @@
         </Grid>
         
         <ScrollViewer Grid.Row="3" Margin="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <TextBox x:Name="KeyValueTextBox"></TextBox>
+            <TextBox x:Name="KeyValueTextBox" AcceptsTab="True" AcceptsReturn="True"></TextBox>
         </ScrollViewer>
     </Grid>
 </UserControl>

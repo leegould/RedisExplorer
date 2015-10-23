@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using System.IO;
+using System.Text;
 
 using Caliburn.Micro;
 
@@ -184,7 +186,7 @@ namespace RedisExplorer.Controls
 
                     try
                     {
-                        KeyValueTextBox = JObject.Parse(value).ToString(Formatting.Indented);
+                        KeyValueTextBox= JObject.Parse(value).ToString(Formatting.Indented);
                     }
                     catch (JsonReaderException)
                     {
