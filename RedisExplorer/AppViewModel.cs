@@ -107,6 +107,17 @@ namespace RedisExplorer
             windowManager.ShowWindow(new AddConnectionViewModel(eventAggregator), null, settings);    
         }
 
+        public void Preferences()
+        {
+            dynamic settings = new ExpandoObject();
+            settings.Width = 300;
+            settings.Height = 250;
+            settings.WindowStartupLocation = WindowStartupLocation.Manual;
+            settings.Title = "Preferences";
+
+            windowManager.ShowWindow(new PreferencesViewModel(), null, settings);    
+        }
+
         #endregion
 
         public void Handle(TreeItemSelectedMessage message)

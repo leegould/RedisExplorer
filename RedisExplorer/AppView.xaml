@@ -22,7 +22,7 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
                 <MenuItem x:Name="AddServer" Header="_Add Server"></MenuItem>
-                
+                <MenuItem x:Name="Preferences" Header="_Preferences"></MenuItem>
                 <MenuItem x:Name="Exit" Header="_Exit"></MenuItem>
             </MenuItem>
         </Menu>
