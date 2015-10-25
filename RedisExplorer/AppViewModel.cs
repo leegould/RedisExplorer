@@ -115,7 +115,7 @@ namespace RedisExplorer
             settings.WindowStartupLocation = WindowStartupLocation.Manual;
             settings.Title = "Preferences";
 
-            windowManager.ShowWindow(new PreferencesViewModel(), null, settings);    
+            windowManager.ShowWindow(new PreferencesViewModel(eventAggregator), null, settings);    
         }
 
         #endregion
