@@ -17,6 +17,9 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="25"></RowDefinition>
                 </Grid.RowDefinitions>
+                
+                <Label>Max Keys</Label>
+                <TextBox x:Name="MaxKeysTextBox" Grid.Column="1"></TextBox>
             </Grid>
         </GroupBox>
         

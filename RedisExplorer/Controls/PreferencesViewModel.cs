@@ -13,10 +13,27 @@ namespace RedisExplorer.Controls
     {
         private readonly IEventAggregator eventAggregator;
 
+        private string maxKeysTextBox { get; set; }
+
+        public string MaxKeysTextBox
+        {
+            get { return maxKeysTextBox; }
+            set
+            {
+                maxKeysTextBox = value;
+                NotifyOfPropertyChange(() => MaxKeysTextBox);
+            }
+        }
+
         public PreferencesViewModel(IEventAggregator eventAggregator)
         {
             this.eventAggregator = eventAggregator;
             eventAggregator.Subscribe(this);
+        }
+
+        public void SaveButton()
+        {
+
         }
 
         public void CancelButton()
