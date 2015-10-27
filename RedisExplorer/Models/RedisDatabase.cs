@@ -2,6 +2,7 @@
 using System.Linq;
 using Caliburn.Micro;
 using RedisExplorer.Messages;
+using RedisExplorer.Properties;
 using StackExchange.Redis;
 
 namespace RedisExplorer.Models
@@ -14,11 +15,14 @@ namespace RedisExplorer.Models
 
         private int dbNumber { get; set; }
 
+        private int maxKeys { get; set; }
+
         public RedisDatabase(RedisServer parent, int dbnumber, IEventAggregator eventAggregator) : base(parent, true, eventAggregator)
         {
             this.parent = parent;
             this.dbNumber = dbnumber;
             this.eventAggregator = eventAggregator;
+            maxKeys = string.IsNullOrEmpty(Settings.Default.MaxKeys) ? 1000 : int.Parse(Settings.Default.MaxKeys);
         }
 
         public IDatabase GetDatabase()
@@ -31,7 +35,7 @@ namespace RedisExplorer.Models
             var db = GetDatabase();
             if (db != null)
             {
-                var keys = parent.GetServer().Keys(db.Database, "*", 1000);
+                var keys = parent.GetServer().Keys(db.Database, "*", maxKeys);
 
                 foreach (var key in keys)
                 {

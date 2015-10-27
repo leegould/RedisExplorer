@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Caliburn.Micro;
+using RedisExplorer.Properties;
 
 namespace RedisExplorer.Controls
 {
@@ -33,7 +34,8 @@ namespace RedisExplorer.Controls
 
         public void SaveButton()
         {
-
+            Settings.Default.MaxKeys = MaxKeysTextBox;
+            Settings.Default.Save();
         }
 
         public void CancelButton()
