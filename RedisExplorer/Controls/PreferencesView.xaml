@@ -8,7 +8,7 @@
 	Title="PreferencesView">
 
     <StackPanel >
-        <GroupBox Header="Preferences" Margin="10" Height="Auto" Width="Auto">
+        <GroupBox Margin="10" Height="Auto" Width="Auto">
             <Grid Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" SharedSizeGroup="Label"/>
@@ -19,7 +19,7 @@
                 </Grid.RowDefinitions>
                 
                 <Label>Max Keys</Label>
-                <TextBox x:Name="MaxKeysTextBox" Grid.Column="1"></TextBox>
+                <TextBox x:Name="MaxKeysTextBox" Grid.Column="1" Margin="2"></TextBox>
             </Grid>
         </GroupBox>
         

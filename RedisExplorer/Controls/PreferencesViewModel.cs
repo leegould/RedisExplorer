@@ -30,6 +30,8 @@ namespace RedisExplorer.Controls
         {
             this.eventAggregator = eventAggregator;
             eventAggregator.Subscribe(this);
+            MaxKeysTextBox = string.IsNullOrEmpty(Settings.Default.MaxKeys) ? "1000" : Settings.Default.MaxKeys;
+
         }
 
         public void SaveButton()
