@@ -45,5 +45,17 @@ namespace RedisExplorer.Properties {
                 this["MaxKeys"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string UrnSeperator {
+            get {
+                return ((string)(this["UrnSeperator"]));
+            }
+            set {
+                this["UrnSeperator"] = value;
+            }
+        }
     }
 }

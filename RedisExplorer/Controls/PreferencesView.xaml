@@ -16,10 +16,14 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
                 </Grid.RowDefinitions>
                 
                 <Label>Max Keys</Label>
                 <TextBox x:Name="MaxKeysTextBox" Grid.Column="1" Margin="2"></TextBox>
+                
+                <Label Grid.Row="1">Urn Separator</Label>
+                <TextBox x:Name="UrnSeparatorTextBox" Grid.Row="1" Grid.Column="1" Margin="2"></TextBox>
             </Grid>
         </GroupBox>
         

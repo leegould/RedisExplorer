@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.Composition;
 using Caliburn.Micro;
 using RedisExplorer.Properties;
 
@@ -16,6 +11,8 @@ namespace RedisExplorer.Controls
 
         private string maxKeysTextBox { get; set; }
 
+        private string urnSeperatorTextBox { get; set; }
+
         public string MaxKeysTextBox
         {
             get { return maxKeysTextBox; }
@@ -26,18 +23,31 @@ namespace RedisExplorer.Controls
             }
         }
 
+        public string UrnSeperatorTextBox
+        {
+            get { return urnSeperatorTextBox; }
+            set
+            {
+                urnSeperatorTextBox = value;
+                NotifyOfPropertyChange(() => UrnSeperatorTextBox);
+            }
+        }
+
         public PreferencesViewModel(IEventAggregator eventAggregator)
         {
             this.eventAggregator = eventAggregator;
             eventAggregator.Subscribe(this);
             MaxKeysTextBox = string.IsNullOrEmpty(Settings.Default.MaxKeys) ? "1000" : Settings.Default.MaxKeys;
-
+            UrnSeperatorTextBox = string.IsNullOrEmpty(Settings.Default.UrnSeperator) ? ";" : Settings.Default.UrnSeperator;
         }
 
         public void SaveButton()
         {
             Settings.Default.MaxKeys = MaxKeysTextBox;
+            Settings.Default.UrnSeperator = UrnSeperatorTextBox;
             Settings.Default.Save();
+
+            TryClose();
         }
 
         public void CancelButton()
