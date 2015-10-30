@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
 using RedisExplorer.Messages;
@@ -17,12 +18,15 @@ namespace RedisExplorer.Models
 
         private int maxKeys { get; set; }
 
+        private string urnSeparator { get; set; }
+
         public RedisDatabase(RedisServer parent, int dbnumber, IEventAggregator eventAggregator) : base(parent, true, eventAggregator)
         {
             this.parent = parent;
             this.dbNumber = dbnumber;
             this.eventAggregator = eventAggregator;
             maxKeys = string.IsNullOrEmpty(Settings.Default.MaxKeys) ? 1000 : int.Parse(Settings.Default.MaxKeys);
+            urnSeparator = string.IsNullOrEmpty(Settings.Default.UrnSeparator) ? ":" : Settings.Default.UrnSeparator;
         }
 
         public IDatabase GetDatabase()
@@ -39,7 +43,7 @@ namespace RedisExplorer.Models
 
                 foreach (var key in keys)
                 {
-                    var parts = new Queue<string>(key.ToString().Split(':'));
+                    var parts = new Queue<string>(key.ToString().Split(new [] { urnSeparator }, StringSplitOptions.RemoveEmptyEntries));
                     if (parts.Count > 0)
                     {
                         AddChildren(this, parts, eventAggregator);

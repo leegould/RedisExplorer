@@ -11,7 +11,7 @@ namespace RedisExplorer.Controls
 
         private string maxKeysTextBox { get; set; }
 
-        private string urnSeperatorTextBox { get; set; }
+        private string urnSeparatorTextBox { get; set; }
 
         public string MaxKeysTextBox
         {
@@ -23,13 +23,13 @@ namespace RedisExplorer.Controls
             }
         }
 
-        public string UrnSeperatorTextBox
+        public string UrnSeparatorTextBox
         {
-            get { return urnSeperatorTextBox; }
+            get { return urnSeparatorTextBox; }
             set
             {
-                urnSeperatorTextBox = value;
-                NotifyOfPropertyChange(() => UrnSeperatorTextBox);
+                urnSeparatorTextBox = value;
+                NotifyOfPropertyChange(() => UrnSeparatorTextBox);
             }
         }
 
@@ -38,13 +38,13 @@ namespace RedisExplorer.Controls
             this.eventAggregator = eventAggregator;
             eventAggregator.Subscribe(this);
             MaxKeysTextBox = string.IsNullOrEmpty(Settings.Default.MaxKeys) ? "1000" : Settings.Default.MaxKeys;
-            UrnSeperatorTextBox = string.IsNullOrEmpty(Settings.Default.UrnSeperator) ? ";" : Settings.Default.UrnSeperator;
+            UrnSeparatorTextBox = string.IsNullOrEmpty(Settings.Default.UrnSeparator) ? ":" : Settings.Default.UrnSeparator;
         }
 
         public void SaveButton()
         {
             Settings.Default.MaxKeys = MaxKeysTextBox;
-            Settings.Default.UrnSeperator = UrnSeperatorTextBox;
+            Settings.Default.UrnSeparator = UrnSeparatorTextBox;
             Settings.Default.Save();
 
             TryClose();

@@ -8,7 +8,7 @@
     <Setting Name="MaxKeys" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="UrnSeperator" Type="System.String" Scope="User">
+    <Setting Name="UrnSeparator" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

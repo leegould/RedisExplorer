@@ -49,12 +49,12 @@ namespace RedisExplorer.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string UrnSeperator {
+        public string UrnSeparator {
             get {
-                return ((string)(this["UrnSeperator"]));
+                return ((string)(this["UrnSeparator"]));
             }
             set {
-                this["UrnSeperator"] = value;
+                this["UrnSeparator"] = value;
             }
         }
     }
