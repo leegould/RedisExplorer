@@ -182,7 +182,7 @@ namespace RedisExplorer.Models
             get { return !HasChildren; }
         }
         
-        public bool SaveValue()
+        public bool Save()
         {
             bool newkey = Database.KeyExists(KeyName);
             bool saved = false;
@@ -210,6 +210,15 @@ namespace RedisExplorer.Models
             var db = Database;
 
             return db.KeyExists(key) && db.KeyDelete(key);
+        }
+
+        public void Reload()
+        {
+            var db = Database;
+
+            KeyValue = string.Empty;
+            KeyType = RedisType.None;
+            TTL = null;
         }
 
         public void Add()

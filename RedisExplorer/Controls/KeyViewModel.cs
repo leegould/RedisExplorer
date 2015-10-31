@@ -1,13 +1,8 @@
 ﻿using System;
 using System.ComponentModel.Composition;
-using System.IO;
-using System.Text;
-
 using Caliburn.Micro;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-
 using RedisExplorer.Messages;
 using RedisExplorer.Models;
 
@@ -123,7 +118,7 @@ namespace RedisExplorer.Controls
             {
                 item.TTL = new TimeSpan((TTLDateTimePicker.Value - DateTime.Now).Ticks);
             }
-            if (item.SaveValue())
+            if (item.Save())
             {
                 
             }
@@ -139,7 +134,8 @@ namespace RedisExplorer.Controls
 
         public void ReloadButton()
         {
-            // TODO
+            item.Reload();
+            DisplayItem();
         }
 
         public void ClearButton()
@@ -167,31 +163,36 @@ namespace RedisExplorer.Controls
             {
                 item = message.SelectedItem as RedisKey;
 
-                if (item != null)
+                DisplayItem();
+            }
+        }
+
+        private void DisplayItem()
+        {
+            if (item != null)
+            {
+                KeyNameTextBox = item.KeyName;
+                TypeLabel = item.KeyType.ToString();
+
+                var ttl = item.TTL;
+                if (ttl.HasValue)
                 {
-                    KeyNameTextBox = item.KeyName;
-                    TypeLabel = item.KeyType.ToString();
+                    TTLDateTimePicker = DateTime.Now + ttl.Value;
+                }
+                else
+                {
+                    TTLDateTimePicker = null;
+                }
 
-                    var ttl = item.TTL;
-                    if (ttl.HasValue)
-                    {
-                        TTLDateTimePicker = DateTime.Now + ttl.Value;
-                    }
-                    else
-                    {
-                        TTLDateTimePicker = null;
-                    }
+                var value = item.KeyValue;
 
-                    var value = item.KeyValue;
-
-                    try
-                    {
-                        KeyValueTextBox= JObject.Parse(value).ToString(Formatting.Indented);
-                    }
-                    catch (JsonReaderException)
-                    {
-                        KeyValueTextBox = value;
-                    }
+                try
+                {
+                    KeyValueTextBox = JObject.Parse(value).ToString(Formatting.Indented);
+                }
+                catch (JsonReaderException)
+                {
+                    KeyValueTextBox = value;
                 }
             }
         }
