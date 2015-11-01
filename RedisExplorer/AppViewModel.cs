@@ -64,7 +64,8 @@ namespace RedisExplorer
                 foreach (var connection in Settings.Default.Servers)
                 {
                     var server = new RedisConnection(connection);
-                    Servers.Add(new RedisServer(server.Name, server.Address + ",keepAlive = 180,allowAdmin=true", eventAggregator));
+                    var conn = new RedisServer(server.Name, server.Address + ",keepAlive = 180,allowAdmin=true", eventAggregator);
+                    Servers.Add(conn);
                 }
             }
         }

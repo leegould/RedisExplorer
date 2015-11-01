@@ -13,27 +13,39 @@ namespace RedisExplorer.Models
 
         private IConnectionMultiplexer connection { get; set; }
 
+        private string connectionStr { get; set; }
+
         public RedisServer(string displayName, string connectionString, IEventAggregator eventAggregator) : base(null, true, eventAggregator)
         {
             this.eventAggregator = eventAggregator;
             eventAggregator.Subscribe(this);
             Display = displayName;
+            connectionStr = connectionString;
 
-            try
-            {
-                connection = ConnectionMultiplexer.Connect(connectionString);
-            }
-            catch (RedisConnectionException rce)
-            {
-                // todo: log
-                throw;
-            }
         }
 
+        protected IConnectionMultiplexer Connection
+        {
+            get
+            {
+                if (connection != null) { return connection; }
+                try
+                {
+                    connection = ConnectionMultiplexer.Connect(connectionStr);
+                }
+                catch (RedisConnectionException)
+                {
+                    return null;
+                    // TODO : publish event message saying couldn't connect.
+                }
+                return null;
+            }
+        }
+        
         public IServer GetServer()
         {
             // TODO : this just gets first one
-            return connection.GetEndPoints().Select(endpoint => connection.GetServer(endpoint)).FirstOrDefault();
+            return Connection != null ? Connection.GetEndPoints().Select(endpoint => connection.GetServer(endpoint)).FirstOrDefault() : null;
         }
 
         public IDatabase GetDatabase(int dbnumber)
