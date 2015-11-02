@@ -123,7 +123,14 @@ namespace RedisExplorer
 
         public void Handle(TreeItemSelectedMessage message)
         {
-            StatusBarTextBlock = "Selected : " + message.SelectedItem.Display;
+            if (message.SelectedItem is RedisServer)
+            {
+                StatusBarTextBlock = "Connecting to server : " + message.SelectedItem.Display;
+            }
+            else
+            {
+                StatusBarTextBlock = "Selected : " + message.SelectedItem.Display;
+            }
         }
 
         public void Handle(AddConnectionMessage message)

@@ -11,18 +11,9 @@ namespace RedisExplorer.Models
     {
         private IEventAggregator eventAggregator { get; set; }
 
-        private IConnectionMultiplexer connection { get; set; }
-
         private string connectionStr { get; set; }
 
-        public RedisServer(string displayName, string connectionString, IEventAggregator eventAggregator) : base(null, true, eventAggregator)
-        {
-            this.eventAggregator = eventAggregator;
-            eventAggregator.Subscribe(this);
-            Display = displayName;
-            connectionStr = connectionString;
-
-        }
+        private IConnectionMultiplexer connection { get; set; }
 
         protected IConnectionMultiplexer Connection
         {
@@ -32,25 +23,33 @@ namespace RedisExplorer.Models
                 try
                 {
                     connection = ConnectionMultiplexer.Connect(connectionStr);
+                    return connection;
                 }
                 catch (RedisConnectionException)
                 {
                     return null;
                     // TODO : publish event message saying couldn't connect.
                 }
-                return null;
             }
+        }
+
+        public RedisServer(string displayName, string connectionString, IEventAggregator eventAggregator) : base(null, true, eventAggregator)
+        {
+            this.eventAggregator = eventAggregator;
+            eventAggregator.Subscribe(this);
+            Display = displayName;
+            connectionStr = connectionString;
         }
         
         public IServer GetServer()
         {
             // TODO : this just gets first one
-            return Connection != null ? Connection.GetEndPoints().Select(endpoint => connection.GetServer(endpoint)).FirstOrDefault() : null;
+            return Connection != null ? Connection.GetEndPoints().Select(endpoint => Connection.GetServer(endpoint)).FirstOrDefault() : null;
         }
 
         public IDatabase GetDatabase(int dbnumber)
         {
-            return connection.GetDatabase(dbnumber);
+            return Connection.GetDatabase(dbnumber);
         }
 
         protected override void LoadChildren()
