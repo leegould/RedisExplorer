@@ -13,6 +13,8 @@ namespace RedisExplorer.Controls
 
         private string urnSeparatorTextBox { get; set; }
 
+        private bool oneClickCheckBox { get; set; }
+
         public string MaxKeysTextBox
         {
             get { return maxKeysTextBox; }
@@ -33,18 +35,30 @@ namespace RedisExplorer.Controls
             }
         }
 
+        public bool OneClickCheckBox
+        {
+            get {  return oneClickCheckBox; }
+            set
+            {
+                oneClickCheckBox = value;
+                NotifyOfPropertyChange(() => OneClickCheckBox);
+            }
+        }
+
         public PreferencesViewModel(IEventAggregator eventAggregator)
         {
             this.eventAggregator = eventAggregator;
             eventAggregator.Subscribe(this);
             MaxKeysTextBox = string.IsNullOrEmpty(Settings.Default.MaxKeys) ? "1000" : Settings.Default.MaxKeys;
             UrnSeparatorTextBox = string.IsNullOrEmpty(Settings.Default.UrnSeparator) ? ":" : Settings.Default.UrnSeparator;
+            OneClickCheckBox = Settings.Default.OneClick;
         }
 
         public void SaveButton()
         {
             Settings.Default.MaxKeys = MaxKeysTextBox;
             Settings.Default.UrnSeparator = UrnSeparatorTextBox;
+            Settings.Default.OneClick = OneClickCheckBox;
             Settings.Default.Save();
 
             TryClose();

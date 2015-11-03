@@ -112,7 +112,7 @@ namespace RedisExplorer
         {
             dynamic settings = new ExpandoObject();
             settings.Width = 300;
-            settings.Height = 250;
+            settings.Height = 300;
             settings.WindowStartupLocation = WindowStartupLocation.Manual;
             settings.Title = "Preferences";
 

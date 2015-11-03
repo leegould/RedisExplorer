@@ -8,7 +8,7 @@
 	Title="PreferencesView">
 
     <StackPanel >
-        <GroupBox Margin="10" Height="Auto" Width="Auto">
+        <GroupBox Margin="10" Height="Auto" Width="Auto" Header="Redis Options">
             <Grid Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" SharedSizeGroup="Label"/>
@@ -24,6 +24,22 @@
                 
                 <Label Grid.Row="1">Urn Separator</Label>
                 <TextBox x:Name="UrnSeparatorTextBox" Grid.Row="1" Grid.Column="1" Margin="2"></TextBox>
+            </Grid>
+        </GroupBox>
+        
+        <GroupBox Margin="10" Header="Interface">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="Label"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <CheckBox Grid.Column="1" Margin="5" x:Name="OneClickCheckBox">
+                    <TextBlock>Single click expand</TextBlock>
+                </CheckBox>
             </Grid>
         </GroupBox>
         
