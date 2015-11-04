@@ -4,6 +4,7 @@ using Caliburn.Micro;
 
 using RedisExplorer.Interface;
 using RedisExplorer.Messages;
+using RedisExplorer.Properties;
 
 namespace RedisExplorer.Models
 {
@@ -89,7 +90,7 @@ namespace RedisExplorer.Models
                 if (value.Equals(isSelected)) return;
 
                 isSelected = value;
-                if (!IsExpanded && HasChildren)
+                if (Settings.Default.OneClick && !IsExpanded && HasChildren)
                 {
                     IsExpanded = true;
                 }

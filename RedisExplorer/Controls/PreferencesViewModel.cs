@@ -15,6 +15,10 @@ namespace RedisExplorer.Controls
 
         private bool oneClickCheckBox { get; set; }
 
+        private bool lazyLoadServerCheckBox { get; set; }
+
+        private bool lazyLoadDatabaseCheckBox { get; set; }
+
         public string MaxKeysTextBox
         {
             get { return maxKeysTextBox; }
@@ -42,6 +46,26 @@ namespace RedisExplorer.Controls
             {
                 oneClickCheckBox = value;
                 NotifyOfPropertyChange(() => OneClickCheckBox);
+            }
+        }
+
+        public bool LazyLoadServerCheckBox
+        {
+            get { return lazyLoadServerCheckBox; }
+            set
+            {
+                lazyLoadServerCheckBox = value;
+                NotifyOfPropertyChange(() => LazyLoadServerCheckBox);
+            }
+        }
+
+        public bool LazyLoadDatabaseCheckBox
+        {
+            get { return lazyLoadDatabaseCheckBox; }
+            set
+            {
+                lazyLoadDatabaseCheckBox = value;
+                NotifyOfPropertyChange(() => LazyLoadDatabaseCheckBox);
             }
         }
 

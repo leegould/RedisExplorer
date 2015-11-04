@@ -4,11 +4,11 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DesignHeight="350" d:DesignWidth="300"
 	Title="PreferencesView">
 
     <StackPanel >
-        <GroupBox Margin="10" Height="Auto" Width="Auto" Header="Redis Options">
+        <GroupBox Margin="10" Height="Auto" Width="Auto" Header="Query Options">
             <Grid Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" SharedSizeGroup="Label"/>
@@ -35,10 +35,20 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <CheckBox Grid.Column="1" Margin="5" x:Name="OneClickCheckBox">
-                    <TextBlock>Single click expand</TextBlock>
+                    <TextBlock>Single click expand URNs</TextBlock>
+                </CheckBox>
+                
+                <CheckBox Grid.Column="1" Grid.Row="1" Margin="5" x:Name="LazyLoadServerCheckBox">
+                    <TextBlock>Lazy load Servers</TextBlock>
+                </CheckBox>
+                
+                <CheckBox Grid.Column="1" Grid.Row="2" Margin="5" x:Name="LazyLoadDatabaseCheckBox">
+                    <TextBlock>Lazy load Databases</TextBlock>
                 </CheckBox>
             </Grid>
         </GroupBox>
