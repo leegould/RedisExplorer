@@ -33,7 +33,7 @@ namespace RedisExplorer.Models
             }
         }
 
-        public RedisServer(string displayName, string connectionString, IEventAggregator eventAggregator) : base(null, true, eventAggregator)
+        public RedisServer(string displayName, string connectionString, IEventAggregator eventAggregator) : base(null, Settings.Default.LazyLoadServer, eventAggregator)
         {
             this.eventAggregator = eventAggregator;
             eventAggregator.Subscribe(this);

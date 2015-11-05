@@ -69,5 +69,29 @@ namespace RedisExplorer.Properties {
                 this["OneClick"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool LazyLoadServer {
+            get {
+                return ((bool)(this["LazyLoadServer"]));
+            }
+            set {
+                this["LazyLoadServer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool LazyLoadDatabase {
+            get {
+                return ((bool)(this["LazyLoadDatabase"]));
+            }
+            set {
+                this["LazyLoadDatabase"] = value;
+            }
+        }
     }
 }

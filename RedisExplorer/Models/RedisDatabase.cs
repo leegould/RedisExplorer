@@ -20,7 +20,7 @@ namespace RedisExplorer.Models
 
         private string urnSeparator { get; set; }
 
-        public RedisDatabase(RedisServer parent, int dbnumber, IEventAggregator eventAggregator) : base(parent, true, eventAggregator)
+        public RedisDatabase(RedisServer parent, int dbnumber, IEventAggregator eventAggregator) : base(parent, Settings.Default.LazyLoadDatabase, eventAggregator)
         {
             this.parent = parent;
             this.dbNumber = dbnumber;
