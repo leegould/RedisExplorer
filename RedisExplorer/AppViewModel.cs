@@ -13,7 +13,7 @@ using RedisExplorer.Properties;
 namespace RedisExplorer
 {
     [Export(typeof(AppViewModel))]
-    public sealed class AppViewModel : Conductor<ITabItem>.Collection.OneActive, IApp, IHandle<TreeItemSelectedMessage>, IHandle<AddConnectionMessage>, IHandle<DeleteConnectionMessage>, IHandle<RedisKeyAddedMessage>
+    public sealed class AppViewModel : Conductor<ITabItem>.Collection.OneActive, IApp, IHandle<TreeItemSelectedMessage>, IHandle<AddConnectionMessage>, IHandle<DeleteConnectionMessage>, IHandle<RedisKeyAddedMessage>, IHandle<ConnectionFailedMessage>
     {
         #region Private members
 
@@ -163,6 +163,11 @@ namespace RedisExplorer
         public void Handle(RedisKeyAddedMessage message)
         {
             StatusBarTextBlock = "Added Key : " + message.Item.KeyName;
+        }
+
+        public void Handle(ConnectionFailedMessage message)
+        {
+            StatusBarTextBlock = "Could not connect : " + message.ErrorMessage;
         }
     }
 }

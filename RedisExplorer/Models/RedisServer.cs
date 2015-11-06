@@ -25,10 +25,10 @@ namespace RedisExplorer.Models
                     connection = ConnectionMultiplexer.Connect(connectionStr);
                     return connection;
                 }
-                catch (RedisConnectionException)
+                catch (RedisConnectionException rcException)
                 {
+                    eventAggregator.PublishOnUIThread(new ConnectionFailedMessage { ErrorMessage = rcException.Message });
                     return null;
-                    // TODO : publish event message saying couldn't connect.
                 }
             }
         }
