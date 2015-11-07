@@ -15,6 +15,18 @@ namespace RedisExplorer.Models
 
         private IConnectionMultiplexer connection { get; set; }
 
+        private bool isConnected { get; set; }
+
+        public bool IsConnected
+        {
+            get { return isConnected; }
+            set
+            {
+                isConnected = value;
+                NotifyOfPropertyChange(() => IsConnected);
+            }
+        }
+
         protected IConnectionMultiplexer Connection
         {
             get
@@ -23,6 +35,7 @@ namespace RedisExplorer.Models
                 try
                 {
                     connection = ConnectionMultiplexer.Connect(connectionStr);
+                    IsConnected = true;
                     return connection;
                 }
                 catch (RedisConnectionException rcException)

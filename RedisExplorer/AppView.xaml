@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:RedisExplorer.Models"
              xmlns:cal="http://www.caliburnproject.org"
+             xmlns:controls="clr-namespace:RedisExplorer.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="500" MinWidth="500" MinHeight="300">
     
@@ -63,7 +64,8 @@
                                     <MenuItem Header="Delete" cal:Message.Attach="[Event Click] = [Action Delete($dataContext)]"></MenuItem>
                                 </ContextMenu>
                             </StackPanel.ContextMenu>
-                            <Image Name="img" Width="15" Height="15" Margin="3,1" Source="Assets/redis-icon.png"/>
+                            <controls:GreyableImage Source="Assets/redis-icon.png" Width="15" Height="15" Margin="3,1" IsEnabled="{Binding IsConnected}"/>
+                            <!--<Image Name="img" Width="15" Height="15" Margin="3,1" Source="Assets/redis-icon.png"/>-->
                             <TextBlock Text="{Binding Display}" />
                         </StackPanel>
                     </HierarchicalDataTemplate>

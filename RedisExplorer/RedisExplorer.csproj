@@ -116,6 +116,7 @@
       <DependentUpon>AddConnectionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\AddConnectionViewModel.cs" />
+    <Compile Include="Controls\GreyableImage.cs" />
     <Compile Include="Controls\KeyView.xaml.cs">
       <DependentUpon>KeyView.xaml</DependentUpon>
     </Compile>
