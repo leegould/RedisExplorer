@@ -81,13 +81,17 @@ namespace RedisExplorer.Models
                         foreach (var dbnumber in Enumerable.Range(0, dbcounter))
                         {
                             var display = dbnumber.ToString();
-                            if (info != null)
+                            if (info != null && info.Length > 0)
                             {
                                 var dbinfo = info[0].FirstOrDefault(x => x.Key == "db" + display);
                                 if (!string.IsNullOrEmpty(dbinfo.Value))
                                 {
                                     display += " (" + dbinfo.Value.Split(',')[0].Split('=')[1] + ")";
                                 }
+                            }
+                            else
+                            {
+                                eventAggregator.PublishOnUIThread(new InfoNotValidMessage());                                
                             }
 
                             var db = new RedisDatabase(this, dbnumber, eventAggregator)

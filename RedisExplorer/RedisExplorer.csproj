@@ -133,6 +133,7 @@
     <Compile Include="Messages\ConnectionFailedMessage.cs" />
     <Compile Include="Messages\DeleteConnectionMessage.cs" />
     <Compile Include="Messages\FlushDbMessage.cs" />
+    <Compile Include="Messages\InfoNotValidMessage.cs" />
     <Compile Include="Messages\RedisKeyAddedMessage.cs" />
     <Compile Include="Messages\RedisKeyUpdatedMessage.cs" />
     <Compile Include="Messages\TreeItemSelectedMessage.cs" />
