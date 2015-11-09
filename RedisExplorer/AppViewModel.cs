@@ -13,7 +13,7 @@ using RedisExplorer.Properties;
 namespace RedisExplorer
 {
     [Export(typeof(AppViewModel))]
-    public sealed class AppViewModel : Conductor<ITabItem>.Collection.OneActive, IApp, IHandle<TreeItemSelectedMessage>, IHandle<AddConnectionMessage>, IHandle<DeleteConnectionMessage>, IHandle<RedisKeyAddedMessage>, IHandle<ConnectionFailedMessage>, IHandle<InfoNotValidMessage>
+    public sealed class AppViewModel : Conductor<ITabItem>.Collection.OneActive, IApp, IHandle<TreeItemSelectedMessage>, IHandle<AddConnectionMessage>, IHandle<DeleteConnectionMessage>, IHandle<RedisKeyAddedMessage>, IHandle<RedisKeyUpdatedMessage>, IHandle<ConnectionFailedMessage>, IHandle<InfoNotValidMessage>
     {
         #region Private members
 
@@ -172,7 +172,12 @@ namespace RedisExplorer
 
         public void Handle(InfoNotValidMessage message)
         {
-            StatusBarTextBlock = "Server did not respond to the keyspace command. Cannot query database counts.";
+            StatusBarTextBlock = "Could not query database counts.";
+        }
+
+        public void Handle(RedisKeyUpdatedMessage message)
+        {
+            StatusBarTextBlock = "Updated Key : " + message.Item.KeyName;
         }
     }
 }

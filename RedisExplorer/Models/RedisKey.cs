@@ -192,7 +192,7 @@ namespace RedisExplorer.Models
                 saved = Database.StringSet(KeyName, KeyValue, TTL);
             }
 
-            if (newkey)
+            if (!newkey)
             {
                 eventAggregator.PublishOnUIThread(new RedisKeyAddedMessage { Item = this });
             }

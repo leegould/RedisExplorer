@@ -118,18 +118,12 @@ namespace RedisExplorer.Controls
             {
                 item.TTL = new TimeSpan((TTLDateTimePicker.Value - DateTime.Now).Ticks);
             }
-            if (item.Save())
-            {
-                
-            }
+            item.Save();
         }
 
         public void DeleteButton()
         {
-            if (item.Delete())
-            {
-                
-            }
+            item.Delete();
         }
 
         public void ReloadButton()
