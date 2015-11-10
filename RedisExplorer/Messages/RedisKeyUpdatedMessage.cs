@@ -1,9 +1,7 @@
-﻿using RedisExplorer.Models;
-
-namespace RedisExplorer.Messages
+﻿namespace RedisExplorer.Messages
 {
     public class RedisKeyUpdatedMessage
     {
-        public RedisKey Item { get; set; }
+        public string Urn { get; set; }
     }
 }

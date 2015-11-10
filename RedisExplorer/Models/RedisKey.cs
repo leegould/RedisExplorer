@@ -194,11 +194,11 @@ namespace RedisExplorer.Models
 
             if (!newkey)
             {
-                eventAggregator.PublishOnUIThread(new RedisKeyAddedMessage { Item = this });
+                eventAggregator.PublishOnUIThread(new RedisKeyAddedMessage { Urn = KeyName });
             }
             else 
             {
-                eventAggregator.PublishOnUIThread(new RedisKeyUpdatedMessage { Item = this });
+                eventAggregator.PublishOnUIThread(new RedisKeyUpdatedMessage { Urn = KeyName });
             }
 
             return saved;
