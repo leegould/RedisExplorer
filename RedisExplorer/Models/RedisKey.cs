@@ -219,6 +219,8 @@ namespace RedisExplorer.Models
             KeyValue = string.Empty;
             KeyType = RedisType.None;
             TTL = null;
+
+            eventAggregator.PublishOnUIThread(new ReloadKeyMessage { Urn = KeyName });
         }
 
         public void Add()
