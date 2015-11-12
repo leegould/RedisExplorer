@@ -137,6 +137,7 @@
     <Compile Include="Messages\RedisKeyAddedMessage.cs" />
     <Compile Include="Messages\RedisKeyUpdatedMessage.cs" />
     <Compile Include="Messages\ReloadKeyMessage.cs" />
+    <Compile Include="Messages\ServerReloadMessage.cs" />
     <Compile Include="Messages\TreeItemSelectedMessage.cs" />
     <Compile Include="Models\RedisConnection.cs" />
     <Compile Include="Models\RedisDatabase.cs" />

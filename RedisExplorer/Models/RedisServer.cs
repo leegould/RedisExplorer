@@ -109,6 +109,9 @@ namespace RedisExplorer.Models
         public void Reload(RedisServer server)
         {
             Children.Clear();
+
+            eventAggregator.PublishOnUIThread(new ServerReloadMessage { Name = Display });
+
             LoadChildren();
         }
 
