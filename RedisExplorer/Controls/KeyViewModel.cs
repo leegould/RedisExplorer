@@ -112,6 +112,10 @@ namespace RedisExplorer.Controls
 
         public void SaveButton()
         {
+            if (item == null)
+            {
+                return;
+            }
             item.KeyName = keyNameTextBox;
             item.KeyValue = keyValueTextBox;
             if (TTLDateTimePicker.HasValue)
@@ -123,11 +127,19 @@ namespace RedisExplorer.Controls
 
         public void DeleteButton()
         {
+            if (item == null)
+            {
+                return;
+            }
             item.Delete();
         }
 
         public void ReloadButton()
         {
+            if (item == null)
+            {
+                return;
+            }
             item.Reload();
             DisplayItem();
         }
