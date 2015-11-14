@@ -209,7 +209,13 @@ namespace RedisExplorer.Models
             var key = KeyName;
             var db = Database;
 
-            return db.KeyExists(key) && db.KeyDelete(key);
+            var result = db.KeyExists(key) && db.KeyDelete(key);
+
+            if (result)
+            {
+                eventAggregator.PublishOnUIThread(new KeyDeletedMessage { Urn = KeyName });
+            }
+            return result;
         }
 
         public void Reload()
