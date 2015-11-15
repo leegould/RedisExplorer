@@ -131,6 +131,7 @@
     <Compile Include="Messages\AddConnectionMessage.cs" />
     <Compile Include="Messages\AddKeyMessage.cs" />
     <Compile Include="Messages\ConnectionFailedMessage.cs" />
+    <Compile Include="Messages\DatabaseReloadMessage.cs" />
     <Compile Include="Messages\DeleteConnectionMessage.cs" />
     <Compile Include="Messages\FlushDbMessage.cs" />
     <Compile Include="Messages\InfoNotValidMessage.cs" />

@@ -13,7 +13,7 @@ using RedisExplorer.Properties;
 namespace RedisExplorer
 {
     [Export(typeof(AppViewModel))]
-    public sealed class AppViewModel : Conductor<ITabItem>.Collection.OneActive, IApp, IHandle<TreeItemSelectedMessage>, IHandle<AddConnectionMessage>, IHandle<DeleteConnectionMessage>, IHandle<RedisKeyAddedMessage>, IHandle<RedisKeyUpdatedMessage>, IHandle<ConnectionFailedMessage>, IHandle<InfoNotValidMessage>, IHandle<ReloadKeyMessage>, IHandle<ServerReloadMessage>, IHandle<KeyDeletedMessage>
+    public sealed class AppViewModel : Conductor<ITabItem>.Collection.OneActive, IApp, IHandle<TreeItemSelectedMessage>, IHandle<AddConnectionMessage>, IHandle<DeleteConnectionMessage>, IHandle<RedisKeyAddedMessage>, IHandle<RedisKeyUpdatedMessage>, IHandle<ConnectionFailedMessage>, IHandle<InfoNotValidMessage>, IHandle<ReloadKeyMessage>, IHandle<ServerReloadMessage>, IHandle<KeyDeletedMessage>, IHandle<DatabaseReloadMessage>
     {
         #region Private members
 
@@ -193,6 +193,11 @@ namespace RedisExplorer
         public void Handle(KeyDeletedMessage message)
         {
             StatusBarTextBlock = "Deleted Key : " + message.Urn;
+        }
+
+        public void Handle(DatabaseReloadMessage message)
+        {
+            StatusBarTextBlock = "Reloaded Database : " + message.DbNumber;
         }
     }
 }

@@ -74,6 +74,8 @@
                         <StackPanel Orientation="Horizontal">
                             <StackPanel.ContextMenu>
                                 <ContextMenu Name="dbcm">
+                                    <MenuItem Header="Reload" cal:Message.Attach="[Event Click] = [Action Reload($dataContext)]"></MenuItem>
+                                    <Separator></Separator>
                                     <MenuItem Header="Flush" cal:Message.Attach="[Event Click] = [Action Flush($dataContext)]"></MenuItem>
                                     <Separator></Separator>
                                     <MenuItem Header="Add Key" cal:Message.Attach="[Event Click] = [Action Add]"></MenuItem>

@@ -68,14 +68,26 @@ namespace RedisExplorer.Models
             }
         }
 
+        public void Reload(RedisServer server)
+        {
+            var s = parent.GetServer();
+
+            eventAggregator.PublishOnUIThread(new DatabaseReloadMessage { DbNumber = dbNumber });
+
+            Children.Clear();
+
+            LoadChildren();
+        }
+
         public void Flush(RedisDatabase database)
         {
             var s = parent.GetServer();
             s.FlushDatabase(dbNumber);
 
-            Children.Clear();
+            eventAggregator.PublishOnUIThread(new FlushDbMessage { dbNumber = dbNumber });
 
-            eventAggregator.PublishOnUIThread(new FlushDbMessage { dbNumber = dbNumber});
+            Children.Clear();
+            LoadChildren();
         }
 
         public void Add()
