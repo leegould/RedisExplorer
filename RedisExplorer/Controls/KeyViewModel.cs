@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Linq;
 using Caliburn.Micro;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RedisExplorer.Messages;
-using RedisExplorer.Models;
+using StackExchange.Redis;
+using RedisKey = RedisExplorer.Models.RedisKey;
 
 namespace RedisExplorer.Controls
 {
@@ -22,6 +25,7 @@ namespace RedisExplorer.Controls
         private string keyValueTextBox;
         private DateTime? ttlDateTimePicker;
         private string typeLabel;
+        private RedisType selectedType;
 
         #endregion
 
@@ -79,6 +83,16 @@ namespace RedisExplorer.Controls
             }
         }
 
+        public RedisType SelectedType
+        {
+            get { return selectedType; }
+            set
+            {
+                selectedType = value;
+                NotifyOfPropertyChange(() => SelectedType);
+            }
+        }
+
         public string TypeLabel
         {
             get
@@ -106,6 +120,14 @@ namespace RedisExplorer.Controls
         {
             TypeLabel = "String";
             TTLDateTimePicker = null;
+        }
+
+        public IEnumerable<RedisType> RedisTypeValues
+        {
+            get
+            {
+                return Enum.GetValues(typeof(RedisType)).Cast<RedisType>();
+            }
         }
 
         #region Button Actions
