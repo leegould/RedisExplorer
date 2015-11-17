@@ -24,7 +24,6 @@ namespace RedisExplorer.Controls
         private string keyNameTextBox;
         private string keyValueTextBox;
         private DateTime? ttlDateTimePicker;
-        private string typeLabel;
         private RedisType selectedType;
 
         #endregion
@@ -92,20 +91,7 @@ namespace RedisExplorer.Controls
                 NotifyOfPropertyChange(() => SelectedType);
             }
         }
-
-        public string TypeLabel
-        {
-            get
-            {
-                return typeLabel;
-            }
-            set
-            {
-                typeLabel = value;
-                NotifyOfPropertyChange(() => TypeLabel);
-            }
-        }
-
+        
         #endregion
 
         public KeyViewModel(IEventAggregator eventAggregator)
@@ -118,7 +104,7 @@ namespace RedisExplorer.Controls
 
         public void SetDefault()
         {
-            TypeLabel = "String";
+            SelectedType = RedisType.String;
             TTLDateTimePicker = null;
         }
 
@@ -200,7 +186,7 @@ namespace RedisExplorer.Controls
             if (item != null)
             {
                 KeyNameTextBox = item.KeyName;
-                TypeLabel = item.KeyType.ToString();
+                SelectedType = item.KeyType;
 
                 var ttl = item.TTL;
                 if (ttl.HasValue)
