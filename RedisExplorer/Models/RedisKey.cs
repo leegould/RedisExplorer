@@ -6,15 +6,13 @@ using StackExchange.Redis;
 
 namespace RedisExplorer.Models
 {
-    public class RedisKey : TreeViewItem
+    public abstract class RedisKey : TreeViewItem
     {
-        private IEventAggregator eventAggregator { get; set; }
+        protected IEventAggregator eventAggregator { get; set; }
 
         private IDatabase database { get; set; }
 
         private string keyName;
-
-        private string keyValue;
 
         private RedisType keyType;
 
@@ -88,7 +86,7 @@ namespace RedisExplorer.Models
                 var parent = Parent;
                 var parentType = parent.GetType();
 
-                while (parentType == typeof(RedisKey))
+                while (parentType.IsSubclassOf(typeof(RedisKey)))
                 {
                     KeyName = parent.Display + ":" + KeyName;
                     parent = parent.Parent;
@@ -100,35 +98,6 @@ namespace RedisExplorer.Models
             set
             {
                 keyName = value;
-            }
-        }
-
-        public string KeyValue
-        {
-            get
-            {
-                if (!string.IsNullOrEmpty(keyValue))
-                {
-                    return keyValue;
-                }
-
-                var key = KeyName;
-                var db = Database;
-                if (db.KeyExists(key))
-                {
-                    var ktype = db.KeyType(key);
-
-                    if (ktype == RedisType.String)
-                    {
-                        return db.StringGet(key);
-                    }
-                }
-
-                return string.Empty;   
-            }
-            set
-            {
-                keyValue = value;
             }
         }
 
@@ -182,28 +151,11 @@ namespace RedisExplorer.Models
             get { return !HasChildren; }
         }
         
-        public bool Save()
+        public virtual bool Save()
         {
-            bool newkey = Database.KeyExists(KeyName);
-            bool saved = false;
-
-            if (KeyType == RedisType.String || KeyType == RedisType.None)
-            {
-                saved = Database.StringSet(KeyName, KeyValue, TTL);
-            }
-
-            if (!newkey)
-            {
-                eventAggregator.PublishOnUIThread(new RedisKeyAddedMessage { Urn = KeyName });
-            }
-            else 
-            {
-                eventAggregator.PublishOnUIThread(new RedisKeyUpdatedMessage { Urn = KeyName });
-            }
-
-            return saved;
+            return false;
         }
-
+        
         public bool Delete()
         {
             var key = KeyName;
@@ -218,11 +170,10 @@ namespace RedisExplorer.Models
             return result;
         }
 
-        public void Reload()
+        public virtual void Reload()
         {
             var db = Database;
 
-            KeyValue = string.Empty;
             KeyType = RedisType.None;
             TTL = null;
 

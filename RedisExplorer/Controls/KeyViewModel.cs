@@ -6,7 +6,11 @@ using Caliburn.Micro;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RedisExplorer.Messages;
+using RedisExplorer.Models;
+
 using StackExchange.Redis;
+
+using Action = System.Action;
 using RedisKey = RedisExplorer.Models.RedisKey;
 
 namespace RedisExplorer.Controls
@@ -125,11 +129,18 @@ namespace RedisExplorer.Controls
                 return;
             }
             item.KeyName = keyNameTextBox;
-            item.KeyValue = keyValueTextBox;
+
+            var stringItem = item as RedisKeyString;
+            if (stringItem != null)
+            {
+                stringItem.KeyValue = keyValueTextBox;
+            }
+
             if (TTLDateTimePicker.HasValue)
             {
                 item.TTL = new TimeSpan((TTLDateTimePicker.Value - DateTime.Now).Ticks);
             }
+
             item.Save();
         }
 
@@ -173,9 +184,9 @@ namespace RedisExplorer.Controls
 
         public void Handle(TreeItemSelectedMessage message)
         {
-            if (message != null && message.SelectedItem != null && message.SelectedItem.GetType() == typeof(RedisKey) && !message.SelectedItem.HasChildren)
+            if (message != null && message.SelectedItem != null && !message.SelectedItem.HasChildren)
             {
-                item = message.SelectedItem as RedisKey;
+                item = message.SelectedItem as RedisKeyString;
 
                 DisplayItem();
             }
@@ -198,8 +209,20 @@ namespace RedisExplorer.Controls
                     TTLDateTimePicker = null;
                 }
 
-                var value = item.KeyValue;
+                if (item.KeyType == RedisType.String)
+                {
+                    DisplayStringValue();
+                }
+            }
+        }
 
+        private void DisplayStringValue()
+        {
+            var stringItem = item as RedisKeyString;
+            if (stringItem != null)
+            {
+                var value = stringItem.KeyValue;
+                
                 try
                 {
                     KeyValueTextBox = JObject.Parse(value).ToString(Formatting.Indented);
@@ -213,7 +236,7 @@ namespace RedisExplorer.Controls
 
         public void Handle(AddKeyMessage message)
         {
-            item = new RedisKey(message.ParentDatabase, eventAggregator);
+            item = new RedisKeyString(message.ParentDatabase, eventAggregator);
             SetDefault();
             KeyNameTextBox = message.KeyBase;
             KeyValueTextBox = string.Empty;

@@ -43,28 +43,36 @@ namespace RedisExplorer.Models
 
                 foreach (var key in keys)
                 {
+                    var ktype = db.KeyType(key);
                     var parts = new Queue<string>(key.ToString().Split(new [] { urnSeparator }, StringSplitOptions.RemoveEmptyEntries));
                     if (parts.Count > 0)
                     {
-                        AddChildren(this, parts, eventAggregator);
+                        AddChildren(this, parts, ktype, eventAggregator);
                     }
                 }
             }
         }
 
-        private static void AddChildren(TreeViewItem item, Queue<string> urn, IEventAggregator eventAggregator)
+        private static void AddChildren(TreeViewItem item, Queue<string> urn, RedisType ktype, IEventAggregator eventAggregator)
         {
             var keystr = urn.Dequeue();
             var key = item.Children.FirstOrDefault(x => x.Display == keystr);
             if (key == null)
             {
-                key = new RedisKey(item, eventAggregator) { Display = keystr };
+                if (ktype == RedisType.String)
+                {
+                    key = new RedisKeyString(item, eventAggregator) { Display = keystr };
+                }
+                else
+                {
+                    key = new RedisKeyString(item, eventAggregator) { Display = keystr };
+                }
                 item.Children.Add(key);
             }
 
             if (urn.Count > 0)
             {
-                AddChildren(key, urn, eventAggregator);
+                AddChildren(key, urn, ktype, eventAggregator);
             }
         }
 
