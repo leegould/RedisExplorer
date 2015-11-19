@@ -117,6 +117,10 @@
     </Compile>
     <Compile Include="Controls\AddConnectionViewModel.cs" />
     <Compile Include="Controls\GreyableImage.cs" />
+    <Compile Include="Controls\KeyStringView.xaml.cs">
+      <DependentUpon>KeyStringView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\KeyStringViewModel.cs" />
     <Compile Include="Controls\KeyView.xaml.cs">
       <DependentUpon>KeyView.xaml</DependentUpon>
     </Compile>
@@ -180,6 +184,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\AddConnectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\KeyStringView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -3,14 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Caliburn.Micro;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using RedisExplorer.Messages;
 using RedisExplorer.Models;
-
 using StackExchange.Redis;
-
-using Action = System.Action;
 using RedisKey = RedisExplorer.Models.RedisKey;
 
 namespace RedisExplorer.Controls
@@ -60,18 +55,7 @@ namespace RedisExplorer.Controls
             }
         }
 
-        public string KeyValueTextBox
-        {
-            get
-            {
-                return keyValueTextBox;
-            }
-            set
-            {
-                keyValueTextBox = value;
-                NotifyOfPropertyChange(() => KeyValueTextBox);
-            }
-        }
+        public KeyStringViewModel KeyStringViewModel { get; set; }
 
         public DateTime? TTLDateTimePicker
         {
@@ -102,6 +86,9 @@ namespace RedisExplorer.Controls
         {
             this.eventAggregator = eventAggregator;
             eventAggregator.Subscribe(this);
+
+            KeyStringViewModel = new KeyStringViewModel(eventAggregator);
+            KeyStringViewModel.ConductWith(this);
 
             SetDefault();
         }
@@ -211,25 +198,7 @@ namespace RedisExplorer.Controls
 
                 if (item.KeyType == RedisType.String)
                 {
-                    DisplayStringValue();
-                }
-            }
-        }
-
-        private void DisplayStringValue()
-        {
-            var stringItem = item as RedisKeyString;
-            if (stringItem != null)
-            {
-                var value = stringItem.KeyValue;
-                
-                try
-                {
-                    KeyValueTextBox = JObject.Parse(value).ToString(Formatting.Indented);
-                }
-                catch (JsonReaderException)
-                {
-                    KeyValueTextBox = value;
+                    //DisplayStringValue();
                 }
             }
         }
@@ -239,7 +208,7 @@ namespace RedisExplorer.Controls
             item = new RedisKeyString(message.ParentDatabase, eventAggregator);
             SetDefault();
             KeyNameTextBox = message.KeyBase;
-            KeyValueTextBox = string.Empty;
+            //KeyStringViewModel.Item = item;
         }
 
         #endregion

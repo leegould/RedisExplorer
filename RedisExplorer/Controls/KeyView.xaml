@@ -70,7 +70,8 @@
         </Grid>
         
         <ScrollViewer Grid.Row="3" Margin="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <TextBox x:Name="KeyValueTextBox" AcceptsTab="True" AcceptsReturn="True"></TextBox>
+            <!--<TextBox x:Name="KeyValueTextBox" AcceptsTab="True" AcceptsReturn="True"></TextBox>-->
+            <ContentControl x:Name="KeyStringViewModel" />
         </ScrollViewer>
     </Grid>
 </UserControl>
