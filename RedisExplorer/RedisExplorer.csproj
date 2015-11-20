@@ -117,6 +117,10 @@
     </Compile>
     <Compile Include="Controls\AddConnectionViewModel.cs" />
     <Compile Include="Controls\GreyableImage.cs" />
+    <Compile Include="Controls\KeySetView.xaml.cs">
+      <DependentUpon>KeySetView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\KeySetViewModel.cs" />
     <Compile Include="Controls\KeyStringView.xaml.cs">
       <DependentUpon>KeyStringView.xaml</DependentUpon>
     </Compile>
@@ -148,6 +152,7 @@
     <Compile Include="Models\RedisConnection.cs" />
     <Compile Include="Models\RedisDatabase.cs" />
     <Compile Include="Models\RedisKey.cs" />
+    <Compile Include="Models\RedisKeySet.cs" />
     <Compile Include="Models\RedisKeyString.cs" />
     <Compile Include="Models\RedisServer.cs" />
     <Compile Include="Models\TreeViewItem.cs" />
@@ -184,6 +189,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\AddConnectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\KeySetView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

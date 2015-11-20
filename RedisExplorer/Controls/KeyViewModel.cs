@@ -29,6 +29,26 @@ namespace RedisExplorer.Controls
 
         #region Properties
 
+        public KeyStringViewModel KeyStringViewModel { get; set; }
+
+        public KeySetViewModel KeySetViewModel { get; set; }
+
+        public bool KeyStringIsVisible { get; set; }
+        //{
+        //    get
+        //    {
+        //        return item is RedisKeyString;
+        //    }
+        //}
+
+        public bool KeySetIsVisible { get; set; }
+        //{
+        //    get
+        //    {
+        //        return item is RedisKeySet;
+        //    }
+        //}
+
         public bool HasSelected
         {
             get
@@ -55,8 +75,7 @@ namespace RedisExplorer.Controls
             }
         }
 
-        public KeyStringViewModel KeyStringViewModel { get; set; }
-
+        
         public DateTime? TTLDateTimePicker
         {
             get
@@ -89,6 +108,9 @@ namespace RedisExplorer.Controls
 
             KeyStringViewModel = new KeyStringViewModel(eventAggregator);
             KeyStringViewModel.ConductWith(this);
+
+            KeySetViewModel = new KeySetViewModel(eventAggregator);
+            KeySetViewModel.ConductWith(this);
 
             SetDefault();
         }
@@ -173,7 +195,19 @@ namespace RedisExplorer.Controls
         {
             if (message != null && message.SelectedItem != null && !message.SelectedItem.HasChildren)
             {
-                item = message.SelectedItem as RedisKeyString;
+
+                if (message.SelectedItem is RedisKeyString)
+                {
+                    item = message.SelectedItem as RedisKeyString;
+                    KeyStringIsVisible = true;
+                    KeySetIsVisible = false;
+                }
+                else if (message.SelectedItem is RedisKeySet)
+                {
+                    item = message.SelectedItem as RedisKeySet;
+                    KeySetIsVisible = true;
+                    KeyStringIsVisible = false;
+                }
 
                 DisplayItem();
             }
@@ -196,10 +230,10 @@ namespace RedisExplorer.Controls
                     TTLDateTimePicker = null;
                 }
 
-                if (item.KeyType == RedisType.String)
-                {
-                    //DisplayStringValue();
-                }
+                //if (item.KeyType == RedisType.String)
+                //{
+                //    //DisplayStringValue();
+                //}
             }
         }
 

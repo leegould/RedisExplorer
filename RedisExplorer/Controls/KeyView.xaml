@@ -69,9 +69,16 @@
             <Button x:Name="SaveButton" Grid.Column="3" Margin="5,0">Save</Button>
         </Grid>
         
-        <ScrollViewer Grid.Row="3" Margin="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="3" Margin="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" x:Name="KeyStringIsVisible">
             <!--<TextBox x:Name="KeyValueTextBox" AcceptsTab="True" AcceptsReturn="True"></TextBox>-->
             <ContentControl x:Name="KeyStringViewModel" />
+            
+        </ScrollViewer>
+
+        <ScrollViewer Grid.Row="3" Margin="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" x:Name="KeySetIsVisible">
+            <!--<TextBox x:Name="KeyValueTextBox" AcceptsTab="True" AcceptsReturn="True"></TextBox>-->
+            <ContentControl x:Name="KeySetViewModel" />
+
         </ScrollViewer>
     </Grid>
 </UserControl>
