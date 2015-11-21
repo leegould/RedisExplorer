@@ -4,9 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:vm="clr-namespace:RedisExplorer.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="500">
     <Grid>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type vm:KeyStringViewModel}">
+                <vm:KeyStringView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:KeySetView}">
+                <vm:KeySetView />
+            </DataTemplate>
+        </Grid.Resources>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
@@ -69,16 +79,9 @@
             <Button x:Name="SaveButton" Grid.Column="3" Margin="5,0">Save</Button>
         </Grid>
         
-        <ScrollViewer Grid.Row="3" Margin="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" x:Name="KeyStringIsVisible">
-            <!--<TextBox x:Name="KeyValueTextBox" AcceptsTab="True" AcceptsReturn="True"></TextBox>-->
-            <ContentControl x:Name="KeyStringViewModel" />
-            
+        <ScrollViewer Grid.Row="3" Margin="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <ContentControl Content="{Binding CurrentDataView}" />
         </ScrollViewer>
-
-        <ScrollViewer Grid.Row="3" Margin="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" x:Name="KeySetIsVisible">
-            <!--<TextBox x:Name="KeyValueTextBox" AcceptsTab="True" AcceptsReturn="True"></TextBox>-->
-            <ContentControl x:Name="KeySetViewModel" />
-
-        </ScrollViewer>
+        
     </Grid>
 </UserControl>

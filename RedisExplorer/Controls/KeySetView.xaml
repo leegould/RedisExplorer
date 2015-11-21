@@ -15,7 +15,7 @@
         </ListBox.ItemTemplate>
     </ListBox>-->
 
-    <ItemsControl ItemsSource="{Binding Path=KeyValuesListBox}">
+    <ItemsControl ItemsSource="{Binding Path=KeyValuesListBox}" BorderBrush="Blue" BorderThickness="2">
         <ItemsControl.ItemTemplate>
             <DataTemplate>
                 <TextBox Text="{Binding Path=Item}" />

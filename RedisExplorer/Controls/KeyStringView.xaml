@@ -6,5 +6,5 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     
-    <TextBox x:Name="KeyValueTextBox" AcceptsTab="True" AcceptsReturn="True"></TextBox>
+    <TextBox x:Name="KeyValueTextBox" AcceptsTab="True" AcceptsReturn="True" BorderBrush="Red" BorderThickness="2"></TextBox>
 </UserControl>
