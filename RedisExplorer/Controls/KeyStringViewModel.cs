@@ -8,7 +8,6 @@ namespace RedisExplorer.Controls
 {
     public class KeyStringViewModel : Screen, IHandle<TreeItemSelectedMessage> 
     {
-        private RedisKeyString item;
         private string keyValueTextBox;
         private readonly IEventAggregator eventAggregator;
 
@@ -33,17 +32,14 @@ namespace RedisExplorer.Controls
 
         public void Handle(TreeItemSelectedMessage message)
         {
-            if (message != null && message.SelectedItem != null && !message.SelectedItem.HasChildren)
+            if (message != null && message.SelectedItem is RedisKeyString && !message.SelectedItem.HasChildren)
             {
-                item = message.SelectedItem as RedisKeyString;
-
-                DisplayStringValue();
+                DisplayStringValue(message.SelectedItem as RedisKeyString);
             }
         }
 
-        private void DisplayStringValue()
+        private void DisplayStringValue(RedisKeyString item)
         {
-            //var stringItem = item as RedisKeyString;
             if (item != null)
             {
                 var value = item.KeyValue;

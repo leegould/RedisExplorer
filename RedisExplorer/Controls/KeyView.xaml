@@ -8,14 +8,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="500">
     <Grid>
-        <Grid.Resources>
+        <!--<Grid.Resources>
             <DataTemplate DataType="{x:Type vm:KeyStringViewModel}">
                 <vm:KeyStringView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:KeySetView}">
                 <vm:KeySetView />
             </DataTemplate>
-        </Grid.Resources>
+        </Grid.Resources>-->
         
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -80,7 +80,8 @@
         </Grid>
         
         <ScrollViewer Grid.Row="3" Margin="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <ContentControl Content="{Binding CurrentDataView}" />
+            <!--<ContentControl Content="{Binding CurrentDataView}" />-->
+            <ContentControl x:Name="KeyStringViewModel"></ContentControl>
         </ScrollViewer>
         
     </Grid>

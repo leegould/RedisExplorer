@@ -16,7 +16,6 @@ namespace RedisExplorer.Controls
             public string Item { get; set; }
         }
 
-        private RedisKeySet item;
         private ObservableCollection<StringWrapper> keyValuesListBox;
         private readonly IEventAggregator eventAggregator;
 
@@ -41,15 +40,13 @@ namespace RedisExplorer.Controls
 
         public void Handle(TreeItemSelectedMessage message)
         {
-            if (message != null && message.SelectedItem != null && !message.SelectedItem.HasChildren)
+            if (message != null && message.SelectedItem is RedisKeySet && !message.SelectedItem.HasChildren)
             {
-                item = message.SelectedItem as RedisKeySet;
-
-                DisplayValue();
+                DisplayValue(message.SelectedItem as RedisKeySet);
             }
         }
 
-        private void DisplayValue()
+        private void DisplayValue(RedisKeySet item)
         {
             if (item != null)
             {

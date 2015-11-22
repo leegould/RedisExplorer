@@ -31,7 +31,7 @@ namespace RedisExplorer.Controls
 
         public KeyStringViewModel KeyStringViewModel { get; set; }
 
-        public KeySetViewModel KeySetViewModel { get; set; }
+        //public KeySetViewModel KeySetViewModel { get; set; }
 
         private Screen currentDataView { get; set; }
 
@@ -47,23 +47,7 @@ namespace RedisExplorer.Controls
                 NotifyOfPropertyChange(() => CurrentDataView);
             }
         }
-
-        //public bool KeyStringIsVisible { get; set; }
-        //{
-        //    get
-        //    {
-        //        return item is RedisKeyString;
-        //    }
-        //}
-
-        //public bool KeySetIsVisible { get; set; }
-        //{
-        //    get
-        //    {
-        //        return item is RedisKeySet;
-        //    }
-        //}
-
+        
         public bool HasSelected
         {
             get
@@ -124,8 +108,8 @@ namespace RedisExplorer.Controls
             KeyStringViewModel = new KeyStringViewModel(eventAggregator);
             KeyStringViewModel.ConductWith(this);
 
-            KeySetViewModel = new KeySetViewModel(eventAggregator);
-            KeySetViewModel.ConductWith(this);
+            //KeySetViewModel = new KeySetViewModel(eventAggregator);
+            //KeySetViewModel.ConductWith(this);
 
             CurrentDataView = KeyStringViewModel;
 
@@ -186,7 +170,7 @@ namespace RedisExplorer.Controls
                 return;
             }
             item.Reload();
-            DisplayItem();
+            DisplayItem(item);
         }
 
         public void ClearButton()
@@ -210,29 +194,23 @@ namespace RedisExplorer.Controls
 
         public void Handle(TreeItemSelectedMessage message)
         {
-            if (message != null && message.SelectedItem != null && !message.SelectedItem.HasChildren)
+            if (message != null && message.SelectedItem is RedisKey && !message.SelectedItem.HasChildren)
             {
-
                 if (message.SelectedItem is RedisKeyString)
                 {
                     CurrentDataView = KeyStringViewModel;
-                    item = message.SelectedItem as RedisKeyString;
-                    //KeyStringIsVisible = true;
-                    //KeySetIsVisible = false;
                 }
-                else if (message.SelectedItem is RedisKeySet)
-                {
-                    CurrentDataView = KeySetViewModel;
-                    item = message.SelectedItem as RedisKeySet;
-                    //KeySetIsVisible = true;
-                    //KeyStringIsVisible = false;
-                }
+                //else if (message.SelectedItem is RedisKeySet)
+                //{
+                //    CurrentDataView = KeySetViewModel;
+                //}
 
-                DisplayItem();
+                item = message.SelectedItem as RedisKey;
+                DisplayItem(item);
             }
         }
 
-        private void DisplayItem()
+        private void DisplayItem(RedisKey item)
         {
             if (item != null)
             {
