@@ -4,12 +4,13 @@ using System.Linq;
 
 using Caliburn.Micro;
 
+using RedisExplorer.Interface;
 using RedisExplorer.Messages;
 using RedisExplorer.Models;
 
 namespace RedisExplorer.Controls
 {
-    public class KeySetViewModel : Screen, IHandle<TreeItemSelectedMessage> 
+    public class KeySetViewModel : Screen, IHandle<TreeItemSelectedMessage>, IValueItem
     {
         public class StringWrapper
         {

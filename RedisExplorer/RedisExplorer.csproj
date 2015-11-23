@@ -136,6 +136,7 @@
     <Compile Include="Interface\IApp.cs" />
     <Compile Include="Interface\ITabItem.cs" />
     <Compile Include="Interface\ITreeViewItemViewModel.cs" />
+    <Compile Include="Interface\IValueItem.cs" />
     <Compile Include="Messages\AddConnectionMessage.cs" />
     <Compile Include="Messages\AddKeyMessage.cs" />
     <Compile Include="Messages\ConnectionFailedMessage.cs" />

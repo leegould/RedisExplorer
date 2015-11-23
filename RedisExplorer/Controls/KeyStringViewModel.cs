@@ -1,12 +1,14 @@
 ﻿using Caliburn.Micro;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+
+using RedisExplorer.Interface;
 using RedisExplorer.Messages;
 using RedisExplorer.Models;
 
 namespace RedisExplorer.Controls
 {
-    public class KeyStringViewModel : Screen, IHandle<TreeItemSelectedMessage> 
+    public class KeyStringViewModel : Screen, IHandle<TreeItemSelectedMessage>, IValueItem
     {
         private string keyValueTextBox;
         private readonly IEventAggregator eventAggregator;

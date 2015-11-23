@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Caliburn.Micro;
+
+using RedisExplorer.Interface;
 using RedisExplorer.Messages;
 using RedisExplorer.Models;
 using StackExchange.Redis;
@@ -11,7 +13,7 @@ using RedisKey = RedisExplorer.Models.RedisKey;
 namespace RedisExplorer.Controls
 {
     [Export(typeof(KeyViewModel))]
-    public class KeyViewModel : Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>
+    public class KeyViewModel : Conductor<IValueItem>.Collection.OneActive, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>
     {
         #region Members
 
@@ -25,28 +27,54 @@ namespace RedisExplorer.Controls
         private DateTime? ttlDateTimePicker;
         private RedisType selectedType;
 
+        private KeyStringViewModel keyStringViewModel { get; set; }
+        public KeySetViewModel keySetViewModel { get; set; }
+
+
         #endregion
 
         #region Properties
 
-        public KeyStringViewModel KeyStringViewModel { get; set; }
-
-        //public KeySetViewModel KeySetViewModel { get; set; }
-
-        private Screen currentDataView { get; set; }
-
-        public Screen CurrentDataView
+        public KeyStringViewModel KeyStringViewModel
         {
             get
             {
-                return currentDataView;
+                return keyStringViewModel;
             }
             set
             {
-                currentDataView = value;
-                NotifyOfPropertyChange(() => CurrentDataView);
+                keyStringViewModel = value;
+                NotifyOfPropertyChange(() => KeyStringViewModel);
             }
         }
+
+        public KeySetViewModel KeySetViewModel 
+        {
+            get
+            {
+                return keySetViewModel;
+            }
+            set
+            {
+                keySetViewModel = value;
+                NotifyOfPropertyChange(() => KeySetViewModel);
+            }
+        }
+
+        //private Screen currentDataView { get; set; }
+
+        //public Screen CurrentDataView
+        //{
+        //    get
+        //    {
+        //        return currentDataView;
+        //    }
+        //    set
+        //    {
+        //        currentDataView = value;
+        //        NotifyOfPropertyChange(() => CurrentDataView);
+        //    }
+        //}
         
         public bool HasSelected
         {
@@ -108,10 +136,15 @@ namespace RedisExplorer.Controls
             KeyStringViewModel = new KeyStringViewModel(eventAggregator);
             KeyStringViewModel.ConductWith(this);
 
-            //KeySetViewModel = new KeySetViewModel(eventAggregator);
-            //KeySetViewModel.ConductWith(this);
+            KeySetViewModel = new KeySetViewModel(eventAggregator);
+            KeySetViewModel.ConductWith(this);
 
-            CurrentDataView = KeyStringViewModel;
+            Items.Add(KeyStringViewModel);
+            Items.Add(KeySetViewModel);
+
+            //CurrentDataView = KeyStringViewModel;
+
+            ActivateItem(KeyStringViewModel);
 
             SetDefault();
         }
@@ -198,12 +231,15 @@ namespace RedisExplorer.Controls
             {
                 if (message.SelectedItem is RedisKeyString)
                 {
-                    CurrentDataView = KeyStringViewModel;
+                    //CurrentDataView = KeyStringViewModel;
+                    ActivateItem(KeyStringViewModel);
+
                 }
-                //else if (message.SelectedItem is RedisKeySet)
-                //{
-                //    CurrentDataView = KeySetViewModel;
-                //}
+                else if (message.SelectedItem is RedisKeySet)
+                {
+                    //CurrentDataView = KeySetViewModel;
+                    ActivateItem(KeySetViewModel);
+                }
 
                 item = message.SelectedItem as RedisKey;
                 DisplayItem(item);
