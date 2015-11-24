@@ -7,24 +7,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
-    <!--<ListBox x:Name="KeyValuesListBox">
-        <ListBox.ItemTemplate>
-            <DataTemplate>
-                <TextBox Text="{Binding}"></TextBox>
-            </DataTemplate>
-        </ListBox.ItemTemplate>
-    </ListBox>-->
-
-    <ItemsControl ItemsSource="{Binding Path=KeyValuesListBox}" BorderBrush="Blue" BorderThickness="2">
+    <ItemsControl ItemsSource="{Binding Path=KeyValuesListBox}" BorderBrush="Blue" BorderThickness="1">
         <ItemsControl.ItemTemplate>
             <DataTemplate>
                 <TextBox Text="{Binding Path=Item}" />
             </DataTemplate>
         </ItemsControl.ItemTemplate>
     </ItemsControl>
-    <!--<DataGrid x:Name="KeyValuesListBox" Margin="5,5,5,5" AutoGenerateColumns="false" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <DataTemplate>
-            <TextBox cal:Bind.ModelWithoutContext="{Binding}" Text="{Binding}"></TextBox>
-        </DataTemplate>
-    </DataGrid>-->
+
 </UserControl>

@@ -117,6 +117,7 @@
     </Compile>
     <Compile Include="Controls\AddConnectionViewModel.cs" />
     <Compile Include="Controls\GreyableImage.cs" />
+    <Compile Include="Controls\KeyListViewModel.cs" />
     <Compile Include="Controls\KeySetView.xaml.cs">
       <DependentUpon>KeySetView.xaml</DependentUpon>
     </Compile>
@@ -153,6 +154,7 @@
     <Compile Include="Models\RedisConnection.cs" />
     <Compile Include="Models\RedisDatabase.cs" />
     <Compile Include="Models\RedisKey.cs" />
+    <Compile Include="Models\RedisKeyList.cs" />
     <Compile Include="Models\RedisKeySet.cs" />
     <Compile Include="Models\RedisKeyString.cs" />
     <Compile Include="Models\RedisServer.cs" />
