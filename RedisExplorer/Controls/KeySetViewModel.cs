@@ -11,11 +11,6 @@ namespace RedisExplorer.Controls
 {
     public class KeySetViewModel : Screen, IHandle<TreeItemSelectedMessage>, IValueItem
     {
-        public class StringWrapper
-        {
-            public string Item { get; set; }
-        }
-
         private ObservableCollection<StringWrapper> keyValuesListBox;
         private readonly IEventAggregator eventAggregator;
 

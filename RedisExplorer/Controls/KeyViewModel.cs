@@ -29,6 +29,7 @@ namespace RedisExplorer.Controls
 
         private KeyStringViewModel keyStringViewModel { get; set; }
         public KeySetViewModel keySetViewModel { get; set; }
+        public KeyListViewModel keyListViewModel { get; set; }
 
 
         #endregion
@@ -61,21 +62,19 @@ namespace RedisExplorer.Controls
             }
         }
 
-        //private Screen currentDataView { get; set; }
+        public KeyListViewModel KeyListViewModel
+        {
+            get
+            {
+                return keyListViewModel;
+            }
+            set
+            {
+                keyListViewModel = value;
+                NotifyOfPropertyChange(() => KeyListViewModel);
+            }
+        }
 
-        //public Screen CurrentDataView
-        //{
-        //    get
-        //    {
-        //        return currentDataView;
-        //    }
-        //    set
-        //    {
-        //        currentDataView = value;
-        //        NotifyOfPropertyChange(() => CurrentDataView);
-        //    }
-        //}
-        
         public bool HasSelected
         {
             get
@@ -139,10 +138,12 @@ namespace RedisExplorer.Controls
             KeySetViewModel = new KeySetViewModel(eventAggregator);
             KeySetViewModel.ConductWith(this);
 
+            KeyListViewModel = new KeyListViewModel(eventAggregator);
+            KeyListViewModel.ConductWith(this);
+
             Items.Add(KeyStringViewModel);
             Items.Add(KeySetViewModel);
-
-            //CurrentDataView = KeyStringViewModel;
+            Items.Add(KeyListViewModel);
 
             ActivateItem(KeyStringViewModel);
 
@@ -231,14 +232,16 @@ namespace RedisExplorer.Controls
             {
                 if (message.SelectedItem is RedisKeyString)
                 {
-                    //CurrentDataView = KeyStringViewModel;
                     ActivateItem(KeyStringViewModel);
 
                 }
                 else if (message.SelectedItem is RedisKeySet)
                 {
-                    //CurrentDataView = KeySetViewModel;
                     ActivateItem(KeySetViewModel);
+                }
+                else if (message.SelectedItem is RedisKeyList)
+                {
+                    ActivateItem(KeyListViewModel);
                 }
 
                 item = message.SelectedItem as RedisKey;
