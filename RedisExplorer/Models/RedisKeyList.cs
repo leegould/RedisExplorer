@@ -48,7 +48,7 @@ namespace RedisExplorer.Models
 
         public override bool Save()
         {
-            var newkey = Database.KeyExists(KeyName);
+            var existingkey = Database.KeyExists(KeyName);
             var saved = false;
 
             if (KeyType == RedisType.List)
@@ -61,7 +61,7 @@ namespace RedisExplorer.Models
 
                 saved = true;
 
-                if (!newkey)
+                if (!existingkey)
                 {
                     eventAggregator.PublishOnUIThread(new RedisKeyAddedMessage { Urn = KeyName });
                 }

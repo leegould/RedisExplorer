@@ -23,7 +23,6 @@ namespace RedisExplorer.Controls
 
         private bool hasSelected;
         private string keyNameTextBox;
-        private string keyValueTextBox;
         private DateTime? ttlDateTimePicker;
         private RedisType selectedType;
 
@@ -121,6 +120,42 @@ namespace RedisExplorer.Controls
             set
             {
                 selectedType = value;
+                if (item != null)
+                {
+                    if (selectedType == RedisType.Set)
+                    {
+                        item = new RedisKeySet(item.Parent, eventAggregator)
+                        {
+                            KeyName = item.KeyName,
+                            KeyType = RedisType.String,
+                            TTL = item.TTL,
+                            Display = item.KeyName
+                        };
+                        ActivateItem(KeySetViewModel);
+                    }
+                    else if (selectedType == RedisType.List)
+                    {
+                        item = new RedisKeyList(item.Parent, eventAggregator)
+                        {
+                            KeyName = item.KeyName,
+                            KeyType = RedisType.String,
+                            TTL = item.TTL,
+                            Display = item.KeyName
+                        };
+                        ActivateItem(KeyListViewModel);
+                    }
+                    else
+                    {
+                        item = new RedisKeyString(item.Parent, eventAggregator)
+                        {
+                            KeyName = item.KeyName,
+                            KeyType = RedisType.String,
+                            TTL = item.TTL,
+                            Display = item.KeyName
+                        };
+                        ActivateItem(KeyStringViewModel);
+                    }
+                }
                 NotifyOfPropertyChange(() => SelectedType);
             }
         }
@@ -137,7 +172,7 @@ namespace RedisExplorer.Controls
 
             KeySetViewModel = new KeySetViewModel(eventAggregator);
             KeySetViewModel.ConductWith(this);
-
+                
             KeyListViewModel = new KeyListViewModel(eventAggregator);
             KeyListViewModel.ConductWith(this);
 
@@ -173,12 +208,6 @@ namespace RedisExplorer.Controls
                 return;
             }
             item.KeyName = keyNameTextBox;
-
-            var stringItem = item as RedisKeyString;
-            if (stringItem != null)
-            {
-                stringItem.KeyValue = keyValueTextBox;
-            }
 
             if (TTLDateTimePicker.HasValue)
             {
@@ -233,7 +262,6 @@ namespace RedisExplorer.Controls
                 if (message.SelectedItem is RedisKeyString)
                 {
                     ActivateItem(KeyStringViewModel);
-
                 }
                 else if (message.SelectedItem is RedisKeySet)
                 {
@@ -273,7 +301,6 @@ namespace RedisExplorer.Controls
             item = new RedisKeyString(message.ParentDatabase, eventAggregator);
             SetDefault();
             KeyNameTextBox = message.KeyBase;
-            //KeyStringViewModel.Item = item;
         }
 
         #endregion

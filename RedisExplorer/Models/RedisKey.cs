@@ -138,7 +138,7 @@ namespace RedisExplorer.Models
                 var key = KeyName;
                 var db = Database;
 
-                return db.KeyExists(key) ? db.KeyTimeToLive(key) : null;
+                return key != null && db != null && db.KeyExists(key) ? db.KeyTimeToLive(key) : null;
             }
             set
             {
