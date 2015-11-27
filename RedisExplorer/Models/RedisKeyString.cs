@@ -47,7 +47,8 @@ namespace RedisExplorer.Models
 
             if (KeyType == RedisType.String || KeyType == RedisType.None)
             {
-                saved = Database.StringSet(KeyName, KeyValue, TTL);
+                var keyvalue = KeyValue;
+                saved = Database.StringSet(KeyName, keyvalue, TTL);
             }
 
             if (!newkey)

@@ -24,6 +24,12 @@ namespace RedisExplorer.Controls
             set
             {
                 keyValuesListBox = value;
+
+                if (!string.IsNullOrEmpty(keyValuesListBox.Last().Item))
+                {
+                    keyValuesListBox.Add(new StringWrapper()); // Add Empty value for any new values.
+                }
+
                 NotifyOfPropertyChange(() => KeyValuesListBox);
             }
         }

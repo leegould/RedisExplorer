@@ -56,7 +56,10 @@ namespace RedisExplorer.Models
                 Database.KeyDelete(KeyName);
                 for (int i = 0; i <= KeyValues.Count; i++)
                 {
-                    Database.ListSetByIndex(KeyName, i, KeyValues[i]);
+                    if (!string.IsNullOrEmpty(KeyValues[i]))
+                    {
+                        Database.ListSetByIndex(KeyName, i, KeyValues[i]);
+                    }
                 }
 
                 saved = true;

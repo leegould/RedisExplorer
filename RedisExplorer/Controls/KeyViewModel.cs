@@ -214,6 +214,19 @@ namespace RedisExplorer.Controls
                 item.TTL = new TimeSpan((TTLDateTimePicker.Value - DateTime.Now).Ticks);
             }
 
+            if (SelectedType == RedisType.String)
+            {
+                ((RedisKeyString)item).KeyValue = ((KeyStringViewModel)ActiveItem).KeyValueTextBox;
+            }
+            else if (SelectedType == RedisType.Set)
+            {
+                ((RedisKeySet)item).KeyValues = ((KeySetViewModel)ActiveItem).KeyValuesListBox.Select(x => x.Item).ToList();
+            }
+            else if (SelectedType == RedisType.List)
+            {
+                ((RedisKeyList)item).KeyValues = ((KeyListViewModel)ActiveItem).KeyValuesListBox.Select(x => x.Item).ToList();
+            }
+
             item.Save();
         }
 
