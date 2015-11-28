@@ -54,11 +54,11 @@ namespace RedisExplorer.Models
             if (KeyType == RedisType.List)
             {
                 Database.KeyDelete(KeyName);
-                for (int i = 0; i <= KeyValues.Count; i++)
+                for (int i = 0; i < KeyValues.Count; i++)
                 {
                     if (!string.IsNullOrEmpty(KeyValues[i]))
                     {
-                        Database.ListSetByIndex(KeyName, i, KeyValues[i]);
+                        Database.ListRightPush(KeyName, KeyValues[i]);
                     }
                 }
 

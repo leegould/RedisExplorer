@@ -34,6 +34,15 @@ namespace RedisExplorer.Controls
             }
         }
 
+        protected override void OnActivate()
+        {
+            if (KeyValuesListBox == null)
+            {
+                keyValuesListBox = new ObservableCollection<StringWrapper> {new StringWrapper()}; // Add empty value if there are none.
+            }
+            base.OnActivate();
+        }
+
         public KeyListViewModel(IEventAggregator eventAggregator)
         {
             this.eventAggregator = eventAggregator;

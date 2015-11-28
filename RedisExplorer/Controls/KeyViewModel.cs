@@ -208,6 +208,7 @@ namespace RedisExplorer.Controls
                 return;
             }
             item.KeyName = keyNameTextBox;
+            item.KeyType = SelectedType;
 
             if (TTLDateTimePicker.HasValue)
             {
@@ -220,11 +221,19 @@ namespace RedisExplorer.Controls
             }
             else if (SelectedType == RedisType.Set)
             {
-                ((RedisKeySet)item).KeyValues = ((KeySetViewModel)ActiveItem).KeyValuesListBox.Select(x => x.Item).ToList();
+                var value = ((KeySetViewModel)ActiveItem).KeyValuesListBox;
+                if (value != null)
+                {
+                    ((RedisKeySet) item).KeyValues = value.Select(x => x.Item).ToList();
+                }
             }
             else if (SelectedType == RedisType.List)
             {
-                ((RedisKeyList)item).KeyValues = ((KeyListViewModel)ActiveItem).KeyValuesListBox.Select(x => x.Item).ToList();
+                var value = ((KeyListViewModel) ActiveItem).KeyValuesListBox;
+                if (value != null)
+                {
+                    ((RedisKeyList)item).KeyValues = value.Select(x => x.Item).ToList();
+                }
             }
 
             item.Save();
