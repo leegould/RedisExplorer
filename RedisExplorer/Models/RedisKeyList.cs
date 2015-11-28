@@ -54,12 +54,9 @@ namespace RedisExplorer.Models
             if (KeyType == RedisType.List)
             {
                 Database.KeyDelete(KeyName);
-                for (int i = 0; i < KeyValues.Count; i++)
+                foreach (var keyvalue in KeyValues.Where(keyvalue => !string.IsNullOrEmpty(keyvalue)))
                 {
-                    if (!string.IsNullOrEmpty(KeyValues[i]))
-                    {
-                        Database.ListRightPush(KeyName, KeyValues[i]);
-                    }
+                    Database.ListRightPush(KeyName, keyvalue);
                 }
 
                 saved = true;
