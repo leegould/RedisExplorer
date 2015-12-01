@@ -23,8 +23,20 @@ namespace RedisExplorer.Controls
             }
             set
             {
-                keyValuesListBox = value;
-                
+                if (value == null)
+                {
+                    keyValuesListBox = new ObservableCollection<StringWrapper>();
+                }
+                else
+                {
+                    keyValuesListBox = value;
+                    var lastvalue = keyValuesListBox.LastOrDefault();
+                    if (lastvalue == null || lastvalue.Item != string.Empty)
+                    {
+                        keyValuesListBox.Add(new StringWrapper());
+                    }
+                }
+
                 NotifyOfPropertyChange(() => KeyValuesListBox);
             }
         }
@@ -58,7 +70,11 @@ namespace RedisExplorer.Controls
             {
                 var value = item.KeyValues;
 
-                KeyValuesListBox = new ObservableCollection<StringWrapper>(value.Select(x => new StringWrapper { Item = x }));
+                KeyValuesListBox =
+                    new ObservableCollection<StringWrapper>(value.Select(x => new StringWrapper { Item = x }))
+                    {
+                        new StringWrapper()
+                    };
             }
         }
     }
