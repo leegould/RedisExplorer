@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Linq;
 
 using Caliburn.Micro;
 
@@ -7,15 +6,15 @@ using RedisExplorer.Interface;
 using RedisExplorer.Messages;
 using RedisExplorer.Models;
 
+using StackExchange.Redis;
+
 namespace RedisExplorer.Controls
 {
-    public class KeyListViewModel : Screen, IHandle<TreeItemSelectedMessage>, IValueItem
+    public class KeyListViewModel : Screen, IHandle<TreeItemSelectedMessage>, IHandle<RedisKeyUpdatedMessage>, IValueItem
     {
-        private readonly IEventAggregator eventAggregator;
+        private BindableCollection<NumberedStringWrapper> keyValuesListBox;
 
-        private ObservableCollection<StringWrapper> keyValuesListBox;
-
-        public ObservableCollection<StringWrapper> KeyValuesListBox
+        public BindableCollection<NumberedStringWrapper> KeyValuesListBox
         {
             get
             {
@@ -23,20 +22,7 @@ namespace RedisExplorer.Controls
             }
             set
             {
-                if (value == null)
-                {
-                    keyValuesListBox = new ObservableCollection<StringWrapper>();
-                }
-                else
-                {
-                    keyValuesListBox = value;
-                    var lastvalue = keyValuesListBox.LastOrDefault();
-                    if (lastvalue == null || lastvalue.Item != string.Empty)
-                    {
-                        keyValuesListBox.Add(new StringWrapper());
-                    }
-                }
-
+                keyValuesListBox = value ?? new BindableCollection<NumberedStringWrapper>();
                 NotifyOfPropertyChange(() => KeyValuesListBox);
             }
         }
@@ -45,15 +31,15 @@ namespace RedisExplorer.Controls
         {
             if (KeyValuesListBox == null)
             {
-                keyValuesListBox = new ObservableCollection<StringWrapper>();
+                keyValuesListBox = new BindableCollection<NumberedStringWrapper>();
             }
             base.OnActivate();
         }
 
         public KeyListViewModel(IEventAggregator eventAggregator)
         {
-            this.eventAggregator = eventAggregator;
-            eventAggregator.Subscribe(this);
+            var eAggregator = eventAggregator;
+            eAggregator.Subscribe(this);
         }
 
         public void Handle(TreeItemSelectedMessage message)
@@ -70,11 +56,15 @@ namespace RedisExplorer.Controls
             {
                 var value = item.KeyValues;
 
-                KeyValuesListBox =
-                    new ObservableCollection<StringWrapper>(value.Select(x => new StringWrapper { Item = x }))
-                    {
-                        new StringWrapper()
-                    };
+                KeyValuesListBox = new BindableCollection<NumberedStringWrapper>(value.Select((itemvalue, index) => new NumberedStringWrapper { RowNumber = index + 1, Item = itemvalue }));
+            }
+        }
+
+        public void Handle(RedisKeyUpdatedMessage message)
+        {
+            if (message.Type == RedisType.List)
+            {
+                
             }
         }
     }

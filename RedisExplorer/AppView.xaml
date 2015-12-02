@@ -90,6 +90,8 @@
                         <StackPanel Orientation="Horizontal">
                             <StackPanel.ContextMenu>
                                 <ContextMenu Name="kcm">
+                                    <MenuItem Header="Reload" cal:Message.Attach="[Event Click] = [Action Reload()]"></MenuItem>
+                                    <Separator></Separator>
                                     <MenuItem Header="Delete" cal:Message.Attach="[Event Click] = [Action Delete()]" Visibility="{Binding Path=CanDelete, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource booleanToVisibilityConverter}}"></MenuItem>
                                     <Separator></Separator>
                                     <MenuItem Header="Add Key" cal:Message.Attach="[Event Click] = [Action Add]"></MenuItem>

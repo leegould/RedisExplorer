@@ -61,14 +61,16 @@ namespace RedisExplorer.Models
 
                 saved = true;
 
+
                 if (!existingkey)
                 {
-                    eventAggregator.PublishOnUIThread(new RedisKeyAddedMessage { Urn = KeyName });
+                    eventAggregator.PublishOnUIThread(new RedisKeyAddedMessage { Urn = KeyName, Type = RedisType.List });
                 }
                 else
                 {
-                    eventAggregator.PublishOnUIThread(new RedisKeyUpdatedMessage { Urn = KeyName });
+                    eventAggregator.PublishOnUIThread(new RedisKeyUpdatedMessage { Urn = KeyName, Type = RedisType.List });
                 }
+                KeyValues = null; // force reload.
             }
 
             return saved;
