@@ -71,20 +71,7 @@ namespace RedisExplorer.Models
                     eventAggregator.PublishOnUIThread(new RedisKeyUpdatedMessage { Urn = KeyName, Type = RedisType.List });
                 }
 
-                Reload();
-
-                var fulldisplay = Display; 
-                var display = this.Display.Substring(fulldisplay.LastIndexOf(":") + 1);
-                var index = this.Parent.Children.Select((v, i) => new {item = v, index = i}).First(x => x.item.Display == display).index;
-                
-                if (index > 0)
-                {
-                    this.Parent.Children.Remove(this);
-                    Display = display;
-                    this.Parent.Children.Insert(index, this);
-                }
-
-                Display = fulldisplay;
+                ((RedisKeyList)(Parent.Children.Select((v, i) => new { item = v, index = i }).First().item)).KeyValues = KeyValues;
             }
 
             return saved;
