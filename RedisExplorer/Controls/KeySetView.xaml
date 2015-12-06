@@ -5,14 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             x:Name="keysetcontrol">
 
-    <ItemsControl ItemsSource="{Binding Path=KeyValuesListBox}" BorderBrush="Blue" BorderThickness="1">
-        <ItemsControl.ItemTemplate>
-            <DataTemplate>
-                <TextBox Text="{Binding Path=Item}" />
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
-    </ItemsControl>
-
+    <!--<Grid>-->
+    <DataGrid ItemsSource="{Binding KeyValuesListBox}" Margin="0" AutoGenerateColumns="False" CanUserAddRows="True" HorizontalAlignment="Stretch"  Width="{Binding ElementName=keysetcontrol, Path=ActualWidth}" BorderBrush="Blue" BorderThickness="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Row"  IsReadOnly="True" Binding="{Binding Path=RowNumber}" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="Value"  Binding="{Binding Path=Item}" Width="*"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    <!--</Grid>-->
+    
 </UserControl>

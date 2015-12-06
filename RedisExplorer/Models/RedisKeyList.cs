@@ -71,7 +71,11 @@ namespace RedisExplorer.Models
                     eventAggregator.PublishOnUIThread(new RedisKeyUpdatedMessage { Urn = KeyName, Type = RedisType.List });
                 }
 
-                ((RedisKeyList)(Parent.Children.Select((v, i) => new { item = v, index = i }).First().item)).KeyValues = KeyValues;
+                var itemintree = (RedisKeyList)Parent.Children.FirstOrDefault(x => x.IsSelected);
+                if (itemintree != null)
+                {
+                    itemintree.KeyValues = KeyValues;
+                }
             }
 
             return saved;

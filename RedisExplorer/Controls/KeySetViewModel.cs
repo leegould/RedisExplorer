@@ -11,10 +11,10 @@ namespace RedisExplorer.Controls
 {
     public class KeySetViewModel : Screen, IHandle<TreeItemSelectedMessage>, IValueItem
     {
-        private ObservableCollection<StringWrapper> keyValuesListBox;
+        private BindableCollection<NumberedStringWrapper> keyValuesListBox;
         private readonly IEventAggregator eventAggregator;
 
-        public ObservableCollection<StringWrapper> KeyValuesListBox
+        public BindableCollection<NumberedStringWrapper> KeyValuesListBox
         {
             get
             {
@@ -47,7 +47,7 @@ namespace RedisExplorer.Controls
             {
                 var value = item.KeyValues;
 
-                KeyValuesListBox = new ObservableCollection<StringWrapper>(value.Select(x => new StringWrapper { Item = x}));
+                KeyValuesListBox = new BindableCollection<NumberedStringWrapper>(value.Select((itemvalue, index) => new NumberedStringWrapper { RowNumber = index + 1, Item = itemvalue }));
             }
         }
     }

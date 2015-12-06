@@ -7,13 +7,11 @@
              d:DesignHeight="300" d:DesignWidth="300"
              x:Name="keylistcontrol">
     
-    <Grid>
-        <DataGrid ItemsSource="{Binding KeyValuesListBox}" Margin="0" AutoGenerateColumns="False" CanUserAddRows="True" HorizontalAlignment="Stretch"  Width="{Binding ElementName=keylistcontrol, Path=ActualWidth}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Row"  IsReadOnly="True" Binding="{Binding Path=RowNumber}" Width="Auto"></DataGridTextColumn>
-                <DataGridTextColumn Header="Value"  Binding="{Binding Path=Item}" Width="*"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-    </Grid>
+    <DataGrid ItemsSource="{Binding KeyValuesListBox}" Margin="0" AutoGenerateColumns="False" CanUserAddRows="True" HorizontalAlignment="Stretch"  Width="{Binding ElementName=keylistcontrol, Path=ActualWidth}">
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="Row"  IsReadOnly="True" Binding="{Binding Path=RowNumber}" Width="Auto"></DataGridTextColumn>
+            <DataGridTextColumn Header="Value"  Binding="{Binding Path=Item}" Width="*"></DataGridTextColumn>
+        </DataGrid.Columns>
+    </DataGrid>
 
 </UserControl>

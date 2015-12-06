@@ -53,17 +53,24 @@ namespace RedisExplorer.Models
 
             if (KeyType == RedisType.Set)
             {
-                var oldvalues = Database.SetMembers(KeyName).Select(x => x.ToString()).ToList();
-                var newvalues = KeyValues.Except(oldvalues).ToList();
-                var removedvalues = KeyValues.Except(newvalues).Except(oldvalues);
+                //if (!newkey && Database.KeyType(KeyName) != RedisType.Set)
+                //{
+                //    Database.KeyDelete(KeyName);
+                //}
+                //else
+                //{
+                //    var oldvalues = Database.SetMembers(KeyName).Select(x => x.ToString()).ToList();
+                //    var newvalues = KeyValues.Except(oldvalues).ToList();
+                //    var removedvalues = KeyValues.Except(newvalues).Except(oldvalues);
 
-                var count = Database.SetAdd(KeyName, newvalues.Select(x => (RedisValue)x).ToArray());
-                var removed = Database.SetRemove(KeyName, removedvalues.Select(x => (RedisValue)x).ToArray());
+                //    var count = Database.SetAdd(KeyName, newvalues.Select(x => (RedisValue) x).ToArray());
+                //    var removed = Database.SetRemove(KeyName, removedvalues.Select(x => (RedisValue) x).ToArray());
+                //}
 
-                if (count > 0)
-                {
-                    saved = true;
-                }
+                //if (count > 0)
+                //{
+                //    saved = true;
+                //}
 
                 if (!newkey)
                 {
