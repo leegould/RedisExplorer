@@ -10,7 +10,7 @@ using StackExchange.Redis;
 
 namespace RedisExplorer.Controls
 {
-    public class KeyListViewModel : Screen, IHandle<TreeItemSelectedMessage>, IValueItem
+    public class KeyListViewModel : Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IValueItem
     {
         private BindableCollection<NumberedStringWrapper> keyValuesListBox;
 
@@ -58,6 +58,11 @@ namespace RedisExplorer.Controls
 
                 KeyValuesListBox = new BindableCollection<NumberedStringWrapper>(value.Select((itemvalue, index) => new NumberedStringWrapper { RowNumber = index + 1, Item = itemvalue }));
             }
+        }
+
+        public void Handle(AddKeyMessage message)
+        {
+            KeyValuesListBox = new BindableCollection<NumberedStringWrapper>();
         }
     }
 }

@@ -53,24 +53,32 @@ namespace RedisExplorer.Models
 
             if (KeyType == RedisType.Set)
             {
-                //if (!newkey && Database.KeyType(KeyName) != RedisType.Set)
-                //{
-                //    Database.KeyDelete(KeyName);
-                //}
-                //else
-                //{
-                //    var oldvalues = Database.SetMembers(KeyName).Select(x => x.ToString()).ToList();
-                //    var newvalues = KeyValues.Except(oldvalues).ToList();
-                //    var removedvalues = KeyValues.Except(newvalues).Except(oldvalues);
+                if (newkey)
+                {
+                    foreach (var keyvalue in KeyValues)
+                    {
+                        Database.SetAdd(KeyName, keyvalue);
+                    }
+                }
+                else if (Database.KeyType(KeyName) != RedisType.Set)
+                {
+                    Database.KeyDelete(KeyName);
+                    foreach (var keyvalue in KeyValues)
+                    {
+                        Database.SetAdd(KeyName, keyvalue);
+                    }
+                }
+                else 
+                {
+                    var oldvalues = Database.SetMembers(KeyName).Select(x => x.ToString()).ToList();
+                    var newvalues = KeyValues.Except(oldvalues).ToList();
+                    var removedvalues = KeyValues.Except(newvalues).Except(oldvalues);
 
-                //    var count = Database.SetAdd(KeyName, newvalues.Select(x => (RedisValue) x).ToArray());
-                //    var removed = Database.SetRemove(KeyName, removedvalues.Select(x => (RedisValue) x).ToArray());
-                //}
+                    var count = Database.SetAdd(KeyName, newvalues.Select(x => (RedisValue)x).ToArray());
+                    var removed = Database.SetRemove(KeyName, removedvalues.Select(x => (RedisValue) x).ToArray());
+                }
 
-                //if (count > 0)
-                //{
-                //    saved = true;
-                //}
+                saved = true;
 
                 if (!newkey)
                 {
