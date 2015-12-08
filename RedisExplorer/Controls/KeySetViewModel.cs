@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Linq;
 
 using Caliburn.Micro;
 
@@ -9,10 +8,9 @@ using RedisExplorer.Models;
 
 namespace RedisExplorer.Controls
 {
-    public class KeySetViewModel : Screen, IHandle<TreeItemSelectedMessage>, IValueItem
+    public class KeySetViewModel : Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IValueItem
     {
         private BindableCollection<NumberedStringWrapper> keyValuesListBox;
-        private readonly IEventAggregator eventAggregator;
 
         public BindableCollection<NumberedStringWrapper> KeyValuesListBox
         {
@@ -22,22 +20,22 @@ namespace RedisExplorer.Controls
             }
             set
             {
-                keyValuesListBox = value;
+                keyValuesListBox = value ?? new BindableCollection<NumberedStringWrapper>();
                 NotifyOfPropertyChange(() => KeyValuesListBox);
             }
         }
 
         public KeySetViewModel(IEventAggregator eventAggregator)
         {
-            this.eventAggregator = eventAggregator;
-            eventAggregator.Subscribe(this);
+            var eAggregator = eventAggregator;
+            eAggregator.Subscribe(this);
         }
 
         public void Handle(TreeItemSelectedMessage message)
         {
             if (message != null && message.SelectedItem is RedisKeySet && !message.SelectedItem.HasChildren)
             {
-                DisplayValue(message.SelectedItem as RedisKeySet);
+                DisplayValue((RedisKeySet)message.SelectedItem);
             }
         }
 
@@ -49,6 +47,11 @@ namespace RedisExplorer.Controls
 
                 KeyValuesListBox = new BindableCollection<NumberedStringWrapper>(value.Select((itemvalue, index) => new NumberedStringWrapper { RowNumber = index + 1, Item = itemvalue }));
             }
+        }
+
+        public void Handle(AddKeyMessage message)
+        {
+            KeyValuesListBox = new BindableCollection<NumberedStringWrapper>();
         }
     }
 }

@@ -48,12 +48,12 @@ namespace RedisExplorer.Models
 
         public override bool Save()
         {
-            var newkey = Database.KeyExists(KeyName);
+            var keyexists = Database.KeyExists(KeyName);
             var saved = false;
 
             if (KeyType == RedisType.Set)
             {
-                if (newkey)
+                if (!keyexists)
                 {
                     foreach (var keyvalue in KeyValues)
                     {
@@ -80,7 +80,7 @@ namespace RedisExplorer.Models
 
                 saved = true;
 
-                if (!newkey)
+                if (!keyexists)
                 {
                     eventAggregator.PublishOnUIThread(new RedisKeyAddedMessage { Urn = KeyName });
                 }

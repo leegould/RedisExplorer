@@ -6,8 +6,6 @@ using RedisExplorer.Interface;
 using RedisExplorer.Messages;
 using RedisExplorer.Models;
 
-using StackExchange.Redis;
-
 namespace RedisExplorer.Controls
 {
     public class KeyListViewModel : Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IValueItem
