@@ -71,6 +71,10 @@ namespace RedisExplorer.Models
                 {
                     key = new RedisKeyList(item, eventAggregator) { Display = keystr };
                 }
+                else if (ktype == RedisType.Hash)
+                {
+                    key = new RedisKeyHash(item, eventAggregator) { Display = keystr };
+                }
                 else
                 {
                     key = new RedisKeyString(item, eventAggregator) { Display = keystr };
