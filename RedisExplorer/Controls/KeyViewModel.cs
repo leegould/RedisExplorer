@@ -29,7 +29,7 @@ namespace RedisExplorer.Controls
         private KeyStringViewModel keyStringViewModel { get; set; }
         public KeySetViewModel keySetViewModel { get; set; }
         public KeyListViewModel keyListViewModel { get; set; }
-
+        public KeyHashViewModel keyHashViewModel { get; set; }
 
         #endregion
 
@@ -71,6 +71,19 @@ namespace RedisExplorer.Controls
             {
                 keyListViewModel = value;
                 NotifyOfPropertyChange(() => KeyListViewModel);
+            }
+        }
+
+        public KeyHashViewModel KeyHashViewModel
+        {
+            get
+            {
+                return keyHashViewModel;
+            }
+            set
+            {
+                keyHashViewModel = value;
+                NotifyOfPropertyChange(() => KeyHashViewModel);
             }
         }
 
@@ -127,7 +140,7 @@ namespace RedisExplorer.Controls
                         item = new RedisKeySet(item.Parent, eventAggregator)
                         {
                             KeyName = item.KeyName,
-                            KeyType = RedisType.String,
+                            KeyType = RedisType.Set,
                             TTL = item.TTL,
                             Display = item.KeyName
                         };
@@ -138,11 +151,22 @@ namespace RedisExplorer.Controls
                         item = new RedisKeyList(item.Parent, eventAggregator)
                         {
                             KeyName = item.KeyName,
-                            KeyType = RedisType.String,
+                            KeyType = RedisType.List,
                             TTL = item.TTL,
                             Display = item.KeyName
                         };
                         ActivateItem(KeyListViewModel);
+                    }
+                    else if (selectedType == RedisType.Hash)
+                    {
+                        item = new RedisKeyHash(item.Parent, eventAggregator)
+                        {
+                            KeyName = item.KeyName,
+                            KeyType = RedisType.Hash,
+                            TTL = item.TTL,
+                            Display = item.KeyName
+                        };
+                        ActivateItem(KeyHashViewModel);
                     }
                     else
                     {
@@ -233,6 +257,14 @@ namespace RedisExplorer.Controls
                 if (value != null)
                 {
                     ((RedisKeyList)item).KeyValues = value.Select(x => x.Item).ToList();
+                }
+            }
+            else if (SelectedType == RedisType.Hash)
+            {
+                var value = ((KeyHashViewModel)ActiveItem).KeyValuesDict;
+                if (value != null)
+                {
+                    ((RedisKeyHash)item).KeyValues = value.Select(x => x).ToDictionary(x => x.Key, x => x.Value);
                 }
             }
 

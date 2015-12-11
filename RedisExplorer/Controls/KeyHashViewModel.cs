@@ -29,6 +29,15 @@ namespace RedisExplorer.Controls
             }
         }
 
+        protected override void OnActivate()
+        {
+            if (KeyValuesDict == null)
+            {
+                KeyValuesDict = new BindableCollection<KeyValuePair<string, string>>();
+            }
+            base.OnActivate();
+        }
+
         public KeyHashViewModel(IEventAggregator eventAggregator)
         {
             var eAggregator = eventAggregator;

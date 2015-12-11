@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 using Caliburn.Micro;
 
+using RedisExplorer.Messages;
+
 using StackExchange.Redis;
 
 namespace RedisExplorer.Models
@@ -48,12 +50,29 @@ namespace RedisExplorer.Models
 
         public override bool Save()
         {
-            var existingkey = Database.KeyExists(KeyName);
+            var keyexists = Database.KeyExists(KeyName);
             var saved = false;
 
             if (KeyType == RedisType.Hash)
             {
-                // TODO
+                //if (!keyexists)
+                //{
+                    foreach (var keyvalue in KeyValues)
+                    {
+                        Database.HashSet(KeyName, keyvalue.Key, keyvalue.Value);
+                    }
+                //}
+                
+                saved = true;
+
+                if (!keyexists)
+                {
+                    eventAggregator.PublishOnUIThread(new RedisKeyAddedMessage { Urn = KeyName });
+                }
+                else
+                {
+                    eventAggregator.PublishOnUIThread(new RedisKeyUpdatedMessage { Urn = KeyName });
+                }
             }
 
             return saved;
