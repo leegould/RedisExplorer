@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Caliburn.Micro;
-
 using RedisExplorer.Interface;
 using RedisExplorer.Messages;
 using RedisExplorer.Models;
@@ -46,7 +41,7 @@ namespace RedisExplorer.Controls
 
         public void Handle(TreeItemSelectedMessage message)
         {
-            if (message != null && message.SelectedItem is RedisKeyList && !message.SelectedItem.HasChildren)
+            if (message != null && message.SelectedItem is RedisKeyHash && !message.SelectedItem.HasChildren)
             {
                 DisplayValue((RedisKeyHash)message.SelectedItem);
             }

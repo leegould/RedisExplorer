@@ -200,9 +200,13 @@ namespace RedisExplorer.Controls
             KeyListViewModel = new KeyListViewModel(eventAggregator);
             KeyListViewModel.ConductWith(this);
 
+            KeyHashViewModel = new KeyHashViewModel(eventAggregator);
+            KeyHashViewModel.ConductWith(this);
+
             Items.Add(KeyStringViewModel);
             Items.Add(KeySetViewModel);
             Items.Add(KeyListViewModel);
+            Items.Add(KeyHashViewModel);
 
             ActivateItem(KeyStringViewModel);
 
