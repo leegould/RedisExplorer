@@ -31,7 +31,7 @@ namespace RedisExplorer.Models
 
                 var key = KeyName;
                 var db = Database;
-                if (db.KeyExists(key))
+                if (db.KeyExists(key) && db.KeyType(key) == RedisType.Hash)
                 {
                     keyValues = db.HashGetAll(key).ToStringDictionary();
                 }
