@@ -158,6 +158,7 @@
     <Compile Include="Messages\ReloadKeyMessage.cs" />
     <Compile Include="Messages\ServerReloadMessage.cs" />
     <Compile Include="Messages\TreeItemSelectedMessage.cs" />
+    <Compile Include="Models\HashWrapper.cs" />
     <Compile Include="Models\NumberedStringWrapper.cs" />
     <Compile Include="Models\RedisConnection.cs" />
     <Compile Include="Models\RedisDatabase.cs" />

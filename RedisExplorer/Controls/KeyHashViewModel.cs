@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Caliburn.Micro;
 using RedisExplorer.Interface;
 using RedisExplorer.Messages;
@@ -9,9 +8,9 @@ namespace RedisExplorer.Controls
 {
     public class KeyHashViewModel: Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IValueItem
     {
-        private BindableCollection<KeyValuePair<string, string>> keyValuesDict;
+        private BindableCollection<HashWrapper> keyValuesDict;
 
-        public BindableCollection<KeyValuePair<string, string>> KeyValuesDict
+        public BindableCollection<HashWrapper> KeyValuesDict
         {
             get
             {
@@ -19,7 +18,7 @@ namespace RedisExplorer.Controls
             }
             set
             {
-                keyValuesDict = value ?? new BindableCollection<KeyValuePair<string, string>>();
+                keyValuesDict = value ?? new BindableCollection<HashWrapper>();
                 NotifyOfPropertyChange(() => KeyValuesDict);
             }
         }
@@ -28,7 +27,7 @@ namespace RedisExplorer.Controls
         {
             if (KeyValuesDict == null)
             {
-                KeyValuesDict = new BindableCollection<KeyValuePair<string, string>>();
+                KeyValuesDict = new BindableCollection<HashWrapper>();
             }
             base.OnActivate();
         }
@@ -53,13 +52,13 @@ namespace RedisExplorer.Controls
             {
                 var value = item.KeyValues;
 
-                KeyValuesDict = new BindableCollection<KeyValuePair<string, string>>(value.Select(x => new KeyValuePair<string, string>(x.Key, x.Value)));
+                KeyValuesDict = new BindableCollection<HashWrapper>(value.Select(x => new HashWrapper { Key = x.Key, Value = x.Value }));
             }
         }
 
         public void Handle(AddKeyMessage message)
         {
-            KeyValuesDict = new BindableCollection<KeyValuePair<string, string>>();
+            KeyValuesDict = new BindableCollection<HashWrapper>();
         }
     }
 }
