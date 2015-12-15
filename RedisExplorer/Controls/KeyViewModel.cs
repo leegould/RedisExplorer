@@ -268,7 +268,7 @@ namespace RedisExplorer.Controls
                 var value = ((KeyHashViewModel)ActiveItem).KeyValuesDict;
                 if (value != null)
                 {
-                    ((RedisKeyHash)item).KeyValues = value.Select(x => x).ToDictionary(x => x.Key, x => x.Value);
+                    ((RedisKeyHash)item).KeyValues = value.ToDictionary(x => x.Key, x => x.Value);
                 }
             }
 

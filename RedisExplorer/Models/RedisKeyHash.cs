@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Caliburn.Micro;
 
@@ -55,13 +52,10 @@ namespace RedisExplorer.Models
 
             if (KeyType == RedisType.Hash)
             {
-                //if (!keyexists)
-                //{
-                    foreach (var keyvalue in KeyValues)
-                    {
-                        Database.HashSet(KeyName, keyvalue.Key, keyvalue.Value);
-                    }
-                //}
+                foreach (var keyvalue in KeyValues)
+                {
+                    Database.HashSet(KeyName, keyvalue.Key, keyvalue.Value);
+                }
                 
                 saved = true;
 
@@ -72,6 +66,12 @@ namespace RedisExplorer.Models
                 else
                 {
                     eventAggregator.PublishOnUIThread(new RedisKeyUpdatedMessage { Urn = KeyName });
+                }
+
+                var itemintree = (RedisKeyHash)Parent.Children.FirstOrDefault(x => x.IsSelected);
+                if (itemintree != null)
+                {
+                    itemintree.KeyValues = KeyValues;
                 }
             }
 

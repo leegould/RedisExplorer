@@ -13,8 +13,7 @@ namespace RedisExplorer.Models
     {
         private List<string> keyValues;
 
-        public RedisKeyList(TreeViewItem parent, IEventAggregator eventAggregator)
-            : base(parent, eventAggregator)
+        public RedisKeyList(TreeViewItem parent, IEventAggregator eventAggregator) : base(parent, eventAggregator)
         {
         }
 
