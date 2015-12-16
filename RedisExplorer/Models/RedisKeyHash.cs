@@ -52,6 +52,11 @@ namespace RedisExplorer.Models
 
             if (KeyType == RedisType.Hash)
             {
+                if (Database.KeyExists(KeyName) && Database.KeyType(KeyName) != KeyType)
+                {
+                    Database.KeyDelete(KeyName);
+                }
+
                 foreach (var keyvalue in KeyValues)
                 {
                     Database.HashSet(KeyName, keyvalue.Key, keyvalue.Value);
