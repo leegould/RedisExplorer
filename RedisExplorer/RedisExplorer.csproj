@@ -166,6 +166,7 @@
     <Compile Include="Models\RedisKeyHash.cs" />
     <Compile Include="Models\RedisKeyList.cs" />
     <Compile Include="Models\RedisKeySet.cs" />
+    <Compile Include="Models\RedisKeySortedSet.cs" />
     <Compile Include="Models\RedisKeyString.cs" />
     <Compile Include="Models\RedisServer.cs" />
     <Compile Include="Models\StringWrapper.cs" />

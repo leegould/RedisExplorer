@@ -30,6 +30,7 @@ namespace RedisExplorer.Controls
         public KeySetViewModel keySetViewModel { get; set; }
         public KeyListViewModel keyListViewModel { get; set; }
         public KeyHashViewModel keyHashViewModel { get; set; }
+        
 
         #endregion
 
@@ -127,59 +128,49 @@ namespace RedisExplorer.Controls
             }
         }
 
+        private static Dictionary<RedisType, Type> redisTypeKeyMap = new Dictionary<RedisType, Type> 
+                                                 {
+                                                     { RedisType.String, typeof(RedisKeyString) },
+                                                     { RedisType.Set, typeof(RedisKeySet) },
+                                                     { RedisType.List, typeof(RedisKeyList) },
+                                                     { RedisType.Hash, typeof(RedisKeyHash) },
+                                                     { RedisType.SortedSet, typeof(RedisKeySortedSet) }
+                                                 }; 
+        
         public RedisType SelectedType
         {
             get { return selectedType; }
             set
             {
                 selectedType = value;
+
                 if (item != null)
-                {
-                    if (selectedType == RedisType.Set)
+                { 
+                    var redisTypeViewModelMap = new Dictionary<RedisType, IValueItem>
+                                                    {
+                                                        { RedisType.String, KeyStringViewModel },
+                                                        { RedisType.Set, KeySetViewModel },
+                                                        { RedisType.List, KeyListViewModel },
+                                                        { RedisType.Hash, KeyHashViewModel },
+                                                        //{ RedisType.SortedSet, KeySortedSetViewModel }
+                                                    };
+
+                    if (!redisTypeKeyMap.ContainsKey(selectedType))
                     {
-                        item = new RedisKeySet(item.Parent, eventAggregator)
-                        {
-                            KeyName = item.KeyName,
-                            KeyType = RedisType.Set,
-                            TTL = item.TTL,
-                            Display = item.KeyName
-                        };
-                        ActivateItem(KeySetViewModel);
+                        selectedType = RedisType.String;
                     }
-                    else if (selectedType == RedisType.List)
+
+                    var rediskey = (RedisKey)Activator.CreateInstance(redisTypeKeyMap[selectedType], item.Parent, eventAggregator);
+                    if (rediskey != null)
                     {
-                        item = new RedisKeyList(item.Parent, eventAggregator)
-                        {
-                            KeyName = item.KeyName,
-                            KeyType = RedisType.List,
-                            TTL = item.TTL,
-                            Display = item.KeyName
-                        };
-                        ActivateItem(KeyListViewModel);
-                    }
-                    else if (selectedType == RedisType.Hash)
-                    {
-                        item = new RedisKeyHash(item.Parent, eventAggregator)
-                        {
-                            KeyName = item.KeyName,
-                            KeyType = RedisType.Hash,
-                            TTL = item.TTL,
-                            Display = item.KeyName
-                        };
-                        ActivateItem(KeyHashViewModel);
-                    }
-                    else
-                    {
-                        item = new RedisKeyString(item.Parent, eventAggregator)
-                        {
-                            KeyName = item.KeyName,
-                            KeyType = RedisType.String,
-                            TTL = item.TTL,
-                            Display = item.KeyName
-                        };
-                        ActivateItem(KeyStringViewModel);
+                        rediskey.KeyName = item.KeyName;
+                        rediskey.KeyType = item.KeyType;
+                        rediskey.TTL = item.TTL;
+                        rediskey.Display = item.KeyName;
+                        ActivateItem(redisTypeViewModelMap[selectedType]);
                     }
                 }
+
                 NotifyOfPropertyChange(() => SelectedType);
             }
         }
