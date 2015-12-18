@@ -160,13 +160,14 @@ namespace RedisExplorer.Controls
                         selectedType = RedisType.String;
                     }
 
-                    var rediskey = (RedisKey)Activator.CreateInstance(redisTypeKeyMap[selectedType], item.Parent, eventAggregator);
-                    if (rediskey != null)
+                    var olditem = item;
+                    item = (RedisKey)Activator.CreateInstance(redisTypeKeyMap[selectedType], item.Parent, eventAggregator);
+                    if (item != null)
                     {
-                        rediskey.KeyName = item.KeyName;
-                        rediskey.KeyType = item.KeyType;
-                        rediskey.TTL = item.TTL;
-                        rediskey.Display = item.KeyName;
+                        item.KeyName = olditem.KeyName;
+                        item.KeyType = selectedType;
+                        item.TTL = olditem.TTL;
+                        item.Display = olditem.KeyName;
                         ActivateItem(redisTypeViewModelMap[selectedType]);
                     }
                 }

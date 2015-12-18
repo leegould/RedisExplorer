@@ -113,7 +113,7 @@ namespace RedisExplorer.Models
                 var key = KeyName;
                 var db = Database;
 
-                if (db != null && db.KeyExists(key))
+                if (key != null && db != null && db.KeyExists(key))
                 {
                     return db.KeyType(key);
                 }
