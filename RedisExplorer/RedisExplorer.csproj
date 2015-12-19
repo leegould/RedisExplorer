@@ -129,6 +129,7 @@
       <DependentUpon>KeySetView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\KeySetViewModel.cs" />
+    <Compile Include="Controls\KeySortedSetViewModel.cs" />
     <Compile Include="Controls\KeyStringView.xaml.cs">
       <DependentUpon>KeyStringView.xaml</DependentUpon>
     </Compile>
