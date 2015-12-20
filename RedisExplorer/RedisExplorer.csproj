@@ -129,6 +129,9 @@
       <DependentUpon>KeySetView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\KeySetViewModel.cs" />
+    <Compile Include="Controls\KeySortedSetView.xaml.cs">
+      <DependentUpon>KeySortedSetView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\KeySortedSetViewModel.cs" />
     <Compile Include="Controls\KeyStringView.xaml.cs">
       <DependentUpon>KeyStringView.xaml</DependentUpon>
@@ -217,6 +220,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\KeySetView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\KeySortedSetView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
