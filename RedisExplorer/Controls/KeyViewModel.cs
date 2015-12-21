@@ -30,8 +30,8 @@ namespace RedisExplorer.Controls
         public KeySetViewModel keySetViewModel { get; set; }
         public KeyListViewModel keyListViewModel { get; set; }
         public KeyHashViewModel keyHashViewModel { get; set; }
+        public KeySortedSetViewModel keySortedSetViewModel { get; set; }
         
-
         #endregion
 
         #region Properties
@@ -88,6 +88,19 @@ namespace RedisExplorer.Controls
             }
         }
 
+        public KeySortedSetViewModel KeySortedSetViewModel
+        {
+            get
+            {
+                return keySortedSetViewModel;
+            }
+            set
+            {
+                keySortedSetViewModel = value;
+                NotifyOfPropertyChange(() => KeySortedSetViewModel);
+            }
+        }
+
         public bool HasSelected
         {
             get
@@ -128,15 +141,6 @@ namespace RedisExplorer.Controls
             }
         }
 
-        private static Dictionary<RedisType, Type> redisTypeKeyMap = new Dictionary<RedisType, Type> 
-                                                 {
-                                                     { RedisType.String, typeof(RedisKeyString) },
-                                                     { RedisType.Set, typeof(RedisKeySet) },
-                                                     { RedisType.List, typeof(RedisKeyList) },
-                                                     { RedisType.Hash, typeof(RedisKeyHash) },
-                                                     { RedisType.SortedSet, typeof(RedisKeySortedSet) }
-                                                 }; 
-        
         public RedisType SelectedType
         {
             get { return selectedType; }
@@ -152,16 +156,16 @@ namespace RedisExplorer.Controls
                                                         { RedisType.Set, KeySetViewModel },
                                                         { RedisType.List, KeyListViewModel },
                                                         { RedisType.Hash, KeyHashViewModel },
-                                                        //{ RedisType.SortedSet, KeySortedSetViewModel }
+                                                        { RedisType.SortedSet, KeySortedSetViewModel }
                                                     };
 
-                    if (!redisTypeKeyMap.ContainsKey(selectedType))
+                    if (!Maps.RedisTypeKeyMap.ContainsKey(selectedType))
                     {
                         selectedType = RedisType.String;
                     }
 
                     var olditem = item;
-                    item = (RedisKey)Activator.CreateInstance(redisTypeKeyMap[selectedType], item.Parent, eventAggregator);
+                    item = (RedisKey)Activator.CreateInstance(Maps.RedisTypeKeyMap[selectedType], item.Parent, eventAggregator);
                     if (item != null)
                     {
                         item.KeyName = olditem.KeyName;
@@ -195,10 +199,14 @@ namespace RedisExplorer.Controls
             KeyHashViewModel = new KeyHashViewModel(eventAggregator);
             KeyHashViewModel.ConductWith(this);
 
+            KeySortedSetViewModel = new KeySortedSetViewModel(eventAggregator);
+            KeySortedSetViewModel.ConductWith(this);
+
             Items.Add(KeyStringViewModel);
             Items.Add(KeySetViewModel);
             Items.Add(KeyListViewModel);
             Items.Add(KeyHashViewModel);
+            Items.Add(KeySortedSetViewModel);
 
             ActivateItem(KeyStringViewModel);
 

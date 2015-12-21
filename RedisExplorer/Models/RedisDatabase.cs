@@ -53,12 +53,23 @@ namespace RedisExplorer.Models
             }
         }
 
+
+
         private static void AddChildren(TreeViewItem item, Queue<string> urn, RedisType ktype, IEventAggregator eventAggregator)
         {
             var keystr = urn.Dequeue();
             var key = item.Children.FirstOrDefault(x => x.Display == keystr);
             if (key == null)
             {
+                //if (ktype == RedisType.Unknown || ktype == RedisType.None)
+                //{
+                //    ktype = RedisType.String;
+                //}
+
+                //key = (RedisKey) Activator.CreateInstance(Maps.RedisTypeKeyMap[ktype], item.Parent, eventAggregator);
+                //key.Display = keystr;
+
+
                 if (ktype == RedisType.String)
                 {
                     key = new RedisKeyString(item, eventAggregator) { Display = keystr };
