@@ -271,6 +271,14 @@ namespace RedisExplorer.Controls
                     ((RedisKeyHash)item).KeyValues = value.ToDictionary(x => x.Key, x => x.Value);
                 }
             }
+            else if (SelectedType == RedisType.SortedSet)
+            {
+                var value = ((KeySortedSetViewModel) ActiveItem).KeyValuesListBox;
+                if (value != null)
+                {
+                    ((RedisKeySortedSet) item).KeyValues = value.Select(x => new SortedSetEntry(x.Item, 0)).ToList(); // TODO : Score
+                }
+            }
 
             item.Save();
         }
