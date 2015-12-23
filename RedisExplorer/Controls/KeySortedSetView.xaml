@@ -9,6 +9,7 @@
     <DataGrid ItemsSource="{Binding KeyValuesListBox}" Margin="0" AutoGenerateColumns="False" CanUserAddRows="True" HorizontalAlignment="Stretch"  Width="{Binding ElementName=keysortedsetcontrol, Path=ActualWidth}" BorderBrush="Orange" BorderThickness="1">
         <DataGrid.Columns>
             <DataGridTextColumn Header="Row"  IsReadOnly="True" Binding="{Binding Path=RowNumber}" Width="Auto"></DataGridTextColumn>
+            <DataGridTextColumn Header="Score" Binding="{Binding Path=Score}" Width="Auto"></DataGridTextColumn>
             <DataGridTextColumn Header="Value"  Binding="{Binding Path=Item}" Width="*"></DataGridTextColumn>
         </DataGrid.Columns>
     </DataGrid>

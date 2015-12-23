@@ -8,14 +8,14 @@ namespace RedisExplorer.Controls
 {
     public class KeySortedSetViewModel : Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IValueItem
     {
-        private BindableCollection<NumberedStringWrapper> keyValuesListBox;
+        private BindableCollection<ScoreWrapper> keyValuesListBox;
 
-        public BindableCollection<NumberedStringWrapper> KeyValuesListBox
+        public BindableCollection<ScoreWrapper> KeyValuesListBox
         {
             get { return keyValuesListBox; }
             set
             {
-                keyValuesListBox = value ?? new BindableCollection<NumberedStringWrapper>();
+                keyValuesListBox = value ?? new BindableCollection<ScoreWrapper>();
                 NotifyOfPropertyChange(() => KeyValuesListBox);
             }
         }
@@ -28,25 +28,25 @@ namespace RedisExplorer.Controls
 
         public void Handle(TreeItemSelectedMessage message)
         {
-            if (message != null && message.SelectedItem is RedisKeySet && !message.SelectedItem.HasChildren)
+            if (message != null && message.SelectedItem is RedisKeySortedSet && !message.SelectedItem.HasChildren)
             {
-                DisplayValue((RedisKeySet)message.SelectedItem);
+                DisplayValue((RedisKeySortedSet)message.SelectedItem);
             }
         }
 
-        private void DisplayValue(RedisKeySet item)
+        private void DisplayValue(RedisKeySortedSet item)
         {
             if (item != null)
             {
                 var value = item.KeyValues;
 
-                KeyValuesListBox = new BindableCollection<NumberedStringWrapper>(value.Select((itemvalue, index) => new NumberedStringWrapper { RowNumber = index + 1, Item = itemvalue }));
+                KeyValuesListBox = new BindableCollection<ScoreWrapper>(value.Select((itemvalue, index) => new ScoreWrapper { RowNumber = index + 1, Item = itemvalue.Element, Score = itemvalue.Score }));
             }
         }
 
         public void Handle(AddKeyMessage message)
         {
-            KeyValuesListBox = new BindableCollection<NumberedStringWrapper>();
+            KeyValuesListBox = new BindableCollection<ScoreWrapper>();
         }
     }
 }
