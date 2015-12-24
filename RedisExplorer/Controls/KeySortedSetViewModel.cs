@@ -6,17 +6,17 @@ using RedisExplorer.Models;
 
 namespace RedisExplorer.Controls
 {
-    public class KeySortedSetViewModel : Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IValueItem
+    public class KeySortedSetViewModel : Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IBindableValueItem<ScoreWrapper>, IValueItem
     {
-        private BindableCollection<ScoreWrapper> keyValuesListBox;
+        private BindableCollection<ScoreWrapper> keyValue;
 
-        public BindableCollection<ScoreWrapper> KeyValuesListBox
+        public BindableCollection<ScoreWrapper> KeyValue
         {
-            get { return keyValuesListBox; }
+            get { return keyValue; }
             set
             {
-                keyValuesListBox = value ?? new BindableCollection<ScoreWrapper>();
-                NotifyOfPropertyChange(() => KeyValuesListBox);
+                keyValue = value ?? new BindableCollection<ScoreWrapper>();
+                NotifyOfPropertyChange(() => KeyValue);
             }
         }
 
@@ -40,13 +40,13 @@ namespace RedisExplorer.Controls
             {
                 var value = item.KeyValues;
 
-                KeyValuesListBox = new BindableCollection<ScoreWrapper>(value.Select((itemvalue, index) => new ScoreWrapper { RowNumber = index + 1, Item = itemvalue.Element, Score = itemvalue.Score }));
+                KeyValue = new BindableCollection<ScoreWrapper>(value.Select((itemvalue, index) => new ScoreWrapper { RowNumber = index + 1, Item = itemvalue.Element, Score = itemvalue.Score }));
             }
         }
 
         public void Handle(AddKeyMessage message)
         {
-            KeyValuesListBox = new BindableCollection<ScoreWrapper>();
+            KeyValue = new BindableCollection<ScoreWrapper>();
         }
     }
 }

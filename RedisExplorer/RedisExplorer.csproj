@@ -146,6 +146,7 @@
     </Compile>
     <Compile Include="Controls\PreferencesViewModel.cs" />
     <Compile Include="Interface\IApp.cs" />
+    <Compile Include="Interface\IBindableValueItem.cs" />
     <Compile Include="Interface\ITabItem.cs" />
     <Compile Include="Interface\ITreeViewItemViewModel.cs" />
     <Compile Include="Interface\IValueItem.cs" />

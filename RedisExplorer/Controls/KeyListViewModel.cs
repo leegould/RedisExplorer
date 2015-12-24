@@ -8,28 +8,28 @@ using RedisExplorer.Models;
 
 namespace RedisExplorer.Controls
 {
-    public class KeyListViewModel : Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IValueItem
+    public class KeyListViewModel : Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IBindableValueItem<NumberedStringWrapper>, IValueItem
     {
-        private BindableCollection<NumberedStringWrapper> keyValuesListBox;
+        private BindableCollection<NumberedStringWrapper> keyValue;
 
-        public BindableCollection<NumberedStringWrapper> KeyValuesListBox
+        public BindableCollection<NumberedStringWrapper> KeyValue
         {
             get
             {
-                return keyValuesListBox;
+                return keyValue;
             }
             set
             {
-                keyValuesListBox = value ?? new BindableCollection<NumberedStringWrapper>();
-                NotifyOfPropertyChange(() => KeyValuesListBox);
+                keyValue = value ?? new BindableCollection<NumberedStringWrapper>();
+                NotifyOfPropertyChange(() => KeyValue);
             }
         }
 
         protected override void OnActivate()
         {
-            if (KeyValuesListBox == null)
+            if (KeyValue == null)
             {
-                keyValuesListBox = new BindableCollection<NumberedStringWrapper>();
+                keyValue = new BindableCollection<NumberedStringWrapper>();
             }
             base.OnActivate();
         }
@@ -54,13 +54,13 @@ namespace RedisExplorer.Controls
             {
                 var value = item.KeyValues;
 
-                KeyValuesListBox = new BindableCollection<NumberedStringWrapper>(value.Select((itemvalue, index) => new NumberedStringWrapper { RowNumber = index + 1, Item = itemvalue }));
+                KeyValue = new BindableCollection<NumberedStringWrapper>(value.Select((itemvalue, index) => new NumberedStringWrapper { RowNumber = index + 1, Item = itemvalue }));
             }
         }
 
         public void Handle(AddKeyMessage message)
         {
-            KeyValuesListBox = new BindableCollection<NumberedStringWrapper>();
+            KeyValue = new BindableCollection<NumberedStringWrapper>();
         }
     }
 }

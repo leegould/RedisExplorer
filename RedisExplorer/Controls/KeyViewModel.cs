@@ -245,11 +245,11 @@ namespace RedisExplorer.Controls
 
             if (SelectedType == RedisType.String)
             {
-                ((RedisKeyString)item).KeyValue = ((KeyStringViewModel)ActiveItem).KeyValueTextBox;
+                ((RedisKeyString)item).KeyValue = ((KeyStringViewModel)ActiveItem).KeyValue;
             }
             else if (SelectedType == RedisType.Set)
             {
-                var value = ((KeySetViewModel)ActiveItem).KeyValuesListBox;
+                var value = ((KeySetViewModel)ActiveItem).KeyValue;
                 if (value != null)
                 {
                     ((RedisKeySet) item).KeyValues = value.Select(x => x.Item).ToList();
@@ -257,7 +257,7 @@ namespace RedisExplorer.Controls
             }
             else if (SelectedType == RedisType.List)
             {
-                var value = ((KeyListViewModel) ActiveItem).KeyValuesListBox;
+                var value = ((KeyListViewModel) ActiveItem).KeyValue;
                 if (value != null)
                 {
                     ((RedisKeyList)item).KeyValues = value.Select(x => x.Item).ToList();
@@ -265,7 +265,7 @@ namespace RedisExplorer.Controls
             }
             else if (SelectedType == RedisType.Hash)
             {
-                var value = ((KeyHashViewModel)ActiveItem).KeyValuesDict;
+                var value = ((KeyHashViewModel)ActiveItem).KeyValue;
                 if (value != null)
                 {
                     ((RedisKeyHash)item).KeyValues = value.ToDictionary(x => x.Key, x => x.Value);
@@ -273,10 +273,10 @@ namespace RedisExplorer.Controls
             }
             else if (SelectedType == RedisType.SortedSet)
             {
-                var value = ((KeySortedSetViewModel) ActiveItem).KeyValuesListBox;
+                var value = ((KeySortedSetViewModel) ActiveItem).KeyValue;
                 if (value != null)
                 {
-                    ((RedisKeySortedSet) item).KeyValues = value.Select(x => new SortedSetEntry(x.Item, 0)).ToList(); // TODO : Score
+                    ((RedisKeySortedSet) item).KeyValues = value.Select(x => new SortedSetEntry(x.Item, x.Score)).ToList(); 
                 }
             }
 

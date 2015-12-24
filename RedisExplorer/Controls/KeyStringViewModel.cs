@@ -10,19 +10,19 @@ namespace RedisExplorer.Controls
 {
     public class KeyStringViewModel : Screen, IHandle<TreeItemSelectedMessage>, IValueItem
     {
-        private string keyValueTextBox;
+        private string keyValue;
         private readonly IEventAggregator eventAggregator;
 
-        public string KeyValueTextBox
+        public string KeyValue
         {
             get
             {
-                return keyValueTextBox;
+                return keyValue;
             }
             set
             {
-                keyValueTextBox = value;
-                NotifyOfPropertyChange(() => KeyValueTextBox);
+                keyValue = value;
+                NotifyOfPropertyChange(() => KeyValue);
             }
         }
 
@@ -48,11 +48,11 @@ namespace RedisExplorer.Controls
 
                 try
                 {
-                    KeyValueTextBox = JObject.Parse(value).ToString(Formatting.Indented);
+                    KeyValue = JObject.Parse(value).ToString(Formatting.Indented);
                 }
                 catch (JsonReaderException)
                 {
-                    KeyValueTextBox = value;
+                    KeyValue = value;
                 }
             }
         }

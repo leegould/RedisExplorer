@@ -6,28 +6,28 @@ using RedisExplorer.Models;
 
 namespace RedisExplorer.Controls
 {
-    public class KeyHashViewModel: Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IValueItem
+    public class KeyHashViewModel : Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IBindableValueItem<HashWrapper>, IValueItem
     {
-        private BindableCollection<HashWrapper> keyValuesDict;
+        private BindableCollection<HashWrapper> keyValue;
 
-        public BindableCollection<HashWrapper> KeyValuesDict
+        public BindableCollection<HashWrapper> KeyValue
         {
             get
             {
-                return keyValuesDict;
+                return keyValue;
             }
             set
             {
-                keyValuesDict = value ?? new BindableCollection<HashWrapper>();
-                NotifyOfPropertyChange(() => KeyValuesDict);
+                keyValue = value ?? new BindableCollection<HashWrapper>();
+                NotifyOfPropertyChange(() => KeyValue);
             }
         }
 
         protected override void OnActivate()
         {
-            if (KeyValuesDict == null)
+            if (KeyValue == null)
             {
-                KeyValuesDict = new BindableCollection<HashWrapper>();
+                KeyValue = new BindableCollection<HashWrapper>();
             }
             base.OnActivate();
         }
@@ -52,13 +52,13 @@ namespace RedisExplorer.Controls
             {
                 var value = item.KeyValues;
 
-                KeyValuesDict = new BindableCollection<HashWrapper>(value.Select(x => new HashWrapper { Key = x.Key, Value = x.Value }));
+                KeyValue = new BindableCollection<HashWrapper>(value.Select(x => new HashWrapper { Key = x.Key, Value = x.Value }));
             }
         }
 
         public void Handle(AddKeyMessage message)
         {
-            KeyValuesDict = new BindableCollection<HashWrapper>();
+            KeyValue = new BindableCollection<HashWrapper>();
         }
     }
 }
