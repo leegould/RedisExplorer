@@ -43,7 +43,7 @@ namespace RedisExplorer.Controls
         {
             if (item != null)
             {
-                var value = item.KeyValues;
+                var value = item.KeyValue;
 
                 KeyValue = new BindableCollection<NumberedStringWrapper>(value.Select((itemvalue, index) => new NumberedStringWrapper { RowNumber = index + 1, Item = itemvalue }));
             }

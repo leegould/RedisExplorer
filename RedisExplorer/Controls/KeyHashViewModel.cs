@@ -50,7 +50,7 @@ namespace RedisExplorer.Controls
         {
             if (item != null)
             {
-                var value = item.KeyValues;
+                var value = item.KeyValue;
 
                 KeyValue = new BindableCollection<HashWrapper>(value.Select(x => new HashWrapper { Key = x.Key, Value = x.Value }));
             }

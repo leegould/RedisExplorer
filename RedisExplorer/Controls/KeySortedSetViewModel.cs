@@ -38,7 +38,7 @@ namespace RedisExplorer.Controls
         {
             if (item != null)
             {
-                var value = item.KeyValues;
+                var value = item.KeyValue;
 
                 KeyValue = new BindableCollection<ScoreWrapper>(value.Select((itemvalue, index) => new ScoreWrapper { RowNumber = index + 1, Item = itemvalue.Element, Score = itemvalue.Score }));
             }

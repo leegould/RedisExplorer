@@ -252,7 +252,7 @@ namespace RedisExplorer.Controls
                 var value = ((KeySetViewModel)ActiveItem).KeyValue;
                 if (value != null)
                 {
-                    ((RedisKeySet) item).KeyValues = value.Select(x => x.Item).ToList();
+                    ((RedisKeySet) item).KeyValue = value.Select(x => x.Item).ToList();
                 }
             }
             else if (SelectedType == RedisType.List)
@@ -260,7 +260,7 @@ namespace RedisExplorer.Controls
                 var value = ((KeyListViewModel) ActiveItem).KeyValue;
                 if (value != null)
                 {
-                    ((RedisKeyList)item).KeyValues = value.Select(x => x.Item).ToList();
+                    ((RedisKeyList)item).KeyValue = value.Select(x => x.Item).ToList();
                 }
             }
             else if (SelectedType == RedisType.Hash)
@@ -268,7 +268,7 @@ namespace RedisExplorer.Controls
                 var value = ((KeyHashViewModel)ActiveItem).KeyValue;
                 if (value != null)
                 {
-                    ((RedisKeyHash)item).KeyValues = value.ToDictionary(x => x.Key, x => x.Value);
+                    ((RedisKeyHash)item).KeyValue = value.ToDictionary(x => x.Key, x => x.Value);
                 }
             }
             else if (SelectedType == RedisType.SortedSet)
@@ -276,7 +276,7 @@ namespace RedisExplorer.Controls
                 var value = ((KeySortedSetViewModel) ActiveItem).KeyValue;
                 if (value != null)
                 {
-                    ((RedisKeySortedSet) item).KeyValues = value.Select(x => new SortedSetEntry(x.Item, x.Score)).ToList(); 
+                    ((RedisKeySortedSet) item).KeyValue = value.Select(x => new SortedSetEntry(x.Item, x.Score)).ToList(); 
                 }
             }
 
@@ -325,17 +325,25 @@ namespace RedisExplorer.Controls
         {
             if (message != null && message.SelectedItem is RedisKey && !message.SelectedItem.HasChildren)
             {
-                if (message.SelectedItem is RedisKeyString)
-                {
-                    ActivateItem(KeyStringViewModel);
-                }
-                else if (message.SelectedItem is RedisKeySet)
+                if (message.SelectedItem is RedisKeySet)
                 {
                     ActivateItem(KeySetViewModel);
                 }
                 else if (message.SelectedItem is RedisKeyList)
                 {
                     ActivateItem(KeyListViewModel);
+                } 
+                else if (message.SelectedItem is RedisKeyHash)
+                {
+                    ActivateItem(KeyHashViewModel);
+                }
+                else if (message.SelectedItem is RedisKeySortedSet)
+                {
+                    ActivateItem(KeySortedSetViewModel);
+                }
+                else
+                {
+                    ActivateItem(KeyStringViewModel);                    
                 }
 
                 item = message.SelectedItem as RedisKey;

@@ -2,37 +2,37 @@
 using System.Linq;
 
 using Caliburn.Micro;
-
+using RedisExplorer.Interface;
 using RedisExplorer.Messages;
 
 using StackExchange.Redis;
 
 namespace RedisExplorer.Models
 {
-    public class RedisKeySortedSet : RedisKey
+    public class RedisKeySortedSet : RedisKey, IKeyValue<List<SortedSetEntry>>
     {
-        private List<SortedSetEntry> keyValues;
+        private List<SortedSetEntry> keyValue;
 
         public RedisKeySortedSet(TreeViewItem parent, IEventAggregator eventAggregator) : base(parent, eventAggregator)
         {
         }
 
-        public List<SortedSetEntry> KeyValues
+        public List<SortedSetEntry> KeyValue
         {
             get
             {
-                if (keyValues != null)
+                if (keyValue != null)
                 {
-                    return keyValues;
+                    return keyValue;
                 }
 
-                keyValues = Database.KeyExists(KeyName) ? Database.SortedSetRangeByScoreWithScores(KeyName).Select(x => x).ToList() : new List<SortedSetEntry>();
+                keyValue = Database.KeyExists(KeyName) ? Database.SortedSetRangeByScoreWithScores(KeyName).Select(x => x).ToList() : new List<SortedSetEntry>();
 
-                return keyValues;
+                return keyValue;
             }
             set
             {
-                keyValues = value;
+                keyValue = value;
             }
         }
 
@@ -47,7 +47,7 @@ namespace RedisExplorer.Models
                     Database.KeyDelete(KeyName);
                 }
 
-                Database.SortedSetAdd(KeyName, KeyValues.ToArray()); 
+                Database.SortedSetAdd(KeyName, KeyValue.ToArray()); 
                 
                 if (!keyexists)
                 {
@@ -58,6 +58,12 @@ namespace RedisExplorer.Models
                     eventAggregator.PublishOnUIThread(new RedisKeyUpdatedMessage { Urn = KeyName });
                 }
 
+                var itemintree = (RedisKeySortedSet)Parent.Children.FirstOrDefault(x => x.IsSelected);
+                if (itemintree != null)
+                {
+                    itemintree.KeyValue = KeyValue;
+                }
+
                 return true;
             }
 
@@ -66,7 +72,7 @@ namespace RedisExplorer.Models
 
         public override void Reload()
         {
-            KeyValues = null;
+            KeyValue = null;
             base.Reload();
         }
     }

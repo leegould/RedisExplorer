@@ -2,47 +2,47 @@
 using System.Linq;
 
 using Caliburn.Micro;
-
+using RedisExplorer.Interface;
 using RedisExplorer.Messages;
 
 using StackExchange.Redis;
 
 namespace RedisExplorer.Models
 {
-    public class RedisKeySet : RedisKey
+    public class RedisKeySet : RedisKey, IKeyValue<List<string>>
     {
-        private List<string> keyValues;
+        private List<string> keyValue;
 
         public RedisKeySet(TreeViewItem parent, IEventAggregator eventAggregator)
             : base(parent, eventAggregator)
         {
         }
 
-        public List<string> KeyValues
+        public List<string> KeyValue
         {
             get
             {
-                if (keyValues != null)
+                if (keyValue != null)
                 {
-                    return keyValues;
+                    return keyValue;
                 }
 
                 var key = KeyName;
                 var db = Database;
                 if (db.KeyExists(key))
                 {
-                    keyValues = db.SetMembers(key).Select(x => x.ToString()).ToList();
+                    keyValue = db.SetMembers(key).Select(x => x.ToString()).ToList();
                 }
                 else
                 {
-                    keyValues = new List<string>();
+                    keyValue = new List<string>();
                 }
 
-                return keyValues;
+                return keyValue;
             }
             set
             {
-                keyValues = value;
+                keyValue = value;
             }
         }
 
@@ -55,7 +55,7 @@ namespace RedisExplorer.Models
             {
                 if (!keyexists)
                 {
-                    foreach (var keyvalue in KeyValues)
+                    foreach (var keyvalue in KeyValue)
                     {
                         Database.SetAdd(KeyName, keyvalue);
                     }
@@ -63,7 +63,7 @@ namespace RedisExplorer.Models
                 else if (Database.KeyType(KeyName) != RedisType.Set)
                 {
                     Database.KeyDelete(KeyName);
-                    foreach (var keyvalue in KeyValues)
+                    foreach (var keyvalue in KeyValue)
                     {
                         Database.SetAdd(KeyName, keyvalue);
                     }
@@ -71,8 +71,8 @@ namespace RedisExplorer.Models
                 else 
                 {
                     var oldvalues = Database.SetMembers(KeyName).Select(x => x.ToString()).ToList();
-                    var newvalues = KeyValues.Except(oldvalues).ToList();
-                    var removedvalues = KeyValues.Except(newvalues).Except(oldvalues);
+                    var newvalues = KeyValue.Except(oldvalues).ToList();
+                    var removedvalues = KeyValue.Except(newvalues).Except(oldvalues);
 
                     var count = Database.SetAdd(KeyName, newvalues.Select(x => (RedisValue)x).ToArray());
                     var removed = Database.SetRemove(KeyName, removedvalues.Select(x => (RedisValue) x).ToArray());
@@ -95,7 +95,7 @@ namespace RedisExplorer.Models
 
         public override void Reload()
         {
-            KeyValues = null;
+            KeyValue = null;
             base.Reload();
         }
     }

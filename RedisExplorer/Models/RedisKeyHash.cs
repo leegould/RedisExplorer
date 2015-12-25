@@ -2,46 +2,46 @@
 using System.Linq;
 
 using Caliburn.Micro;
-
+using RedisExplorer.Interface;
 using RedisExplorer.Messages;
 
 using StackExchange.Redis;
 
 namespace RedisExplorer.Models
 {
-    public class RedisKeyHash : RedisKey
+    public class RedisKeyHash : RedisKey, IKeyValue<Dictionary<string, string>>
     {
-        private Dictionary<string, string> keyValues;
+        private Dictionary<string, string> keyValue;
 
         public RedisKeyHash(TreeViewItem parent, IEventAggregator eventAggregator) : base(parent, eventAggregator)
         {
         }
 
-        public Dictionary<string, string> KeyValues
+        public Dictionary<string, string> KeyValue
         {
             get
             {
-                if (keyValues != null)
+                if (keyValue != null)
                 {
-                    return keyValues;
+                    return keyValue;
                 }
 
                 var key = KeyName;
                 var db = Database;
                 if (db.KeyExists(key) && db.KeyType(key) == RedisType.Hash)
                 {
-                    keyValues = db.HashGetAll(key).ToStringDictionary();
+                    keyValue = db.HashGetAll(key).ToStringDictionary();
                 }
                 else
                 {
-                    keyValues = new Dictionary<string, string>();
+                    keyValue = new Dictionary<string, string>();
                 }
 
-                return keyValues;
+                return keyValue;
             }
             set
             {
-                keyValues = value;
+                keyValue = value;
             }
         }
 
@@ -57,7 +57,7 @@ namespace RedisExplorer.Models
                     Database.KeyDelete(KeyName);
                 }
 
-                foreach (var keyvalue in KeyValues)
+                foreach (var keyvalue in KeyValue)
                 {
                     Database.HashSet(KeyName, keyvalue.Key, keyvalue.Value);
                 }
@@ -76,7 +76,7 @@ namespace RedisExplorer.Models
                 var itemintree = (RedisKeyHash)Parent.Children.FirstOrDefault(x => x.IsSelected);
                 if (itemintree != null)
                 {
-                    itemintree.KeyValues = KeyValues;
+                    itemintree.KeyValue = KeyValue;
                 }
             }
 
@@ -85,7 +85,7 @@ namespace RedisExplorer.Models
 
         public override void Reload()
         {
-            KeyValues = null;
+            KeyValue = null;
             base.Reload();
         }
     }

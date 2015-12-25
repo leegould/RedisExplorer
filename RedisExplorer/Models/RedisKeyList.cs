@@ -2,46 +2,46 @@
 using System.Linq;
 
 using Caliburn.Micro;
-
+using RedisExplorer.Interface;
 using RedisExplorer.Messages;
 
 using StackExchange.Redis;
 
 namespace RedisExplorer.Models
 {
-    public class RedisKeyList: RedisKey
+    public class RedisKeyList : RedisKey, IKeyValue<List<string>>
     {
-        private List<string> keyValues;
+        private List<string> keyValue;
 
         public RedisKeyList(TreeViewItem parent, IEventAggregator eventAggregator) : base(parent, eventAggregator)
         {
         }
 
-        public List<string> KeyValues
+        public List<string> KeyValue
         {
             get
             {
-                if (keyValues != null)
+                if (keyValue != null)
                 {
-                    return keyValues;
+                    return keyValue;
                 }
 
                 var key = KeyName;
                 var db = Database;
                 if (db.KeyExists(key))
                 {
-                    keyValues = db.ListRange(key).Select(x => x.ToString()).ToList();
+                    keyValue = db.ListRange(key).Select(x => x.ToString()).ToList();
                 }
                 else
                 {
-                    keyValues = new List<string>();
+                    keyValue = new List<string>();
                 }
 
-                return keyValues;
+                return keyValue;
             }
             set
             {
-                keyValues = value;
+                keyValue = value;
             }
         }
 
@@ -53,7 +53,7 @@ namespace RedisExplorer.Models
             if (KeyType == RedisType.List)
             {
                 Database.KeyDelete(KeyName);
-                foreach (var keyvalue in KeyValues.Where(keyvalue => !string.IsNullOrEmpty(keyvalue)))
+                foreach (var keyvalue in KeyValue.Where(keyvalue => !string.IsNullOrEmpty(keyvalue)))
                 {
                     Database.ListRightPush(KeyName, keyvalue);
                 }
@@ -73,7 +73,7 @@ namespace RedisExplorer.Models
                 var itemintree = (RedisKeyList)Parent.Children.FirstOrDefault(x => x.IsSelected);
                 if (itemintree != null)
                 {
-                    itemintree.KeyValues = KeyValues;
+                    itemintree.KeyValue = KeyValue;
                 }
             }
 
@@ -82,7 +82,7 @@ namespace RedisExplorer.Models
 
         public override void Reload()
         {
-            KeyValues = null;
+            KeyValue = null;
             base.Reload();
         }
     }

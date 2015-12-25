@@ -1,12 +1,13 @@
-﻿using Caliburn.Micro;
-
+﻿using System.Collections.Generic;
+using Caliburn.Micro;
+using RedisExplorer.Interface;
 using RedisExplorer.Messages;
 
 using StackExchange.Redis;
 
 namespace RedisExplorer.Models
 {
-    public class RedisKeyString : RedisKey
+    public class RedisKeyString : RedisKey, IKeyValue<string>
     {
         private string keyValue;
 
