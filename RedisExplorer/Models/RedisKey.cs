@@ -155,6 +155,18 @@ namespace RedisExplorer.Models
         {
             return false;
         }
+
+        public virtual void PostSave(bool keyexists)
+        {
+            if (!keyexists)
+            {
+                eventAggregator.PublishOnUIThread(new RedisKeyAddedMessage { Urn = KeyName });
+            }
+            else
+            {
+                eventAggregator.PublishOnUIThread(new RedisKeyUpdatedMessage { Urn = KeyName });
+            }
+        }
         
         public bool Delete()
         {
