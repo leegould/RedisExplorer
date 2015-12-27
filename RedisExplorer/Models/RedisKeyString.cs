@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using RedisExplorer.Interface;
-using RedisExplorer.Messages;
-
 using StackExchange.Redis;
 
 namespace RedisExplorer.Models
@@ -43,25 +40,12 @@ namespace RedisExplorer.Models
 
         public override bool Save()
         {
-            var newkey = Database.KeyExists(KeyName);
-            var saved = false;
+            if (KeyType != RedisType.String && KeyType != RedisType.None) return false;
 
-            if (KeyType == RedisType.String || KeyType == RedisType.None)
-            {
-                var keyvalue = KeyValue;
-                saved = Database.StringSet(KeyName, keyvalue, TTL);
-            }
+            var keyvalue = KeyValue;
+            Database.StringSet(KeyName, keyvalue, TTL);
 
-            if (!newkey)
-            {
-                eventAggregator.PublishOnUIThread(new RedisKeyAddedMessage { Urn = KeyName });
-            }
-            else
-            {
-                eventAggregator.PublishOnUIThread(new RedisKeyUpdatedMessage { Urn = KeyName });
-            }
-
-            return saved;
+            return true;
         }
 
         public override void Reload()

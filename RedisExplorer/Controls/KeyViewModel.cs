@@ -280,7 +280,10 @@ namespace RedisExplorer.Controls
                 }
             }
 
-            item.Save();
+            if (item.Save())
+            {
+                item.NotifyOfSave();
+            }
         }
 
         public void DeleteButton()

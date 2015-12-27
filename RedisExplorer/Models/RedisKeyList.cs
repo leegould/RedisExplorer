@@ -3,7 +3,6 @@ using System.Linq;
 
 using Caliburn.Micro;
 using RedisExplorer.Interface;
-using RedisExplorer.Messages;
 
 using StackExchange.Redis;
 
@@ -47,37 +46,21 @@ namespace RedisExplorer.Models
 
         public override bool Save()
         {
-            var existingkey = Database.KeyExists(KeyName);
-            var saved = false;
+            if (KeyType != RedisType.List) return false;
 
-            if (KeyType == RedisType.List)
+            Database.KeyDelete(KeyName);
+            foreach (var keyvalue in KeyValue.Where(keyvalue => !string.IsNullOrEmpty(keyvalue)))
             {
-                Database.KeyDelete(KeyName);
-                foreach (var keyvalue in KeyValue.Where(keyvalue => !string.IsNullOrEmpty(keyvalue)))
-                {
-                    Database.ListRightPush(KeyName, keyvalue);
-                }
-
-                saved = true;
-
-
-                if (!existingkey)
-                {
-                    eventAggregator.PublishOnUIThread(new RedisKeyAddedMessage { Urn = KeyName, Type = RedisType.List });
-                }
-                else
-                {
-                    eventAggregator.PublishOnUIThread(new RedisKeyUpdatedMessage { Urn = KeyName, Type = RedisType.List });
-                }
-
-                var itemintree = (RedisKeyList)Parent.Children.FirstOrDefault(x => x.IsSelected);
-                if (itemintree != null)
-                {
-                    itemintree.KeyValue = KeyValue;
-                }
+                Database.ListRightPush(KeyName, keyvalue);
             }
 
-            return saved;
+            var itemintree = (RedisKeyList)Parent.Children.FirstOrDefault(x => x.IsSelected);
+            if (itemintree != null)
+            {
+                itemintree.KeyValue = KeyValue;
+            }
+
+            return true;
         }
 
         public override void Reload()

@@ -156,9 +156,9 @@ namespace RedisExplorer.Models
             return false;
         }
 
-        public virtual void PostSave(bool keyexists)
+        public void NotifyOfSave()
         {
-            if (!keyexists)
+            if (!Database.KeyExists(KeyName))
             {
                 eventAggregator.PublishOnUIThread(new RedisKeyAddedMessage { Urn = KeyName });
             }

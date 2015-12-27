@@ -3,7 +3,6 @@ using System.Linq;
 
 using Caliburn.Micro;
 using RedisExplorer.Interface;
-using RedisExplorer.Messages;
 
 using StackExchange.Redis;
 
@@ -48,12 +47,11 @@ namespace RedisExplorer.Models
 
         public override bool Save()
         {
-            var keyexists = Database.KeyExists(KeyName);
             var saved = false;
 
             if (KeyType == RedisType.Set)
             {
-                if (!keyexists)
+                if (!Database.KeyExists(KeyName))
                 {
                     foreach (var keyvalue in KeyValue)
                     {
@@ -79,15 +77,6 @@ namespace RedisExplorer.Models
                 }
 
                 saved = true;
-
-                if (!keyexists)
-                {
-                    eventAggregator.PublishOnUIThread(new RedisKeyAddedMessage { Urn = KeyName });
-                }
-                else
-                {
-                    eventAggregator.PublishOnUIThread(new RedisKeyUpdatedMessage { Urn = KeyName });
-                }
 
                 var itemintree = (RedisKeySet)Parent.Children.FirstOrDefault(x => x.IsSelected);
                 if (itemintree != null)
