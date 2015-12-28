@@ -6,7 +6,7 @@ using RedisExplorer.Models;
 
 namespace RedisExplorer.Controls
 {
-    public class KeyHashViewModel : Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IBindableValueItem<HashWrapper>, IValueItem
+    public class KeyHashViewModel : Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IKeyValue<BindableCollection<HashWrapper>>, IValueItem
     {
         private BindableCollection<HashWrapper> keyValue;
 

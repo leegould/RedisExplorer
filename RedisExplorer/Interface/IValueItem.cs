@@ -2,8 +2,7 @@
 
 namespace RedisExplorer.Interface
 {
-    public interface IValueItem: IScreen
+    public interface IValueItem : IScreen
     {
-
     }
 }

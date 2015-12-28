@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Linq;
 using Caliburn.Micro;
 using RedisExplorer.Messages;
 using StackExchange.Redis;
@@ -167,7 +167,7 @@ namespace RedisExplorer.Models
                 eventAggregator.PublishOnUIThread(new RedisKeyUpdatedMessage { Urn = KeyName });
             }
         }
-        
+
         public bool Delete()
         {
             var key = KeyName;

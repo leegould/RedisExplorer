@@ -8,7 +8,7 @@ using RedisExplorer.Models;
 
 namespace RedisExplorer.Controls
 {
-    public class KeySetViewModel : Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IBindableValueItem<NumberedStringWrapper>, IValueItem
+    public class KeySetViewModel : Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IKeyValue<BindableCollection<NumberedStringWrapper>>, IValueItem
     {
         private BindableCollection<NumberedStringWrapper> keyValue;
 

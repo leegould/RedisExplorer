@@ -6,7 +6,7 @@ using RedisExplorer.Models;
 
 namespace RedisExplorer.Controls
 {
-    public class KeySortedSetViewModel : Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IBindableValueItem<ScoreWrapper>, IValueItem
+    public class KeySortedSetViewModel : Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IKeyValue<BindableCollection<ScoreWrapper>>, IValueItem
     {
         private BindableCollection<ScoreWrapper> keyValue;
 

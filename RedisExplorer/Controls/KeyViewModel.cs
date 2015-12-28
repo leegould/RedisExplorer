@@ -245,7 +245,10 @@ namespace RedisExplorer.Controls
 
             if (SelectedType == RedisType.String)
             {
-                ((RedisKeyString)item).KeyValue = ((KeyStringViewModel)ActiveItem).KeyValue;
+                UpdateKeyValue<string, string>(x => x);
+                // UpdateItemInTree<string>(); // Not sure needed this before. non ref type?
+
+                //((RedisKeyString)item).KeyValue = ((KeyStringViewModel)ActiveItem).KeyValue;
             }
             else if (SelectedType == RedisType.Set)
             {
@@ -265,11 +268,8 @@ namespace RedisExplorer.Controls
             }
             else if (SelectedType == RedisType.Hash)
             {
-                var value = ((KeyHashViewModel)ActiveItem).KeyValue;
-                if (value != null)
-                {
-                    ((RedisKeyHash)item).KeyValue = value.ToDictionary(x => x.Key, x => x.Value);
-                }
+                UpdateKeyValue<BindableCollection<HashWrapper>, Dictionary<string, string>>(x => x.ToDictionary(y => y.Key, y => y.Value));
+                UpdateItemInTree<Dictionary<string, string>>(); // hmm
             }
             else if (SelectedType == RedisType.SortedSet)
             {
@@ -283,6 +283,24 @@ namespace RedisExplorer.Controls
             if (item.Save())
             {
                 item.NotifyOfSave();
+            }
+        }
+
+        private void UpdateKeyValue<DisplayType, BaseType>(Func<DisplayType, BaseType> selector)
+        {
+            var value = ((IKeyValue<DisplayType>)ActiveItem).KeyValue;
+            if (value != null)
+            {
+                ((IKeyValue<BaseType>) item).KeyValue = selector(value); 
+            }
+        }
+
+        private void UpdateItemInTree<T>()
+        {
+            dynamic treeitem = item.Parent.Children.FirstOrDefault(x => x.IsSelected);
+            if (treeitem != null)
+            {
+                treeitem.KeyValue = ((IKeyValue<T>)item).KeyValue;
             }
         }
 

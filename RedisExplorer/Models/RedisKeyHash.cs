@@ -58,11 +58,11 @@ namespace RedisExplorer.Models
                 Database.HashSet(KeyName, keyvalue.Key, keyvalue.Value);
             }
                 
-            var itemintree = (RedisKeyHash)Parent.Children.FirstOrDefault(x => x.IsSelected);
-            if (itemintree != null)
-            {
-                itemintree.KeyValue = KeyValue;
-            }
+            //var itemintree = (RedisKeyHash)Parent.Children.FirstOrDefault(x => x.IsSelected);
+            //if (itemintree != null)
+            //{
+            //    itemintree.KeyValue = KeyValue;
+            //}
 
             return true;
         }
