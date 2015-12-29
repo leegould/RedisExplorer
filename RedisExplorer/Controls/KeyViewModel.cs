@@ -252,19 +252,13 @@ namespace RedisExplorer.Controls
             }
             else if (SelectedType == RedisType.Set)
             {
-                var value = ((KeySetViewModel)ActiveItem).KeyValue;
-                if (value != null)
-                {
-                    ((RedisKeySet) item).KeyValue = value.Select(x => x.Item).ToList();
-                }
+                UpdateKeyValue<BindableCollection<NumberedStringWrapper>, List<string>>(x => x.Select(y => y.Item).ToList());
+                UpdateItemInTree<List<string>>(); // hmm
             }
             else if (SelectedType == RedisType.List)
             {
-                var value = ((KeyListViewModel) ActiveItem).KeyValue;
-                if (value != null)
-                {
-                    ((RedisKeyList)item).KeyValue = value.Select(x => x.Item).ToList();
-                }
+                UpdateKeyValue<BindableCollection<NumberedStringWrapper>, List<string>>(x => x.Select(y => y.Item).ToList());
+                UpdateItemInTree<List<string>>(); // hmm
             }
             else if (SelectedType == RedisType.Hash)
             {
@@ -273,11 +267,8 @@ namespace RedisExplorer.Controls
             }
             else if (SelectedType == RedisType.SortedSet)
             {
-                var value = ((KeySortedSetViewModel) ActiveItem).KeyValue;
-                if (value != null)
-                {
-                    ((RedisKeySortedSet) item).KeyValue = value.Select(x => new SortedSetEntry(x.Item, x.Score)).ToList(); 
-                }
+                UpdateKeyValue<BindableCollection<ScoreWrapper>, List<SortedSetEntry>>(x => x.Select(y => new SortedSetEntry(y.Item, y.Score)).ToList());
+                UpdateItemInTree<List<SortedSetEntry>>(); // hmm
             }
 
             if (item.Save())
