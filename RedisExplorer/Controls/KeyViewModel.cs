@@ -243,32 +243,25 @@ namespace RedisExplorer.Controls
                 item.TTL = new TimeSpan((TTLDateTimePicker.Value - DateTime.Now).Ticks);
             }
 
-            if (SelectedType == RedisType.String)
+            switch (SelectedType)
             {
-                UpdateKeyValue<string, string>(x => x);
+                case RedisType.String:
+                    UpdateKeyValue<string, string>(x => x);
+                    break;
                 // UpdateItemInTree<string>(); // Not sure needed this before. non ref type?
-
-                //((RedisKeyString)item).KeyValue = ((KeyStringViewModel)ActiveItem).KeyValue;
-            }
-            else if (SelectedType == RedisType.Set)
-            {
-                UpdateKeyValue<BindableCollection<NumberedStringWrapper>, List<string>>(x => x.Select(y => y.Item).ToList());
-                UpdateItemInTree<List<string>>(); // hmm
-            }
-            else if (SelectedType == RedisType.List)
-            {
-                UpdateKeyValue<BindableCollection<NumberedStringWrapper>, List<string>>(x => x.Select(y => y.Item).ToList());
-                UpdateItemInTree<List<string>>(); // hmm
-            }
-            else if (SelectedType == RedisType.Hash)
-            {
-                UpdateKeyValue<BindableCollection<HashWrapper>, Dictionary<string, string>>(x => x.ToDictionary(y => y.Key, y => y.Value));
-                UpdateItemInTree<Dictionary<string, string>>(); // hmm
-            }
-            else if (SelectedType == RedisType.SortedSet)
-            {
-                UpdateKeyValue<BindableCollection<ScoreWrapper>, List<SortedSetEntry>>(x => x.Select(y => new SortedSetEntry(y.Item, y.Score)).ToList());
-                UpdateItemInTree<List<SortedSetEntry>>(); // hmm
+                case RedisType.Set:
+                case RedisType.List:
+                    UpdateKeyValue<BindableCollection<NumberedStringWrapper>, List<string>>(x => x.Select(y => y.Item).ToList());
+                    UpdateItemInTree<List<string>>();
+                    break;
+                case RedisType.Hash:
+                    UpdateKeyValue<BindableCollection<HashWrapper>, Dictionary<string, string>>(x => x.ToDictionary(y => y.Key, y => y.Value));
+                    UpdateItemInTree<Dictionary<string, string>>(); // hmm
+                    break;
+                case RedisType.SortedSet:
+                    UpdateKeyValue<BindableCollection<ScoreWrapper>, List<SortedSetEntry>>(x => x.Select(y => new SortedSetEntry(y.Item, y.Score)).ToList());
+                    UpdateItemInTree<List<SortedSetEntry>>(); // hmm
+                    break;
             }
 
             if (item.Save())
