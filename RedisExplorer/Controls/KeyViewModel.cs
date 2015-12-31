@@ -255,7 +255,7 @@ namespace RedisExplorer.Controls
                     UpdateItemInTree<List<string>>();
                     break;
                 case RedisType.Hash:
-                    UpdateKeyValue<BindableCollection<HashWrapper>, Dictionary<string, string>>(x => x.ToDictionary(y => y.Key, y => y.Value));
+                    UpdateKeyValue<BindableCollection<HashWrapper>, Dictionary<string, string>>(x => x.Where(y => !string.IsNullOrEmpty(y.Key)).ToDictionary(y => y.Key, y => y.Value));
                     UpdateItemInTree<Dictionary<string, string>>(); // hmm
                     break;
                 case RedisType.SortedSet:
