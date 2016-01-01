@@ -8,7 +8,7 @@ using RedisExplorer.Models;
 
 namespace RedisExplorer.Controls
 {
-    public class KeyStringViewModel : Screen, IHandle<TreeItemSelectedMessage>, IValueItem, IKeyValue<string>
+    public class KeyStringViewModel : Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IValueItem, IKeyValue<string>
     {
         private string keyValue;
         private readonly IEventAggregator eventAggregator;
@@ -55,6 +55,11 @@ namespace RedisExplorer.Controls
                     KeyValue = value;
                 }
             }
+        }
+
+        public void Handle(AddKeyMessage message)
+        {
+            KeyValue = string.Empty;
         }
     }
 }

@@ -208,7 +208,7 @@ namespace RedisExplorer.Controls
             Items.Add(KeyHashViewModel);
             Items.Add(KeySortedSetViewModel);
 
-            ActivateItem(KeyStringViewModel);
+            //ActivateItem(KeyStringViewModel);
 
             SetDefault();
         }
@@ -377,7 +377,8 @@ namespace RedisExplorer.Controls
 
         public void Handle(AddKeyMessage message)
         {
-            item = new RedisKeyString(message.ParentDatabase, eventAggregator);
+            item = new RedisKeyString(message.ParentDatabase, eventAggregator) { KeyValue = string.Empty };
+            //ActivateItem(KeyStringViewModel);
             SetDefault();
             KeyNameTextBox = message.KeyBase;
         }
