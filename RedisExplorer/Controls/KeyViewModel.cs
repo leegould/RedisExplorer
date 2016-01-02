@@ -148,38 +148,14 @@ namespace RedisExplorer.Controls
             {
                 selectedType = value;
 
-                if (item != null)
-                { 
-                    var redisTypeViewModelMap = new Dictionary<RedisType, IValueItem>
-                                                    {
-                                                        { RedisType.String, KeyStringViewModel },
-                                                        { RedisType.Set, KeySetViewModel },
-                                                        { RedisType.List, KeyListViewModel },
-                                                        { RedisType.Hash, KeyHashViewModel },
-                                                        { RedisType.SortedSet, KeySortedSetViewModel }
-                                                    };
-
-                    if (!Maps.RedisTypeKeyMap.ContainsKey(selectedType))
-                    {
-                        selectedType = RedisType.String;
-                    }
-
-                    var olditem = item;
-                    item = (RedisKey)Activator.CreateInstance(Maps.RedisTypeKeyMap[selectedType], item.Parent, eventAggregator);
-                    if (item != null)
-                    {
-                        item.KeyName = olditem.KeyName;
-                        item.KeyType = selectedType;
-                        item.TTL = olditem.TTL;
-                        item.Display = olditem.KeyName;
-                        ActivateItem(redisTypeViewModelMap[selectedType]);
-                    }
-                }
+                ChangeDisplayType();
 
                 NotifyOfPropertyChange(() => SelectedType);
             }
         }
+
         
+
         #endregion
 
         public KeyViewModel(IEventAggregator eventAggregator)
@@ -356,6 +332,20 @@ namespace RedisExplorer.Controls
             }
         }
 
+        
+
+        public void Handle(AddKeyMessage message)
+        {
+            item = new RedisKeyString(message.ParentDatabase, eventAggregator) { KeyValue = string.Empty };
+            //ActivateItem(KeyStringViewModel);
+            SetDefault();
+            KeyNameTextBox = message.KeyBase;
+        }
+
+        #endregion
+
+        #region Private methods
+
         private void DisplayItem(RedisKey item)
         {
             if (item != null)
@@ -375,12 +365,35 @@ namespace RedisExplorer.Controls
             }
         }
 
-        public void Handle(AddKeyMessage message)
+        private void ChangeDisplayType()
         {
-            item = new RedisKeyString(message.ParentDatabase, eventAggregator) { KeyValue = string.Empty };
-            //ActivateItem(KeyStringViewModel);
-            SetDefault();
-            KeyNameTextBox = message.KeyBase;
+            if (item != null)
+            {
+                var redisTypeViewModelMap = new Dictionary<RedisType, IValueItem>
+                {
+                    {RedisType.String, KeyStringViewModel},
+                    {RedisType.Set, KeySetViewModel},
+                    {RedisType.List, KeyListViewModel},
+                    {RedisType.Hash, KeyHashViewModel},
+                    {RedisType.SortedSet, KeySortedSetViewModel}
+                };
+
+                if (!Maps.RedisTypeKeyMap.ContainsKey(selectedType))
+                {
+                    selectedType = RedisType.String;
+                }
+
+                var olditem = item;
+                item = (RedisKey)Activator.CreateInstance(Maps.RedisTypeKeyMap[selectedType], item.Parent, eventAggregator);
+                if (item != null)
+                {
+                    item.KeyName = olditem.KeyName;
+                    item.KeyType = selectedType;
+                    item.TTL = olditem.TTL;
+                    item.Display = olditem.KeyName;
+                    ActivateItem(redisTypeViewModelMap[selectedType]);
+                }
+            }
         }
 
         #endregion
