@@ -21,6 +21,8 @@ namespace RedisExplorer.Controls
 
         private readonly IEventAggregator eventAggregator;
 
+        private bool resetValue;
+
         private bool hasSelected;
         private string keyNameTextBox;
         private DateTime? ttlDateTimePicker;
@@ -306,28 +308,10 @@ namespace RedisExplorer.Controls
         {
             if (message != null && message.SelectedItem is RedisKey && !message.SelectedItem.HasChildren)
             {
-                if (message.SelectedItem is RedisKeySet)
-                {
-                    ActivateItem(KeySetViewModel);
-                }
-                else if (message.SelectedItem is RedisKeyList)
-                {
-                    ActivateItem(KeyListViewModel);
-                } 
-                else if (message.SelectedItem is RedisKeyHash)
-                {
-                    ActivateItem(KeyHashViewModel);
-                }
-                else if (message.SelectedItem is RedisKeySortedSet)
-                {
-                    ActivateItem(KeySortedSetViewModel);
-                }
-                else
-                {
-                    ActivateItem(KeyStringViewModel);                    
-                }
-
                 item = message.SelectedItem as RedisKey;
+
+                resetValue = false;
+                
                 DisplayItem(item);
             }
         }
@@ -383,16 +367,24 @@ namespace RedisExplorer.Controls
                     selectedType = RedisType.String;
                 }
 
-                var olditem = item;
-                item = (RedisKey)Activator.CreateInstance(Maps.RedisTypeKeyMap[selectedType], item.Parent, eventAggregator);
+                var olditem = this.item;
+
+                item = (RedisKey)Activator.CreateInstance(Maps.RedisTypeKeyMap[selectedType], this.item.Parent, eventAggregator);
                 if (item != null)
                 {
                     item.KeyName = olditem.KeyName;
                     item.KeyType = selectedType;
                     item.TTL = olditem.TTL;
                     item.Display = olditem.KeyName;
+
+                    //var valuetype = Activator.CreateInstance(Maps.RedisTypeValueTypeMap[selectedType]);
+                    //newitem.KeyValue = valuetype;
+                    //item = newitem;
+
                     ActivateItem(redisTypeViewModelMap[selectedType]);
                 }
+
+                resetValue = true; // If this is true, try to reset the value when displaying new type.
             }
         }
 
