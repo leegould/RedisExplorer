@@ -257,6 +257,11 @@ namespace RedisExplorer.Controls
             }
         }
 
+        private void ResetKeyValue<T>(T value)
+        {
+            ((IKeyValue<T>)ActiveItem).KeyValue = value;
+        }
+
         private void UpdateItemInTree<T>()
         {
             dynamic treeitem = item.Parent.Children.FirstOrDefault(x => x.IsSelected);
@@ -282,6 +287,9 @@ namespace RedisExplorer.Controls
                 return;
             }
             item.Reload();
+
+            resetValue = false;
+            
             DisplayItem(item);
         }
 
@@ -321,7 +329,6 @@ namespace RedisExplorer.Controls
         public void Handle(AddKeyMessage message)
         {
             item = new RedisKeyString(message.ParentDatabase, eventAggregator) { KeyValue = string.Empty };
-            //ActivateItem(KeyStringViewModel);
             SetDefault();
             KeyNameTextBox = message.KeyBase;
         }
@@ -335,6 +342,7 @@ namespace RedisExplorer.Controls
             if (item != null)
             {
                 KeyNameTextBox = item.KeyName;
+                
                 SelectedType = item.KeyType;
 
                 var ttl = item.TTL;
@@ -367,9 +375,9 @@ namespace RedisExplorer.Controls
                     selectedType = RedisType.String;
                 }
 
-                var olditem = this.item;
+                var olditem = item;
 
-                item = (RedisKey)Activator.CreateInstance(Maps.RedisTypeKeyMap[selectedType], this.item.Parent, eventAggregator);
+                item = (RedisKey)Activator.CreateInstance(Maps.RedisTypeKeyMap[selectedType], item.Parent, eventAggregator);
                 if (item != null)
                 {
                     item.KeyName = olditem.KeyName;
@@ -381,8 +389,30 @@ namespace RedisExplorer.Controls
                     //newitem.KeyValue = valuetype;
                     //item = newitem;
 
+                    //if (resetValue)
+                    //{
+                    //    switch (item.KeyType)
+                    //    {
+                    //        case RedisType.String:
+                    //            ResetKeyValue(string.Empty);
+                    //            break;
+                    //        case RedisType.Set:
+                    //        case RedisType.List:
+                    //            ResetKeyValue(new BindableCollection<NumberedStringWrapper>());
+                    //            break;
+                    //        case RedisType.Hash:
+                    //            ResetKeyValue(new BindableCollection<HashWrapper>());
+                    //            break;
+                    //        case RedisType.SortedSet:
+                    //            ResetKeyValue(new BindableCollection<ScoreWrapper>());
+                    //            break;
+                    //    }
+                    //}
+
                     ActivateItem(redisTypeViewModelMap[selectedType]);
                 }
+
+                
 
                 resetValue = true; // If this is true, try to reset the value when displaying new type.
             }
