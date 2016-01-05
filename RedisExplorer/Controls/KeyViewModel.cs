@@ -385,34 +385,29 @@ namespace RedisExplorer.Controls
                     item.TTL = olditem.TTL;
                     item.Display = olditem.KeyName;
 
-                    //var valuetype = Activator.CreateInstance(Maps.RedisTypeValueTypeMap[selectedType]);
-                    //newitem.KeyValue = valuetype;
-                    //item = newitem;
-
-                    //if (resetValue)
-                    //{
-                    //    switch (item.KeyType)
-                    //    {
-                    //        case RedisType.String:
-                    //            ResetKeyValue(string.Empty);
-                    //            break;
-                    //        case RedisType.Set:
-                    //        case RedisType.List:
-                    //            ResetKeyValue(new BindableCollection<NumberedStringWrapper>());
-                    //            break;
-                    //        case RedisType.Hash:
-                    //            ResetKeyValue(new BindableCollection<HashWrapper>());
-                    //            break;
-                    //        case RedisType.SortedSet:
-                    //            ResetKeyValue(new BindableCollection<ScoreWrapper>());
-                    //            break;
-                    //    }
-                    //}
-
                     ActivateItem(redisTypeViewModelMap[selectedType]);
-                }
 
-                
+                    if (resetValue)
+                    {
+                        switch (item.KeyType)
+                        {
+                            case RedisType.String:
+                                ResetKeyValue(string.Empty);
+                                break;
+                            case RedisType.Set:
+                            case RedisType.List:
+                                ResetKeyValue(new BindableCollection<NumberedStringWrapper>());
+                                break;
+                            case RedisType.Hash:
+                                ResetKeyValue(new BindableCollection<HashWrapper>());
+                                break;
+                            case RedisType.SortedSet:
+                                ResetKeyValue(new BindableCollection<ScoreWrapper>());
+                                break;
+                        }
+                    }
+
+                }
 
                 resetValue = true; // If this is true, try to reset the value when displaying new type.
             }
