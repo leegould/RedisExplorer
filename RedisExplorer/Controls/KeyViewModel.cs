@@ -221,6 +221,7 @@ namespace RedisExplorer.Controls
                 item.TTL = new TimeSpan((TTLDateTimePicker.Value - DateTime.Now).Ticks);
             }
 
+            // TODO : replace with event(s)
             switch (SelectedType)
             {
                 case RedisType.String:
@@ -287,6 +288,8 @@ namespace RedisExplorer.Controls
                 return;
             }
             item.Reload();
+
+            eventAggregator.PublishOnUIThread(new RedisKeyReloadMessage { Item = item });
 
             resetValue = false;
             

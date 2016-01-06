@@ -159,6 +159,7 @@
     <Compile Include="Messages\InfoNotValidMessage.cs" />
     <Compile Include="Messages\KeyDeletedMessage.cs" />
     <Compile Include="Messages\RedisKeyAddedMessage.cs" />
+    <Compile Include="Messages\RedisKeyReloadMessage.cs" />
     <Compile Include="Messages\RedisKeyUpdatedMessage.cs" />
     <Compile Include="Messages\ReloadKeyMessage.cs" />
     <Compile Include="Messages\ServerReloadMessage.cs" />

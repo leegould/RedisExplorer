@@ -8,7 +8,7 @@ using RedisExplorer.Models;
 
 namespace RedisExplorer.Controls
 {
-    public class KeySetViewModel : Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IKeyValue<BindableCollection<NumberedStringWrapper>>, IValueItem
+    public class KeySetViewModel : Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IKeyValue<BindableCollection<NumberedStringWrapper>>, IValueItem, IHandle<RedisKeyReloadMessage>
     {
         private BindableCollection<NumberedStringWrapper> keyValue;
 
@@ -31,6 +31,8 @@ namespace RedisExplorer.Controls
             eAggregator.Subscribe(this);
         }
 
+        #region Message handlers
+
         public void Handle(TreeItemSelectedMessage message)
         {
             if (message != null && message.SelectedItem is RedisKeySet && !message.SelectedItem.HasChildren)
@@ -38,6 +40,20 @@ namespace RedisExplorer.Controls
                 DisplayValue((RedisKeySet)message.SelectedItem);
             }
         }
+
+        public void Handle(AddKeyMessage message)
+        {
+            KeyValue = new BindableCollection<NumberedStringWrapper>();
+        }
+
+        public void Handle(RedisKeyReloadMessage message)
+        {
+            DisplayValue((RedisKeySet)message.Item);
+        }
+
+        #endregion
+
+        #region Private
 
         private void DisplayValue(RedisKeySet item)
         {
@@ -49,9 +65,6 @@ namespace RedisExplorer.Controls
             }
         }
 
-        public void Handle(AddKeyMessage message)
-        {
-            KeyValue = new BindableCollection<NumberedStringWrapper>();
-        }
+        #endregion
     }
 }

@@ -6,7 +6,7 @@ using RedisExplorer.Models;
 
 namespace RedisExplorer.Controls
 {
-    public class KeySortedSetViewModel : Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IKeyValue<BindableCollection<ScoreWrapper>>, IValueItem
+    public class KeySortedSetViewModel : Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IKeyValue<BindableCollection<ScoreWrapper>>, IValueItem, IHandle<RedisKeyReloadMessage>
     {
         private BindableCollection<ScoreWrapper> keyValue;
 
@@ -25,6 +25,8 @@ namespace RedisExplorer.Controls
             var eAggregator = eventAggregator;
             eAggregator.Subscribe(this);
         }
+        
+        #region Message handlers
 
         public void Handle(TreeItemSelectedMessage message)
         {
@@ -33,6 +35,20 @@ namespace RedisExplorer.Controls
                 DisplayValue((RedisKeySortedSet)message.SelectedItem);
             }
         }
+
+        public void Handle(AddKeyMessage message)
+        {
+            KeyValue = new BindableCollection<ScoreWrapper>();
+        }
+
+        public void Handle(RedisKeyReloadMessage message)
+        {
+            DisplayValue((RedisKeySortedSet)message.Item);
+        }
+
+        #endregion
+
+        #region Private 
 
         private void DisplayValue(RedisKeySortedSet item)
         {
@@ -44,9 +60,6 @@ namespace RedisExplorer.Controls
             }
         }
 
-        public void Handle(AddKeyMessage message)
-        {
-            KeyValue = new BindableCollection<ScoreWrapper>();
-        }
+        #endregion
     }
 }
