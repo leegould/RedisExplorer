@@ -32,6 +32,8 @@ namespace RedisExplorer.Controls
             eventAggregator.Subscribe(this);
         }
 
+        #region Message Handlers
+
         public void Handle(TreeItemSelectedMessage message)
         {
             if (message != null && message.SelectedItem is RedisKeyString && !message.SelectedItem.HasChildren)
@@ -39,6 +41,24 @@ namespace RedisExplorer.Controls
                 DisplayStringValue(message.SelectedItem as RedisKeyString);
             }
         }
+
+        public void Handle(AddKeyMessage message)
+        {
+            KeyValue = string.Empty;
+        }
+
+        public void Handle(RedisKeyReloadMessage message)
+        {
+            var redisKeyString = message.Item as RedisKeyString;
+            if (redisKeyString != null)
+            {
+                KeyValue = (redisKeyString.KeyValue);
+            }
+        }
+
+        #endregion
+
+        #region Private
 
         private void DisplayStringValue(RedisKeyString item)
         {
@@ -57,14 +77,6 @@ namespace RedisExplorer.Controls
             }
         }
 
-        public void Handle(AddKeyMessage message)
-        {
-            KeyValue = string.Empty;
-        }
-
-        public void Handle(RedisKeyReloadMessage message)
-        {
-            KeyValue = ((RedisKeyString)message.Item).KeyValue;
-        }
+        #endregion
     }
 }

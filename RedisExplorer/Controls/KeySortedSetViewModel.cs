@@ -43,7 +43,11 @@ namespace RedisExplorer.Controls
 
         public void Handle(RedisKeyReloadMessage message)
         {
-            DisplayValue((RedisKeySortedSet)message.Item);
+            var redisKeySortedSet = message.Item as RedisKeySortedSet;
+            if (redisKeySortedSet != null)
+            {
+                DisplayValue(redisKeySortedSet);
+            }
         }
 
         #endregion

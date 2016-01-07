@@ -57,7 +57,11 @@ namespace RedisExplorer.Controls
 
         public void Handle(RedisKeyReloadMessage message)
         {
-            DisplayValue((RedisKeyList)message.Item);
+            var redisKeyList = message.Item as RedisKeyList;
+            if (redisKeyList != null)
+            {
+                DisplayValue(redisKeyList);
+            }
         }
 
         #endregion

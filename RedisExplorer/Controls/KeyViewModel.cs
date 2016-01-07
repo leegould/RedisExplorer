@@ -327,8 +327,6 @@ namespace RedisExplorer.Controls
             }
         }
 
-        
-
         public void Handle(AddKeyMessage message)
         {
             item = new RedisKeyString(message.ParentDatabase, eventAggregator) { KeyValue = string.Empty };
