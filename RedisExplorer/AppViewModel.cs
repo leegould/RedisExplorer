@@ -13,7 +13,7 @@ using RedisExplorer.Properties;
 namespace RedisExplorer
 {
     [Export(typeof(AppViewModel))]
-    public sealed class AppViewModel : Screen, IApp, IHandle<TreeItemSelectedMessage>, IHandle<AddConnectionMessage>, IHandle<DeleteConnectionMessage>, IHandle<RedisKeyAddedMessage>, IHandle<RedisKeyUpdatedMessage>, IHandle<ConnectionFailedMessage>, IHandle<InfoNotValidMessage>, IHandle<ReloadKeyMessage>, IHandle<ServerReloadMessage>, IHandle<KeyDeletedMessage>, IHandle<DatabaseReloadMessage>
+    public sealed class AppViewModel : Screen, IApp, IHandle<TreeItemSelectedMessage>, IHandle<TreeItemExpandedMessage>, IHandle<AddConnectionMessage>, IHandle<DeleteConnectionMessage>, IHandle<RedisKeyAddedMessage>, IHandle<RedisKeyUpdatedMessage>, IHandle<ConnectionFailedMessage>, IHandle<InfoNotValidMessage>, IHandle<ReloadKeyMessage>, IHandle<ServerReloadMessage>, IHandle<KeyDeletedMessage>, IHandle<DatabaseReloadMessage>
     {
         #region Private members
 
@@ -121,18 +121,6 @@ namespace RedisExplorer
 
         #endregion
 
-        public void Handle(TreeItemSelectedMessage message)
-        {
-            if (message.SelectedItem is RedisServer)
-            {
-                StatusBarTextBlock = "Connecting to server : " + message.SelectedItem.Display;
-            }
-            else
-            {
-                StatusBarTextBlock = "Selected : " + message.SelectedItem.Display;
-            }
-        }
-
         public void Handle(AddConnectionMessage message)
         {
             StringCollection connections = Settings.Default.Servers ?? new StringCollection();
@@ -198,6 +186,30 @@ namespace RedisExplorer
         public void Handle(DatabaseReloadMessage message)
         {
             StatusBarTextBlock = "Reloaded Database : " + message.DbNumber;
+        }
+
+        public void Handle(TreeItemSelectedMessage message)
+        {
+            if (message.SelectedItem is RedisServer)
+            {
+                StatusBarTextBlock = "Connecting to server : " + message.SelectedItem.Display;
+            }
+            else
+            {
+                StatusBarTextBlock = "Selected : " + message.SelectedItem.Display;
+            }
+        }
+
+        public void Handle(TreeItemExpandedMessage message)
+        {
+            if (message.SelectedItem is RedisServer)
+            {
+                StatusBarTextBlock = "Expanded : " + message.SelectedItem.Display;
+            }
+            else
+            {
+                statusBarTextBlock = "Expanded : " + message.SelectedItem.Display;
+            }
         }
     }
 }

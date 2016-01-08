@@ -163,6 +163,7 @@
     <Compile Include="Messages\RedisKeyUpdatedMessage.cs" />
     <Compile Include="Messages\ReloadKeyMessage.cs" />
     <Compile Include="Messages\ServerReloadMessage.cs" />
+    <Compile Include="Messages\TreeItemExpandedMessage.cs" />
     <Compile Include="Messages\TreeItemSelectedMessage.cs" />
     <Compile Include="Models\HashWrapper.cs" />
     <Compile Include="Models\Maps.cs" />

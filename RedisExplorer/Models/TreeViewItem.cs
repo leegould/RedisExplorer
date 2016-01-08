@@ -69,15 +69,23 @@ namespace RedisExplorer.Models
                 if (value.Equals(isExpanded)) return;
                 
                 isExpanded = value;
-                    
+
                 if (isExpanded && parent != null)
+                {
                     parent.IsExpanded = true;
+                }
 
                 if (HasDummyChild)
                 {
                     Children.Remove(DummyChild);
                     LoadChildren();
                 }
+
+                if (isExpanded && HasChildren)
+                {
+                    eventAggregator.PublishOnUIThread(new TreeItemExpandedMessage { SelectedItem = this });
+                }
+
                 NotifyOfPropertyChange(() => IsExpanded);
             }
         }
@@ -94,10 +102,12 @@ namespace RedisExplorer.Models
                 {
                     IsExpanded = true;
                 }
-                else
+                
+                if (isSelected && !HasChildren)
                 {
                     eventAggregator.PublishOnUIThread(new TreeItemSelectedMessage { SelectedItem = this });
                 }
+
                 NotifyOfPropertyChange(() => IsSelected);
             }
         }
