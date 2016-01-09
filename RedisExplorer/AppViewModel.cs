@@ -208,7 +208,7 @@ namespace RedisExplorer
             }
             else
             {
-                statusBarTextBlock = "Expanded : " + message.SelectedItem.Display;
+                StatusBarTextBlock = "Expanded : " + message.SelectedItem.Display;
             }
         }
     }
