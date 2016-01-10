@@ -188,6 +188,8 @@ namespace RedisExplorer.Controls
 
             //ActivateItem(KeyStringViewModel);
 
+            ActivateItem(new DefaultViewModel());
+
             SetDefault();
         }
 

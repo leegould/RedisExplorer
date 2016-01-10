@@ -116,6 +116,10 @@
       <DependentUpon>AddConnectionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\AddConnectionViewModel.cs" />
+    <Compile Include="Controls\DefaultView.xaml.cs">
+      <DependentUpon>DefaultView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DefaultViewModel.cs" />
     <Compile Include="Controls\GreyableImage.cs" />
     <Compile Include="Controls\KeyHashView.xaml.cs">
       <DependentUpon>KeyHashView.xaml</DependentUpon>
@@ -213,6 +217,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\AddConnectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DefaultView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
