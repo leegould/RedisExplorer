@@ -4,8 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Background="DarkCyan">
-        <Label>Redis Explorer</Label>
+             d:DesignHeight="300" d:DesignWidth="300"
+             x:Name="defaultcontrol">
+    
+    <Grid Width="{Binding ElementName=defaultcontrol, Path=ActualWidth}">
+        <Border BorderBrush="DarkCyan" BorderThickness="1"></Border>
+        <Label VerticalAlignment="Center" HorizontalAlignment="Center">Redis Explorer</Label>
     </Grid>
 </UserControl>
