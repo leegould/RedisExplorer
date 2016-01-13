@@ -6,8 +6,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              x:Name="Keylistcontrol">
-    
-    <DataGrid ItemsSource="{Binding KeyValue}" Margin="0" AutoGenerateColumns="False" CanUserAddRows="True" HorizontalAlignment="Stretch"  Width="{Binding ElementName=Keylistcontrol, Path=ActualWidth}">
+
+    <DataGrid ItemsSource="{Binding KeyValue}" Margin="0" AutoGenerateColumns="False" CanUserAddRows="True" HorizontalAlignment="Stretch"  Width="{Binding ElementName=Keylistcontrol, Path=ActualWidth}" BorderBrush="Green" BorderThickness="1">
         <DataGrid.Columns>
             <DataGridTextColumn Header="Row"  IsReadOnly="True" Binding="{Binding Path=RowNumber}" Width="Auto"></DataGridTextColumn>
             <DataGridTextColumn Header="Value"  Binding="{Binding Path=Item}" Width="*"></DataGridTextColumn>

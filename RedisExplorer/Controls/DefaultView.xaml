@@ -29,7 +29,7 @@
             <Button Style="{StaticResource HyperlinkButton}" Focusable="False" cal:Message.Attach="[Action NavigateTo('https://github.com/leegould/RedisExplorer')]" HorizontalAlignment="Center">
                 <TextBlock Margin="10" Padding="2">
                     <Image Source="../Assets/GitHub-Mark-32px.png" Height="16" Width="16"></Image>
-                    <Hyperlink Focusable="False" FontSize="16">Github</Hyperlink>
+                    <Hyperlink Focusable="False" FontSize="16">Contribute</Hyperlink>
                 </TextBlock>
             </Button>
 
