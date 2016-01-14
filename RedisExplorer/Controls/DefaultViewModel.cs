@@ -6,7 +6,7 @@ using RedisExplorer.Interface;
 
 namespace RedisExplorer.Controls
 {
-    public class DefaultViewModel : Screen, IValueItem
+    public class DefaultViewModel : Screen, IDisplayPanel
     {
         public void NavigateTo(string url)
         {

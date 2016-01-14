@@ -13,7 +13,7 @@ using RedisKey = RedisExplorer.Models.RedisKey;
 namespace RedisExplorer.Controls
 {
     [Export(typeof(KeyViewModel))]
-    public class KeyViewModel : Conductor<IValueItem>.Collection.OneActive, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>
+    public class KeyViewModel : Conductor<IValueItem>.Collection.OneActive, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IDisplayPanel
     {
         #region Members
 
@@ -186,9 +186,9 @@ namespace RedisExplorer.Controls
             Items.Add(KeyHashViewModel);
             Items.Add(KeySortedSetViewModel);
 
-            //ActivateItem(KeyStringViewModel);
+            ActivateItem(KeyStringViewModel);
 
-            ActivateItem(new DefaultViewModel());
+            //ActivateItem(new DefaultViewModel());
 
             SetDefault();
         }

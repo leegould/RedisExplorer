@@ -13,7 +13,7 @@ using RedisExplorer.Properties;
 namespace RedisExplorer
 {
     [Export(typeof(AppViewModel))]
-    public sealed class AppViewModel : Screen, IApp, IHandle<TreeItemSelectedMessage>, IHandle<TreeItemExpandedMessage>, IHandle<AddConnectionMessage>, IHandle<DeleteConnectionMessage>, IHandle<RedisKeyAddedMessage>, IHandle<RedisKeyUpdatedMessage>, IHandle<ConnectionFailedMessage>, IHandle<InfoNotValidMessage>, IHandle<ReloadKeyMessage>, IHandle<ServerReloadMessage>, IHandle<KeyDeletedMessage>, IHandle<DatabaseReloadMessage>
+    public sealed class AppViewModel : Conductor<IDisplayPanel>.Collection.OneActive, IApp, IHandle<TreeItemSelectedMessage>, IHandle<TreeItemExpandedMessage>, IHandle<AddConnectionMessage>, IHandle<DeleteConnectionMessage>, IHandle<RedisKeyAddedMessage>, IHandle<RedisKeyUpdatedMessage>, IHandle<ConnectionFailedMessage>, IHandle<InfoNotValidMessage>, IHandle<ReloadKeyMessage>, IHandle<ServerReloadMessage>, IHandle<KeyDeletedMessage>, IHandle<DatabaseReloadMessage>
     {
         #region Private members
 
@@ -53,6 +53,11 @@ namespace RedisExplorer
             KeyViewModel = new KeyViewModel(eventAggregator);
             KeyViewModel.ConductWith(this);
 
+            DefaultViewModel = new DefaultViewModel();
+            DefaultViewModel.ConductWith(this);
+
+            ActivateItem(DefaultViewModel);
+
             LoadServers();
         }
 
@@ -73,6 +78,8 @@ namespace RedisExplorer
         #region Properties
 
         public KeyViewModel KeyViewModel { get; set; }
+
+        public DefaultViewModel DefaultViewModel { get; set; }
 
         public string StatusBarTextBlock
         {
@@ -190,6 +197,7 @@ namespace RedisExplorer
 
         public void Handle(TreeItemSelectedMessage message)
         {
+            ActivateItem(KeyViewModel);
             if (message.SelectedItem is RedisServer)
             {
                 StatusBarTextBlock = "Connecting to server : " + message.SelectedItem.Display;
