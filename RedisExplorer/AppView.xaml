@@ -26,6 +26,9 @@
                 <MenuItem x:Name="Preferences" Header="_Preferences"></MenuItem>
                 <MenuItem x:Name="Exit" Header="_Exit"></MenuItem>
             </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem x:Name="About" Header="_About"></MenuItem>
+            </MenuItem>
         </Menu>
 
         <Grid Background="DarkGray" DockPanel.Dock="Top">

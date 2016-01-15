@@ -126,6 +126,12 @@ namespace RedisExplorer
             windowManager.ShowWindow(new PreferencesViewModel(eventAggregator), null, settings);    
         }
 
+        public void About()
+        {
+            ActivateItem(DefaultViewModel);
+            StatusBarTextBlock = string.Empty;
+        }
+
         #endregion
 
         public void Handle(AddConnectionMessage message)
