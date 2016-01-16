@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Caliburn.Micro;
 using RedisExplorer.Messages;
 using StackExchange.Redis;
@@ -65,6 +64,11 @@ namespace RedisExplorer.Models
 
                 return ((RedisDatabase)parent);
             }
+        }
+
+        public int DatabaseName
+        {
+            get { return GetParentDatabase.GetDatabaseNumber; }            
         }
 
         public string KeyName

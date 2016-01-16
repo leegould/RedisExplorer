@@ -34,6 +34,11 @@ namespace RedisExplorer.Models
             return parent.GetDatabase(dbNumber);
         }
 
+        public int GetDatabaseNumber
+        {
+            get { return dbNumber; }
+        }
+
         protected override void LoadChildren()
         {
             var db = GetDatabase();
@@ -52,9 +57,7 @@ namespace RedisExplorer.Models
                 }
             }
         }
-
-
-
+        
         private static void AddChildren(TreeViewItem item, Queue<string> urn, RedisType ktype, IEventAggregator eventAggregator)
         {
             var keystr = urn.Dequeue();

@@ -24,6 +24,7 @@ namespace RedisExplorer.Controls
         private bool resetValue;
 
         private bool hasSelected;
+        private string databaseName;
         private string keyNameTextBox;
         private DateTime? ttlDateTimePicker;
         private RedisType selectedType;
@@ -100,6 +101,16 @@ namespace RedisExplorer.Controls
             {
                 keySortedSetViewModel = value;
                 NotifyOfPropertyChange(() => KeySortedSetViewModel);
+            }
+        }
+
+        public string DatabaseName
+        {
+            get { return databaseName; }
+            set
+            {
+                databaseName = value;
+                NotifyOfPropertyChange(() => DatabaseName);
             }
         }
 
@@ -197,6 +208,7 @@ namespace RedisExplorer.Controls
         {
             SelectedType = RedisType.String;
             TTLDateTimePicker = null;
+            DatabaseName = "1";
         }
 
         public IEnumerable<RedisType> RedisTypeValues
@@ -206,6 +218,11 @@ namespace RedisExplorer.Controls
                 return Enum.GetValues(typeof(RedisType)).Cast<RedisType>();
             }
         }
+
+        public IEnumerable<int> DatabaseNames
+        {
+            get { return Enumerable.Range(1, 16); }  // TODO : if there are different number of dbs
+        } 
 
         #region Button Actions
 
@@ -344,6 +361,8 @@ namespace RedisExplorer.Controls
         {
             if (item != null)
             {
+                DatabaseName = item.DatabaseName.ToString();
+
                 KeyNameTextBox = item.KeyName;
                 
                 SelectedType = item.KeyType;

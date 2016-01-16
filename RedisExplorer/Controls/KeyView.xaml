@@ -36,6 +36,8 @@
                 <ColumnDefinition Width="50"></ColumnDefinition>
                 <ColumnDefinition Width="50"></ColumnDefinition>
                 <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             
@@ -48,6 +50,9 @@
             
             <Button x:Name="TwentyFourHoursButton" Grid.Column="4" Margin="5,0">1 Day</Button>
             
+            <Label Grid.Column="5">Database</Label>
+            
+            <ComboBox Grid.Column="6"  SelectedItem="{Binding DatabaseName}" ItemsSource="{Binding DatabaseNames}" MinWidth="100"/>
         </Grid>
         
         <Grid Grid.Row="2" Margin="2">
