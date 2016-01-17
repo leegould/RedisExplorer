@@ -24,7 +24,7 @@ namespace RedisExplorer.Controls
         private bool resetValue;
 
         private bool hasSelected;
-        private string databaseName;
+        private int databaseName;
         private string keyNameTextBox;
         private DateTime? ttlDateTimePicker;
         private RedisType selectedType;
@@ -104,7 +104,7 @@ namespace RedisExplorer.Controls
             }
         }
 
-        public string DatabaseName
+        public int DatabaseName
         {
             get { return databaseName; }
             set
@@ -208,7 +208,7 @@ namespace RedisExplorer.Controls
         {
             SelectedType = RedisType.String;
             TTLDateTimePicker = null;
-            DatabaseName = "1";
+            DatabaseName = 1;
         }
 
         public IEnumerable<RedisType> RedisTypeValues
@@ -361,7 +361,7 @@ namespace RedisExplorer.Controls
         {
             if (item != null)
             {
-                DatabaseName = item.DatabaseName.ToString();
+                DatabaseName = item.DatabaseName;
 
                 KeyNameTextBox = item.KeyName;
                 

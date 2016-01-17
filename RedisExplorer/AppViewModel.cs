@@ -203,13 +203,13 @@ namespace RedisExplorer
 
         public void Handle(TreeItemSelectedMessage message)
         {
-            ActivateItem(KeyViewModel);
             if (message.SelectedItem is RedisServer)
             {
                 StatusBarTextBlock = "Connecting to server : " + message.SelectedItem.Display;
             }
             else
             {
+                ActivateItem(KeyViewModel);
                 StatusBarTextBlock = "Selected : " + message.SelectedItem.Display;
             }
         }
