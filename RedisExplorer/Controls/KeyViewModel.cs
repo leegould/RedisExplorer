@@ -232,6 +232,12 @@ namespace RedisExplorer.Controls
             {
                 return;
             }
+
+            if (DatabaseName != item.DatabaseName)
+            {
+                item.ChangeDatabase(DatabaseName);
+            }
+
             item.KeyName = keyNameTextBox;
             item.KeyType = SelectedType;
 

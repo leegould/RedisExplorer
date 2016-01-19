@@ -71,6 +71,11 @@ namespace RedisExplorer.Models
             get { return GetParentDatabase.GetDatabaseNumber; }            
         }
 
+        public void ChangeDatabase(int dbNumber)
+        {
+            Database = GetParentDatabase.GetDatabase(dbNumber);
+        }
+
         public string KeyName
         {
             get

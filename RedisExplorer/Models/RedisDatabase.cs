@@ -29,9 +29,9 @@ namespace RedisExplorer.Models
             urnSeparator = string.IsNullOrEmpty(Settings.Default.UrnSeparator) ? ":" : Settings.Default.UrnSeparator;
         }
 
-        public IDatabase GetDatabase()
+        public IDatabase GetDatabase(int? dbnum = null)
         {
-            return parent.GetDatabase(dbNumber);
+            return parent.GetDatabase(dbnum ?? dbNumber);
         }
 
         public int GetDatabaseNumber
@@ -64,15 +64,6 @@ namespace RedisExplorer.Models
             var key = item.Children.FirstOrDefault(x => x.Display == keystr);
             if (key == null)
             {
-                //if (ktype == RedisType.Unknown || ktype == RedisType.None)
-                //{
-                //    ktype = RedisType.String;
-                //}
-
-                //key = (RedisKey) Activator.CreateInstance(Maps.RedisTypeKeyMap[ktype], item.Parent, eventAggregator);
-                //key.Display = keystr;
-
-
                 if (ktype == RedisType.String)
                 {
                     key = new RedisKeyString(item, eventAggregator) { Display = keystr };
