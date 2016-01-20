@@ -103,7 +103,7 @@ namespace RedisExplorer.Models
                     IsExpanded = true;
                 }
                 
-                if (isSelected && !HasChildren)
+                if (isSelected) // && !HasChildren)
                 {
                     eventAggregator.PublishOnUIThread(new TreeItemSelectedMessage { SelectedItem = this });
                 }

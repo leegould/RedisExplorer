@@ -149,6 +149,10 @@
       <DependentUpon>PreferencesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PreferencesViewModel.cs" />
+    <Compile Include="Controls\ServerView.xaml.cs">
+      <DependentUpon>ServerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ServerViewModel.cs" />
     <Compile Include="Interface\IApp.cs" />
     <Compile Include="Interface\IDisplayPanel.cs" />
     <Compile Include="Interface\IKeyValue.cs" />
@@ -250,6 +254,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\PreferencesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ServerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

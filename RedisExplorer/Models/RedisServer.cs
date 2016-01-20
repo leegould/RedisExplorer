@@ -1,5 +1,7 @@
 ﻿using System.Collections.Specialized;
 using System.Linq;
+using System.Threading.Tasks;
+
 using Caliburn.Micro;
 using RedisExplorer.Messages;
 using RedisExplorer.Properties;
@@ -58,6 +60,11 @@ namespace RedisExplorer.Models
         {
             // TODO : this just gets first one
             return Connection != null ? Connection.GetEndPoints().Select(endpoint => Connection.GetServer(endpoint)).FirstOrDefault() : null;
+        }
+
+        public string GetServerInfo()
+        {
+            return GetServer().InfoRaw();
         }
 
         public IDatabase GetDatabase(int dbnumber)

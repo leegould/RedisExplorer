@@ -43,7 +43,7 @@ namespace RedisExplorer
 
         public AppViewModel(IEventAggregator eventAggregator, IWindowManager windowManager)
         {
-            this.DisplayName = "Redis Explorer";
+            DisplayName = "Redis Explorer";
 
             this.eventAggregator = eventAggregator;
             eventAggregator.Subscribe(this);
@@ -55,6 +55,9 @@ namespace RedisExplorer
 
             DefaultViewModel = new DefaultViewModel();
             DefaultViewModel.ConductWith(this);
+
+            ServerViewModel = new ServerViewModel(eventAggregator);
+            ServerViewModel.ConductWith(this);
 
             ActivateItem(DefaultViewModel);
 
@@ -80,6 +83,8 @@ namespace RedisExplorer
         public KeyViewModel KeyViewModel { get; set; }
 
         public DefaultViewModel DefaultViewModel { get; set; }
+
+        public ServerViewModel ServerViewModel { get; set; }
 
         public string StatusBarTextBlock
         {
@@ -205,6 +210,7 @@ namespace RedisExplorer
         {
             if (message.SelectedItem is RedisServer)
             {
+                ActivateItem(ServerViewModel);
                 StatusBarTextBlock = "Connecting to server : " + message.SelectedItem.Display;
             }
             else
