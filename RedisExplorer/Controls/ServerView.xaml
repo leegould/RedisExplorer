@@ -7,8 +7,13 @@
              d:DesignHeight="300" d:DesignWidth="300" 
              x:Name="ServerControl">
     <Grid Width="{Binding ElementName=ServerControl, Path=ActualWidth}">
-
-        <ScrollViewer Margin="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="ReloadServer" Width="100" Height="25" Margin="2">Reload Server</Button>
+        
+        <ScrollViewer Grid.Row="1" Margin="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
 
             <Label FontSize="12" x:Name="ServerInfo">Redis Explorer</Label>
             

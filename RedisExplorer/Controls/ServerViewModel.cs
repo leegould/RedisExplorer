@@ -9,9 +9,9 @@ using RedisExplorer.Models;
 namespace RedisExplorer.Controls
 {
     [Export(typeof(ServerViewModel))]
-    public class ServerViewModel : Screen, IDisplayPanel, IHandle<TreeItemSelectedMessage>
+    public class ServerViewModel : Screen, IDisplayPanel, IHandle<TreeItemSelectedMessage>, IHandle<ServerReloadMessage>
     {
-        private readonly IEventAggregator eventAggregator;
+        private RedisServer redisServer;
 
         private string serverInfo;
 
@@ -25,9 +25,16 @@ namespace RedisExplorer.Controls
             }
         }
 
+        public void ReloadServer()
+        {
+            if (redisServer != null)
+            {
+                redisServer.Reload();
+            }
+        }
+
         public ServerViewModel(IEventAggregator eventAggregator)
         {
-            this.eventAggregator = eventAggregator;
             eventAggregator.Subscribe(this);
         }
 
@@ -35,10 +42,20 @@ namespace RedisExplorer.Controls
         {
             if (message != null && message.SelectedItem is RedisServer)
             {
-                var server = message.SelectedItem as RedisServer;
+                redisServer = message.SelectedItem as RedisServer;
 
-                ServerInfo = server.GetServerInfo();
+                DisplayItem();
             }
+        }
+
+        public void Handle(ServerReloadMessage message)
+        {
+            DisplayItem();
+        }
+
+        private void DisplayItem()
+        {
+            ServerInfo = redisServer.GetServerInfo();
         }
     }
 }

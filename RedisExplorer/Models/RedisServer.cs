@@ -113,7 +113,7 @@ namespace RedisExplorer.Models
             }
         }
 
-        public void Reload(RedisServer server)
+        public void Reload()
         {
             Children.Clear();
 
