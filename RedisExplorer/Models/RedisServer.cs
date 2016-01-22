@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -62,9 +63,9 @@ namespace RedisExplorer.Models
             return Connection != null ? Connection.GetEndPoints().Select(endpoint => Connection.GetServer(endpoint)).FirstOrDefault() : null;
         }
 
-        public string GetServerInfo()
+        public IGrouping<string, KeyValuePair<string, string>>[] GetServerInfo()
         {
-            return GetServer().InfoRaw();
+            return GetServer().Info();
         }
 
         public IDatabase GetDatabase(int dbnumber)
