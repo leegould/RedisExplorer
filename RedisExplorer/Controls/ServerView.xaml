@@ -19,9 +19,40 @@
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            
-            <Label Grid.Column="0">Redis Version</Label>
-            <Label Grid.Column="1" x:Name="ServerStatistics_RedisVersion"></Label>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0">Redis Version</Label>
+            <Label Grid.Row="0" Grid.Column="1" x:Name="ServerStatistics_RedisVersion"></Label>
+
+            <Label Grid.Row="1" Grid.Column="0">Mode</Label>
+            <Label Grid.Row="1" Grid.Column="1" x:Name="ServerStatistics_Mode"></Label>
+
+            <Label Grid.Row="2" Grid.Column="0">Operating System</Label>
+            <Label Grid.Row="2" Grid.Column="1" x:Name="ServerStatistics_OS"></Label>
+
+            <Label Grid.Row="3" Grid.Column="0">Process Id</Label>
+            <Label Grid.Row="3" Grid.Column="1" x:Name="ServerStatistics_ProcessId"></Label>
+
+            <Label Grid.Row="4" Grid.Column="0">TCP Port</Label>
+            <Label Grid.Row="4" Grid.Column="1" x:Name="ServerStatistics_TCPPort"></Label>
+
+            <Label Grid.Row="5" Grid.Column="0">Uptime in seconds</Label>
+            <Label Grid.Row="5" Grid.Column="1" x:Name="ServerStatistics_UptimeInSeconds"></Label>
+
+            <Label Grid.Row="6" Grid.Column="0">Uptime in days</Label>
+            <Label Grid.Row="6" Grid.Column="1" x:Name="ServerStatistics_UptimeInDays"></Label>
+
+            <Label Grid.Row="7" Grid.Column="0">Config File</Label>
+            <Label Grid.Row="7" Grid.Column="1" x:Name="ServerStatistics_ConfigFile"></Label>
         </Grid>
         
         <!--<ScrollViewer Grid.Row="1" Margin="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">

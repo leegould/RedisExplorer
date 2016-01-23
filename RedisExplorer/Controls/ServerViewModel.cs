@@ -101,7 +101,8 @@ namespace RedisExplorer.Controls
                                    RedisVersion = serverstatsdict["redis_version"],
                                    GitSHA1 = serverstatsdict["redis_git_sha1"],
                                    GitDirty = serverstatsdict["redis_git_dirty"],
-                                   BuildId = serverstatsdict["redis_build_id"]
+                                   BuildId = serverstatsdict["redis_build_id"],
+                                   Mode = serverstatsdict["redis_mode"],
                                };
         }
 
