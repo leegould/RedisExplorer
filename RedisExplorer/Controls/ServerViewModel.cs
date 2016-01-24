@@ -103,6 +103,18 @@ namespace RedisExplorer.Controls
                                    GitDirty = serverstatsdict["redis_git_dirty"],
                                    BuildId = serverstatsdict["redis_build_id"],
                                    Mode = serverstatsdict["redis_mode"],
+                                   ArchBits = serverstatsdict["arch_bits"],
+                                   ConfigFile = serverstatsdict["config_file"],
+                                   //GCCVersion = serverstatsdict["gcc_version"],
+                                   HZ = serverstatsdict["hz"],
+                                   LRUClock = serverstatsdict["lru_clock"],
+                                   MultiplexingApi = serverstatsdict["multiplexing_api"],
+                                   OS = serverstatsdict["os"],
+                                   ProcessId = serverstatsdict["process_id"],
+                                   RunId = serverstatsdict["run_id"],
+                                   TCPPort = serverstatsdict["tcp_port"],
+                                   UptimeInDays = serverstatsdict["uptime_in_days"],
+                                   UptimeInSeconds = serverstatsdict["uptime_in_seconds"]
                                };
         }
 
