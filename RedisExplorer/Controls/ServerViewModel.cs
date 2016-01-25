@@ -15,19 +15,12 @@ namespace RedisExplorer.Controls
     {
         private RedisServer redisServer;
 
-        //private List<IGrouping<string, KeyValuePair<string, string>>> serverInfo;
-
-        //public List<IGrouping<string, KeyValuePair<string, string>>>  ServerInfo
-        //{
-        //    get { return serverInfo; }
-        //    set
-        //    {
-        //        serverInfo = value;
-        //        NotifyOfPropertyChange(() => ServerInfo);
-        //    }
-        //}
-
         private ServerStats serverStatistics;
+
+        private ClientStats clientStatistics;
+
+
+        #region Properties
 
         public ServerStats ServerStatistics {
             get
@@ -40,6 +33,23 @@ namespace RedisExplorer.Controls
                 NotifyOfPropertyChange(() => ServerStatistics);
             }
         }
+
+        public ClientStats ClientStatistics
+        {
+            get
+            {
+                return clientStatistics;
+            }
+            set
+            {
+                clientStatistics = value;
+                NotifyOfPropertyChange(() => ClientStatistics);
+            }
+        }
+
+        #endregion
+
+        #region Classes
 
         public class ServerStats
         {
@@ -61,6 +71,16 @@ namespace RedisExplorer.Controls
             public string LRUClock { get; set; }
             public string ConfigFile { get; set; }
         }
+
+        public class ClientStats
+        {
+            public string ConnectedClients { get; set; }
+            public string LongestOutputList { get; set; }
+            public string BiggestInputBuf { get; set; }
+            public string BlockedClients { get; set; }
+        }
+
+        #endregion
 
         public void ReloadServer()
         {
@@ -105,7 +125,7 @@ namespace RedisExplorer.Controls
                                    Mode = serverstatsdict["redis_mode"],
                                    ArchBits = serverstatsdict["arch_bits"],
                                    ConfigFile = serverstatsdict["config_file"],
-                                   //GCCVersion = serverstatsdict["gcc_version"],
+                                   GCCVersion = serverstatsdict.ContainsKey("gcc_version") ? serverstatsdict["gcc_version"] : string.Empty,
                                    HZ = serverstatsdict["hz"],
                                    LRUClock = serverstatsdict["lru_clock"],
                                    MultiplexingApi = serverstatsdict["multiplexing_api"],
@@ -115,6 +135,16 @@ namespace RedisExplorer.Controls
                                    TCPPort = serverstatsdict["tcp_port"],
                                    UptimeInDays = serverstatsdict["uptime_in_days"],
                                    UptimeInSeconds = serverstatsdict["uptime_in_seconds"]
+                               };
+
+            var clientstatsdict = serverInfo.FirstOrDefault(x => x.Key.ToLower() == "client").ToDictionary(x => x.Key, x => x.Value);
+
+            ClientStatistics = new ClientStats
+                               {
+                                   BiggestInputBuf = clientstatsdict["client_biggest_input_buf"],
+                                   LongestOutputList = clientstatsdict["client_longest_output_list"],
+                                   BlockedClients = clientstatsdict["blocked_clients"],
+                                   ConnectedClients = clientstatsdict["connected_clients"]
                                };
         }
 
