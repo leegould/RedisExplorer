@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.Composition;
+﻿using System.ComponentModel.Composition;
 using System.Linq;
 
 using Caliburn.Micro;
@@ -19,8 +18,24 @@ namespace RedisExplorer.Controls
 
         private ClientStats clientStatistics;
 
+        private MemoryStats memoryStatistics;
+
+        private string serverName;
 
         #region Properties
+
+        public string ServerName
+        {
+            get
+            {
+                return serverName;
+            }
+            set
+            {
+                serverName = value;
+                NotifyOfPropertyChange(() => ServerName);
+            }
+        }
 
         public ServerStats ServerStatistics {
             get
@@ -47,7 +62,105 @@ namespace RedisExplorer.Controls
             }
         }
 
+        public MemoryStats MemoryStatistics
+        {
+            get
+            {
+                return memoryStatistics;
+            }
+            set
+            {
+                memoryStatistics = value;
+                NotifyOfPropertyChange(() => MemoryStatistics);
+            }
+        }
+
         #endregion
+
+        
+
+        public void ReloadServer()
+        {
+            if (redisServer != null)
+            {
+                redisServer.Reload();
+            }
+        }
+
+        public ServerViewModel(IEventAggregator eventAggregator)
+        {
+            eventAggregator.Subscribe(this);
+        }
+
+        public void Handle(TreeItemSelectedMessage message)
+        {
+            if (message != null && message.SelectedItem is RedisServer)
+            {
+                redisServer = message.SelectedItem as RedisServer;
+
+                DisplayItem();
+            }
+        }
+
+        public void Handle(ServerReloadMessage message)
+        {
+            DisplayItem();
+        }
+
+        private void DisplayItem()
+        {
+            ServerName = redisServer.Display;
+
+            var serverInfo = redisServer.GetServerInfo().ToList();
+
+            var serverstatsdict = serverInfo.FirstOrDefault(x => x.Key.ToLower() == "server").ToDictionary(x => x.Key, x => x.Value);
+
+            ServerStatistics = new ServerStats
+                               {
+                                   RedisVersion = serverstatsdict["redis_version"],
+                                   GitSHA1 = serverstatsdict["redis_git_sha1"],
+                                   GitDirty = serverstatsdict["redis_git_dirty"],
+                                   BuildId = serverstatsdict["redis_build_id"],
+                                   Mode = serverstatsdict["redis_mode"],
+                                   ArchBits = serverstatsdict["arch_bits"],
+                                   ConfigFile = serverstatsdict["config_file"],
+                                   GCCVersion = serverstatsdict.ContainsKey("gcc_version") ? serverstatsdict["gcc_version"] : string.Empty,
+                                   HZ = serverstatsdict["hz"],
+                                   LRUClock = serverstatsdict["lru_clock"],
+                                   MultiplexingApi = serverstatsdict["multiplexing_api"],
+                                   OS = serverstatsdict["os"],
+                                   ProcessId = serverstatsdict["process_id"],
+                                   RunId = serverstatsdict["run_id"],
+                                   TCPPort = serverstatsdict["tcp_port"],
+                                   UptimeInDays = serverstatsdict["uptime_in_days"],
+                                   UptimeInSeconds = serverstatsdict["uptime_in_seconds"]
+                               };
+
+            var clientstatsdict = serverInfo.FirstOrDefault(x => x.Key.ToLower() == "clients").ToDictionary(x => x.Key, x => x.Value);
+
+            ClientStatistics = new ClientStats
+                               {
+                                   BiggestInputBuf = clientstatsdict["client_biggest_input_buf"],
+                                   LongestOutputList = clientstatsdict["client_longest_output_list"],
+                                   BlockedClients = clientstatsdict["blocked_clients"],
+                                   ConnectedClients = clientstatsdict["connected_clients"]
+                               };
+
+            var memorystatsdict = serverInfo.FirstOrDefault(x => x.Key.ToLower() == "memory").ToDictionary(x => x.Key, x => x.Value);
+
+
+            MemoryStatistics = new MemoryStats
+                               {
+                                   UsedMemory = memorystatsdict["used_memory"],
+                                   UsedMemoryHuman = memorystatsdict["used_memory_human"],
+                                   UsedMemoryLua = memorystatsdict["used_memory_lua"],
+                                   UsedMemoryPeak = memorystatsdict["used_memory_peak"],
+                                   UsedMemoryPeakHuman = memorystatsdict["used_memory_peak_human"],
+                                   UsedMemoryRss = memorystatsdict["used_memory_rss"],
+                                   MemFragmentationRatio = memorystatsdict["mem_fragmentation_ratio"],
+                                   MemAllocator = memorystatsdict["mem_allocator"]
+                               };
+        }
 
         #region Classes
 
@@ -80,73 +193,20 @@ namespace RedisExplorer.Controls
             public string BlockedClients { get; set; }
         }
 
+        public class MemoryStats
+        {
+            public string UsedMemory { get; set; }
+            public string UsedMemoryHuman { get; set; }
+            public string UsedMemoryRss { get; set; }
+            public string UsedMemoryPeak { get; set; }
+            public string UsedMemoryPeakHuman { get; set; }
+            public string UsedMemoryLua { get; set; }
+            public string MemFragmentationRatio { get; set; }
+            public string MemAllocator { get; set; }
+        }
+
+
+
         #endregion
-
-        public void ReloadServer()
-        {
-            if (redisServer != null)
-            {
-                redisServer.Reload();
-            }
-        }
-
-        public ServerViewModel(IEventAggregator eventAggregator)
-        {
-            eventAggregator.Subscribe(this);
-        }
-
-        public void Handle(TreeItemSelectedMessage message)
-        {
-            if (message != null && message.SelectedItem is RedisServer)
-            {
-                redisServer = message.SelectedItem as RedisServer;
-
-                DisplayItem();
-            }
-        }
-
-        public void Handle(ServerReloadMessage message)
-        {
-            DisplayItem();
-        }
-
-        private void DisplayItem()
-        {
-            var serverInfo = redisServer.GetServerInfo().ToList();
-
-            var serverstatsdict = serverInfo.FirstOrDefault(x => x.Key.ToLower() == "server").ToDictionary(x => x.Key, x => x.Value);
-
-            ServerStatistics = new ServerStats
-                               {
-                                   RedisVersion = serverstatsdict["redis_version"],
-                                   GitSHA1 = serverstatsdict["redis_git_sha1"],
-                                   GitDirty = serverstatsdict["redis_git_dirty"],
-                                   BuildId = serverstatsdict["redis_build_id"],
-                                   Mode = serverstatsdict["redis_mode"],
-                                   ArchBits = serverstatsdict["arch_bits"],
-                                   ConfigFile = serverstatsdict["config_file"],
-                                   GCCVersion = serverstatsdict.ContainsKey("gcc_version") ? serverstatsdict["gcc_version"] : string.Empty,
-                                   HZ = serverstatsdict["hz"],
-                                   LRUClock = serverstatsdict["lru_clock"],
-                                   MultiplexingApi = serverstatsdict["multiplexing_api"],
-                                   OS = serverstatsdict["os"],
-                                   ProcessId = serverstatsdict["process_id"],
-                                   RunId = serverstatsdict["run_id"],
-                                   TCPPort = serverstatsdict["tcp_port"],
-                                   UptimeInDays = serverstatsdict["uptime_in_days"],
-                                   UptimeInSeconds = serverstatsdict["uptime_in_seconds"]
-                               };
-
-            var clientstatsdict = serverInfo.FirstOrDefault(x => x.Key.ToLower() == "client").ToDictionary(x => x.Key, x => x.Value);
-
-            ClientStatistics = new ClientStats
-                               {
-                                   BiggestInputBuf = clientstatsdict["client_biggest_input_buf"],
-                                   LongestOutputList = clientstatsdict["client_longest_output_list"],
-                                   BlockedClients = clientstatsdict["blocked_clients"],
-                                   ConnectedClients = clientstatsdict["connected_clients"]
-                               };
-        }
-
     }
 }

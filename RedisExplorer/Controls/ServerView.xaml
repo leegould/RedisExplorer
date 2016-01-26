@@ -4,91 +4,173 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" 
+             d:DesignHeight="600" d:DesignWidth="600" 
              x:Name="ServerControl">
     
     <Grid Width="{Binding ElementName=ServerControl, Path=ActualWidth}">
+        
+        <Grid.Resources>
+            <BorderGapMaskConverter x:Key="BorderGapMaskConverter"/>
+            <Style TargetType="{x:Type GroupBox}">
+                <Setter Property="BorderBrush" Value="#D5DFE5" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type GroupBox}">
+                            <Grid SnapsToDevicePixels="true">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="6" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="6" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="6" />
+                                </Grid.RowDefinitions>
+                                <Border CornerRadius="4" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="4" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="Transparent" Background="{TemplateBinding Background}" />
+                                <Border Name="Header" Padding="3,1,3,0" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
+                                    <ContentPresenter ContentSource="Header" RecognizesAccessKey="true" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                </Border>
+                                <ContentPresenter Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                <Border Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="4"  BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="3">
+                                    <Border.OpacityMask>
+                                        <MultiBinding Converter="{StaticResource BorderGapMaskConverter}" ConverterParameter="7">
+                                            <Binding ElementName="Header" Path="ActualWidth" />
+                                            <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}" />
+                                            <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}" />
+                                        </MultiBinding>
+                                    </Border.OpacityMask>
+                                </Border>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>
+        
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="ReloadServer" Width="100" Height="25" Margin="2">Reload Server</Button>
         
+        <Label x:Name="ServerName" Grid.Column="0"></Label>
         
-        <Grid Grid.Row="1" Grid.Column="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
-            </Grid.RowDefinitions>
+        <Button x:Name="ReloadServer" Width="100" Height="25" Margin="2" Grid.Column="1">Reload Server</Button>
 
-            <Label Grid.Row="0" Grid.Column="0">Redis Version</Label>
-            <Label Grid.Row="0" Grid.Column="1" x:Name="ServerStatistics_RedisVersion"></Label>
+        <GroupBox Header="Server" BorderBrush="DodgerBlue" BorderThickness="2" Grid.Row="1" Grid.Column="0" Margin="5">
 
-            <Label Grid.Row="1" Grid.Column="0">Mode</Label>
-            <Label Grid.Row="1" Grid.Column="1" x:Name="ServerStatistics_Mode"></Label>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
 
-            <Label Grid.Row="2" Grid.Column="0">Operating System</Label>
-            <Label Grid.Row="2" Grid.Column="1" x:Name="ServerStatistics_OS"></Label>
+                <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold">Redis Version</Label>
+                <Label Grid.Row="0" Grid.Column="1" x:Name="ServerStatistics_RedisVersion"></Label>
 
-            <Label Grid.Row="3" Grid.Column="0">Process Id</Label>
-            <Label Grid.Row="3" Grid.Column="1" x:Name="ServerStatistics_ProcessId"></Label>
+                <Label Grid.Row="1" Grid.Column="0" FontWeight="Bold">Mode</Label>
+                <Label Grid.Row="1" Grid.Column="1" x:Name="ServerStatistics_Mode"></Label>
 
-            <Label Grid.Row="4" Grid.Column="0">TCP Port</Label>
-            <Label Grid.Row="4" Grid.Column="1" x:Name="ServerStatistics_TCPPort"></Label>
+                <Label Grid.Row="2" Grid.Column="0" FontWeight="Bold">Operating System</Label>
+                <Label Grid.Row="2" Grid.Column="1" x:Name="ServerStatistics_OS"></Label>
 
-            <Label Grid.Row="5" Grid.Column="0">Uptime in seconds</Label>
-            <Label Grid.Row="5" Grid.Column="1" x:Name="ServerStatistics_UptimeInSeconds"></Label>
+                <Label Grid.Row="3" Grid.Column="0" FontWeight="Bold">Process Id</Label>
+                <Label Grid.Row="3" Grid.Column="1" x:Name="ServerStatistics_ProcessId"></Label>
 
-            <Label Grid.Row="6" Grid.Column="0">Uptime in days</Label>
-            <Label Grid.Row="6" Grid.Column="1" x:Name="ServerStatistics_UptimeInDays"></Label>
+                <Label Grid.Row="4" Grid.Column="0" FontWeight="Bold">TCP Port</Label>
+                <Label Grid.Row="4" Grid.Column="1" x:Name="ServerStatistics_TCPPort"></Label>
 
-            <Label Grid.Row="7" Grid.Column="0">Config File</Label>
-            <Label Grid.Row="7" Grid.Column="1" x:Name="ServerStatistics_ConfigFile"></Label>
-        </Grid>
+                <Label Grid.Row="5" Grid.Column="0" FontWeight="Bold">Uptime in days</Label>
+                <Label Grid.Row="5" Grid.Column="1" x:Name="ServerStatistics_UptimeInDays"></Label>
 
-        <Grid Grid.Row="1" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
-            </Grid.RowDefinitions>
+                <Label Grid.Row="6" Grid.Column="0" FontWeight="Bold">Config File</Label>
+                <Label Grid.Row="6" Grid.Column="1" x:Name="ServerStatistics_ConfigFile"></Label>
+            </Grid>
+        </GroupBox>
 
-            <Label Grid.Row="0" Grid.Column="0">Redis Version</Label>
-            <Label Grid.Row="0" Grid.Column="1" x:Name="ClientStatistics_ConnectedClients"></Label>
+        <GroupBox Header="Clients" BorderBrush="DodgerBlue" BorderThickness="2" Grid.Row="1" Grid.Column="1" Margin="5" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
 
-            <Label Grid.Row="1" Grid.Column="0">Mode</Label>
-            <Label Grid.Row="1" Grid.Column="1" x:Name="ClientStatistics_BlockedClients"></Label>
+                <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold">Connected Clients</Label>
+                <Label Grid.Row="0" Grid.Column="1" x:Name="ClientStatistics_ConnectedClients"></Label>
 
-            <Label Grid.Row="2" Grid.Column="0">Operating System</Label>
-            <Label Grid.Row="2" Grid.Column="1" x:Name="ClientStatistics_LongestOutputList"></Label>
+                <Label Grid.Row="1" Grid.Column="0" FontWeight="Bold">Blocked Clients</Label>
+                <Label Grid.Row="1" Grid.Column="1" x:Name="ClientStatistics_BlockedClients"></Label>
 
-            <Label Grid.Row="3" Grid.Column="0">Process Id</Label>
-            <Label Grid.Row="3" Grid.Column="1" x:Name="ClientStatistics_BiggestInputBuf"></Label>
+                <Label Grid.Row="2" Grid.Column="0" FontWeight="Bold">Longest Output List</Label>
+                <Label Grid.Row="2" Grid.Column="1" x:Name="ClientStatistics_LongestOutputList"></Label>
 
-        </Grid>
+                <Label Grid.Row="3" Grid.Column="0" FontWeight="Bold">Biggest Input buffer</Label>
+                <Label Grid.Row="3" Grid.Column="1" x:Name="ClientStatistics_BiggestInputBuf"></Label>
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Memory" BorderBrush="DodgerBlue" BorderThickness="2" Grid.Row="2" Grid.Column="0" Margin="5" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold">Used Memory</Label>
+                <Label Grid.Row="0" Grid.Column="1" x:Name="MemoryStatistics_UsedMemoryHuman"></Label>
+
+                <Label Grid.Row="1" Grid.Column="0" FontWeight="Bold">Used Memory Peak</Label>
+                <Label Grid.Row="1" Grid.Column="1" x:Name="MemoryStatistics_UsedMemoryPeakHuman"></Label>
+
+                <Label Grid.Row="2" Grid.Column="0" FontWeight="Bold">Used Memory Lua</Label>
+                <Label Grid.Row="2" Grid.Column="1" x:Name="MemoryStatistics_UsedMemoryLua"></Label>
+
+                <Label Grid.Row="3" Grid.Column="0" FontWeight="Bold">Fragmentation Ratio</Label>
+                <Label Grid.Row="3" Grid.Column="1" x:Name="MemoryStatistics_MemFragmentationRatio"></Label>
+
+                <Label Grid.Row="4" Grid.Column="0" FontWeight="Bold">Allocator</Label>
+                <Label Grid.Row="4" Grid.Column="1" x:Name="MemoryStatistics_MemAllocator"></Label>
+            </Grid>
+
+        </GroupBox>
             <!--<ScrollViewer Grid.Row="1" Margin="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
 
             --><!--<Label FontSize="12" x:Name="ServerInfo">Redis Explorer</Label>--><!--
