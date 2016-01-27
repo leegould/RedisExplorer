@@ -49,133 +49,155 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+
+            <LinearGradientBrush x:Key="HeaderBackgroundOpacityMask" StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="DarkGray" Offset="0"/>
+                <GradientStop Color="LightGray" Offset="1"/>
+            </LinearGradientBrush>
         </Grid.Resources>
         
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
-        <Label x:Name="ServerName" Grid.Column="0"></Label>
+        <Label x:Name="ServerName" Grid.Column="0" FontSize="20" FontWeight="Bold" Margin="10,0,10,5">Redis Server</Label>
         
-        <Button x:Name="ReloadServer" Width="100" Height="25" Margin="2" Grid.Column="1">Reload Server</Button>
+        <Button x:Name="ReloadServer" Width="100" Height="25" Margin="10,0,10,5" Grid.Column="1" HorizontalAlignment="Right">Reload</Button>
 
-        <GroupBox Header="Server" BorderBrush="DodgerBlue" BorderThickness="2" Grid.Row="1" Grid.Column="0" Margin="5">
+        <UniformGrid Rows="2" Columns="2" Grid.Row="1">
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                </Grid.RowDefinitions>
+            <GroupBox Header="Server" BorderBrush="DodgerBlue" BorderThickness="2" Margin="5" Background="{StaticResource HeaderBackgroundOpacityMask}">
 
-                <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold">Redis Version</Label>
-                <Label Grid.Row="0" Grid.Column="1" x:Name="ServerStatistics_RedisVersion"></Label>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                    </Grid.RowDefinitions>
 
-                <Label Grid.Row="1" Grid.Column="0" FontWeight="Bold">Mode</Label>
-                <Label Grid.Row="1" Grid.Column="1" x:Name="ServerStatistics_Mode"></Label>
+                    <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold">Redis Version</Label>
+                    <Label Grid.Row="0" Grid.Column="1" x:Name="ServerStatistics_RedisVersion"></Label>
 
-                <Label Grid.Row="2" Grid.Column="0" FontWeight="Bold">Operating System</Label>
-                <Label Grid.Row="2" Grid.Column="1" x:Name="ServerStatistics_OS"></Label>
+                    <Label Grid.Row="1" Grid.Column="0" FontWeight="Bold">Mode</Label>
+                    <Label Grid.Row="1" Grid.Column="1" x:Name="ServerStatistics_Mode"></Label>
 
-                <Label Grid.Row="3" Grid.Column="0" FontWeight="Bold">Process Id</Label>
-                <Label Grid.Row="3" Grid.Column="1" x:Name="ServerStatistics_ProcessId"></Label>
+                    <Label Grid.Row="2" Grid.Column="0" FontWeight="Bold">Operating System</Label>
+                    <Label Grid.Row="2" Grid.Column="1" x:Name="ServerStatistics_OS"></Label>
 
-                <Label Grid.Row="4" Grid.Column="0" FontWeight="Bold">TCP Port</Label>
-                <Label Grid.Row="4" Grid.Column="1" x:Name="ServerStatistics_TCPPort"></Label>
+                    <Label Grid.Row="3" Grid.Column="0" FontWeight="Bold">Process Id</Label>
+                    <Label Grid.Row="3" Grid.Column="1" x:Name="ServerStatistics_ProcessId"></Label>
 
-                <Label Grid.Row="5" Grid.Column="0" FontWeight="Bold">Uptime in days</Label>
-                <Label Grid.Row="5" Grid.Column="1" x:Name="ServerStatistics_UptimeInDays"></Label>
+                    <Label Grid.Row="4" Grid.Column="0" FontWeight="Bold">TCP Port</Label>
+                    <Label Grid.Row="4" Grid.Column="1" x:Name="ServerStatistics_TCPPort"></Label>
 
-                <Label Grid.Row="6" Grid.Column="0" FontWeight="Bold">Config File</Label>
-                <Label Grid.Row="6" Grid.Column="1" x:Name="ServerStatistics_ConfigFile"></Label>
-            </Grid>
-        </GroupBox>
+                    <Label Grid.Row="5" Grid.Column="0" FontWeight="Bold">Uptime in days</Label>
+                    <Label Grid.Row="5" Grid.Column="1" x:Name="ServerStatistics_UptimeInDays"></Label>
 
-        <GroupBox Header="Clients" BorderBrush="DodgerBlue" BorderThickness="2" Grid.Row="1" Grid.Column="1" Margin="5" >
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                </Grid.RowDefinitions>
+                    <Label Grid.Row="6" Grid.Column="0" FontWeight="Bold">Config File</Label>
+                    <Label Grid.Row="6" Grid.Column="1" x:Name="ServerStatistics_ConfigFile"></Label>
+                </Grid>
+            </GroupBox>
 
-                <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold">Connected Clients</Label>
-                <Label Grid.Row="0" Grid.Column="1" x:Name="ClientStatistics_ConnectedClients"></Label>
+            <GroupBox Header="Clients" BorderBrush="ForestGreen" BorderThickness="2" Margin="5" Background="{StaticResource HeaderBackgroundOpacityMask}" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                    </Grid.RowDefinitions>
 
-                <Label Grid.Row="1" Grid.Column="0" FontWeight="Bold">Blocked Clients</Label>
-                <Label Grid.Row="1" Grid.Column="1" x:Name="ClientStatistics_BlockedClients"></Label>
+                    <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold">Connected Clients</Label>
+                    <Label Grid.Row="0" Grid.Column="1" x:Name="ClientStatistics_ConnectedClients"></Label>
 
-                <Label Grid.Row="2" Grid.Column="0" FontWeight="Bold">Longest Output List</Label>
-                <Label Grid.Row="2" Grid.Column="1" x:Name="ClientStatistics_LongestOutputList"></Label>
+                    <Label Grid.Row="1" Grid.Column="0" FontWeight="Bold">Blocked Clients</Label>
+                    <Label Grid.Row="1" Grid.Column="1" x:Name="ClientStatistics_BlockedClients"></Label>
 
-                <Label Grid.Row="3" Grid.Column="0" FontWeight="Bold">Biggest Input buffer</Label>
-                <Label Grid.Row="3" Grid.Column="1" x:Name="ClientStatistics_BiggestInputBuf"></Label>
+                    <Label Grid.Row="2" Grid.Column="0" FontWeight="Bold">Longest Output List</Label>
+                    <Label Grid.Row="2" Grid.Column="1" x:Name="ClientStatistics_LongestOutputList"></Label>
 
-            </Grid>
-        </GroupBox>
+                    <Label Grid.Row="3" Grid.Column="0" FontWeight="Bold">Biggest Input buffer</Label>
+                    <Label Grid.Row="3" Grid.Column="1" x:Name="ClientStatistics_BiggestInputBuf"></Label>
 
-        <GroupBox Header="Memory" BorderBrush="DodgerBlue" BorderThickness="2" Grid.Row="2" Grid.Column="0" Margin="5" >
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                </Grid.RowDefinitions>
+                </Grid>
+            </GroupBox>
 
-                <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold">Used Memory</Label>
-                <Label Grid.Row="0" Grid.Column="1" x:Name="MemoryStatistics_UsedMemoryHuman"></Label>
+            <GroupBox Header="Memory" BorderBrush="Purple" BorderThickness="2" Margin="5" Background="{StaticResource HeaderBackgroundOpacityMask}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                    </Grid.RowDefinitions>
 
-                <Label Grid.Row="1" Grid.Column="0" FontWeight="Bold">Used Memory Peak</Label>
-                <Label Grid.Row="1" Grid.Column="1" x:Name="MemoryStatistics_UsedMemoryPeakHuman"></Label>
+                    <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold">Used Memory</Label>
+                    <Label Grid.Row="0" Grid.Column="1" x:Name="MemoryStatistics_UsedMemoryHuman"></Label>
 
-                <Label Grid.Row="2" Grid.Column="0" FontWeight="Bold">Used Memory Lua</Label>
-                <Label Grid.Row="2" Grid.Column="1" x:Name="MemoryStatistics_UsedMemoryLua"></Label>
+                    <Label Grid.Row="1" Grid.Column="0" FontWeight="Bold">Used Memory Peak</Label>
+                    <Label Grid.Row="1" Grid.Column="1" x:Name="MemoryStatistics_UsedMemoryPeakHuman"></Label>
 
-                <Label Grid.Row="3" Grid.Column="0" FontWeight="Bold">Fragmentation Ratio</Label>
-                <Label Grid.Row="3" Grid.Column="1" x:Name="MemoryStatistics_MemFragmentationRatio"></Label>
+                    <Label Grid.Row="2" Grid.Column="0" FontWeight="Bold">Used Memory Lua</Label>
+                    <Label Grid.Row="2" Grid.Column="1" x:Name="MemoryStatistics_UsedMemoryLua"></Label>
 
-                <Label Grid.Row="4" Grid.Column="0" FontWeight="Bold">Allocator</Label>
-                <Label Grid.Row="4" Grid.Column="1" x:Name="MemoryStatistics_MemAllocator"></Label>
-            </Grid>
+                    <Label Grid.Row="3" Grid.Column="0" FontWeight="Bold">Fragmentation Ratio</Label>
+                    <Label Grid.Row="3" Grid.Column="1" x:Name="MemoryStatistics_MemFragmentationRatio"></Label>
 
-        </GroupBox>
-            <!--<ScrollViewer Grid.Row="1" Margin="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <Label Grid.Row="4" Grid.Column="0" FontWeight="Bold">Allocator</Label>
+                    <Label Grid.Row="4" Grid.Column="1" x:Name="MemoryStatistics_MemAllocator"></Label>
+                </Grid>
 
-            --><!--<Label FontSize="12" x:Name="ServerInfo">Redis Explorer</Label>--><!--
-            
-        </ScrollViewer>-->
+            </GroupBox>
+
+            <GroupBox Header="CPU" BorderBrush="DarkRed" BorderThickness="2" Margin="5" Background="{StaticResource HeaderBackgroundOpacityMask}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold">Used Memory</Label>
+                    <Label Grid.Row="0" Grid.Column="1" x:Name="CPUStatistics_UsedCPUSys"></Label>
+
+                    <Label Grid.Row="1" Grid.Column="0" FontWeight="Bold">Used Memory Peak</Label>
+                    <Label Grid.Row="1" Grid.Column="1" x:Name="CPUStatistics_UsedCPUUser"></Label>
+
+                    <Label Grid.Row="2" Grid.Column="0" FontWeight="Bold">Used Memory Lua</Label>
+                    <Label Grid.Row="2" Grid.Column="1" x:Name="CPUStatistics_UsedCPUSysChildren"></Label>
+
+                    <Label Grid.Row="3" Grid.Column="0" FontWeight="Bold">Fragmentation Ratio</Label>
+                    <Label Grid.Row="3" Grid.Column="1" x:Name="CPUStatistics_UsedCPUUserChildren"></Label>
+                </Grid>
+            </GroupBox>
+
+        </UniformGrid>
 
     </Grid>
 </UserControl>

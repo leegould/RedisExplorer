@@ -20,6 +20,8 @@ namespace RedisExplorer.Controls
 
         private MemoryStats memoryStatistics;
 
+        private CPUStats cpuStats;
+
         private string serverName;
 
         #region Properties
@@ -72,6 +74,19 @@ namespace RedisExplorer.Controls
             {
                 memoryStatistics = value;
                 NotifyOfPropertyChange(() => MemoryStatistics);
+            }
+        }
+
+        public CPUStats CPUStatistics
+        {
+            get
+            {
+                return cpuStats;
+            }
+            set
+            {
+                cpuStats = value;
+                NotifyOfPropertyChange(() => CPUStatistics);
             }
         }
 
@@ -160,6 +175,16 @@ namespace RedisExplorer.Controls
                                    MemFragmentationRatio = memorystatsdict["mem_fragmentation_ratio"],
                                    MemAllocator = memorystatsdict["mem_allocator"]
                                };
+
+            var cpustatsdict = serverInfo.FirstOrDefault(x => x.Key.ToLower() == "cpu").ToDictionary(x => x.Key, x => x.Value);
+
+            CPUStatistics = new CPUStats
+                            {
+                                UsedCPUSys = cpustatsdict["used_cpu_sys"],
+                                UsedCPUSysChildren = cpustatsdict["used_cpu_sys_children"],
+                                UsedCPUUser = cpustatsdict["used_cpu_user"],
+                                UsedCPUUserChildren = cpustatsdict["used_cpu_user_children"]
+                            };
         }
 
         #region Classes
@@ -205,7 +230,13 @@ namespace RedisExplorer.Controls
             public string MemAllocator { get; set; }
         }
 
-
+        public class CPUStats
+        {
+            public string UsedCPUSys { get; set; }
+            public string UsedCPUUser { get; set; }
+            public string UsedCPUSysChildren { get; set; }
+            public string UsedCPUUserChildren { get; set; }
+        }
 
         #endregion
     }
