@@ -68,7 +68,7 @@
         
         <Button x:Name="ReloadServer" Width="100" Height="25" Margin="10,0,10,5" Grid.Column="1" HorizontalAlignment="Right">Reload</Button>
 
-        <UniformGrid Rows="2" Columns="2" Grid.Row="1">
+        <UniformGrid Rows="3" Columns="2" Grid.Row="1">
 
             <GroupBox Header="Server" BorderBrush="DodgerBlue" BorderThickness="2" Margin="5" Background="{StaticResource HeaderBackgroundOpacityMask}">
 
@@ -197,6 +197,38 @@
                 </Grid>
             </GroupBox>
 
+            <GroupBox Header="Stats" BorderBrush="YellowGreen" BorderThickness="2" Margin="5" Background="{StaticResource HeaderBackgroundOpacityMask}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold">Connections Received</Label>
+                    <Label Grid.Row="0" Grid.Column="1" x:Name="Statistics_ConnectionsReceived"></Label>
+
+                    <Label Grid.Row="1" Grid.Column="0" FontWeight="Bold">Commands Processed</Label>
+                    <Label Grid.Row="1" Grid.Column="1" x:Name="Statistics_CommandsProcessed"></Label>
+
+                    <Label Grid.Row="2" Grid.Column="0" FontWeight="Bold">Expired Keys</Label>
+                    <Label Grid.Row="2" Grid.Column="1" x:Name="Statistics_ExpiredKeys"></Label>
+
+                    <Label Grid.Row="3" Grid.Column="0" FontWeight="Bold">Keyspace Hits</Label>
+                    <Label Grid.Row="3" Grid.Column="1" x:Name="Statistics_KeyspaceHits"></Label>
+
+                    <Label Grid.Row="4" Grid.Column="0" FontWeight="Bold">Ops Per Sec</Label>
+                    <Label Grid.Row="4" Grid.Column="1" x:Name="Statistics_OpsPerSec"></Label>
+                </Grid>
+            </GroupBox>
+            
         </UniformGrid>
 
     </Grid>

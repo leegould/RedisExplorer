@@ -22,6 +22,8 @@ namespace RedisExplorer.Controls
 
         private CPUStats cpuStats;
 
+        private Stats statistics;
+
         private string serverName;
 
         #region Properties
@@ -87,6 +89,19 @@ namespace RedisExplorer.Controls
             {
                 cpuStats = value;
                 NotifyOfPropertyChange(() => CPUStatistics);
+            }
+        }
+
+        public Stats Statistics
+        {
+            get
+            {
+                return statistics;
+            }
+            set
+            {
+                statistics = value;
+                NotifyOfPropertyChange(() => Statistics);
             }
         }
 
@@ -185,6 +200,26 @@ namespace RedisExplorer.Controls
                                 UsedCPUUser = cpustatsdict["used_cpu_user"],
                                 UsedCPUUserChildren = cpustatsdict["used_cpu_user_children"]
                             };
+
+            var statsdict = serverInfo.FirstOrDefault(x => x.Key.ToLower() == "stats").ToDictionary(x => x.Key, x => x.Value);
+
+            Statistics = new Stats
+                         {
+                             CommandsProcessed = statsdict["total_commands_processed"],
+                             ConnectionsReceived = statsdict["total_connections_received"],
+                             EvictedKeys = statsdict["evicted_keys"],
+                             ExpiredKeys = statsdict["expired_keys"],
+                             KeyspaceHits = statsdict["keyspace_hits"],
+                             KeyspaceMisses = statsdict["keyspace_misses"],
+                             LatestForkUsec = statsdict["latest_fork_usec"],
+                             OpsPerSec = statsdict["instantaneous_ops_per_sec"],
+                             PubsubChannels = statsdict["pubsub_channels"],
+                             PubsubPatterns = statsdict["pubsub_patterns"],
+                             RejectedConnections = statsdict["rejected_connections"],
+                             SyncFull = statsdict["sync_full"],
+                             SyncPartialErr = statsdict["sync_partial_err"],
+                             SyncPartialOk = statsdict["sync_partial_ok"]
+                         };
         }
 
         #region Classes
@@ -236,6 +271,24 @@ namespace RedisExplorer.Controls
             public string UsedCPUUser { get; set; }
             public string UsedCPUSysChildren { get; set; }
             public string UsedCPUUserChildren { get; set; }
+        }
+
+        public class Stats
+        {
+            public string ConnectionsReceived { get; set; }
+            public string CommandsProcessed { get; set; }
+            public string OpsPerSec { get; set; }
+            public string RejectedConnections { get; set; }
+            public string SyncFull { get; set; }
+            public string SyncPartialOk { get; set; }
+            public string SyncPartialErr { get; set; }
+            public string ExpiredKeys { get; set; }
+            public string EvictedKeys { get; set; }
+            public string KeyspaceHits { get; set; }
+            public string KeyspaceMisses { get; set; }
+            public string PubsubChannels { get; set; }
+            public string PubsubPatterns { get; set; }
+            public string LatestForkUsec { get; set; }
         }
 
         #endregion
