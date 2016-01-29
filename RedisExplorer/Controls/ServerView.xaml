@@ -197,7 +197,43 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="Stats" BorderBrush="YellowGreen" BorderThickness="2" Margin="5" Background="{StaticResource HeaderBackgroundOpacityMask}">
+            <GroupBox Header="Persistence" BorderBrush="YellowGreen" BorderThickness="2" Margin="5" Background="{StaticResource HeaderBackgroundOpacityMask}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold">Loading</Label>
+                    <Label Grid.Row="0" Grid.Column="1" x:Name="PersistenceStatistics_Loading"></Label>
+
+                    <Label Grid.Row="1" Grid.Column="0" FontWeight="Bold">RDB Changes Since Last Save</Label>
+                    <Label Grid.Row="1" Grid.Column="1" x:Name="PersistenceStatistics_ChangesSinceLastSave"></Label>
+
+                    <Label Grid.Row="2" Grid.Column="0" FontWeight="Bold">RDB Last Save Status</Label>
+                    <Label Grid.Row="2" Grid.Column="1" x:Name="PersistenceStatistics_LastBgSaveStatus"></Label>
+
+                    <Label Grid.Row="3" Grid.Column="0" FontWeight="Bold">AOF Enabled</Label>
+                    <Label Grid.Row="3" Grid.Column="1" x:Name="PersistenceStatistics_AOFEnabled"></Label>
+
+                    <Label Grid.Row="4" Grid.Column="0" FontWeight="Bold">AOF Rewrite In Progress</Label>
+                    <Label Grid.Row="4" Grid.Column="1" x:Name="PersistenceStatistics_AOFRewriteInProgress"></Label>
+
+                    <Label Grid.Row="5" Grid.Column="0" FontWeight="Bold">AOF Last Status</Label>
+                    <Label Grid.Row="5" Grid.Column="1" x:Name="PersistenceStatistics_AOFLastBgRewriteStatus"></Label>
+
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="Stats" BorderBrush="Gold" BorderThickness="2" Margin="5" Background="{StaticResource HeaderBackgroundOpacityMask}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
@@ -228,7 +264,7 @@
                     <Label Grid.Row="4" Grid.Column="1" x:Name="Statistics_OpsPerSec"></Label>
                 </Grid>
             </GroupBox>
-            
+
         </UniformGrid>
 
     </Grid>

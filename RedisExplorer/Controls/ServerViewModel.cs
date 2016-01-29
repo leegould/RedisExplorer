@@ -24,6 +24,8 @@ namespace RedisExplorer.Controls
 
         private Stats statistics;
 
+        private PersistenceStats persistenceStatistics;
+
         private string serverName;
 
         #region Properties
@@ -102,6 +104,19 @@ namespace RedisExplorer.Controls
             {
                 statistics = value;
                 NotifyOfPropertyChange(() => Statistics);
+            }
+        }
+
+        public PersistenceStats PersistenceStatistics
+        {
+            get
+            {
+                return persistenceStatistics;
+            }
+            set
+            {
+                persistenceStatistics = value;
+                NotifyOfPropertyChange(() => PersistenceStatistics);
             }
         }
 
@@ -220,6 +235,26 @@ namespace RedisExplorer.Controls
                              SyncPartialErr = statsdict["sync_partial_err"],
                              SyncPartialOk = statsdict["sync_partial_ok"]
                          };
+
+            var persistencestats = serverInfo.FirstOrDefault(x => x.Key.ToLower() == "persistence").ToDictionary(x => x.Key, x => x.Value);
+
+            PersistenceStatistics = new PersistenceStats
+                                    {
+                                        Loading = persistencestats["loading"],
+                                        ChangesSinceLastSave = persistencestats["rdb_changes_since_last_save"],
+                                        LastBgSaveTimeSec = persistencestats["rdb_last_bgsave_time_sec"],
+                                        LastBgSaveStatus = persistencestats["rdb_last_bgsave_status"],
+                                        BgSaveInProgress = persistencestats["rdb_bgsave_in_progress"],
+                                        LastSaveTime = persistencestats["rdb_last_save_time"],
+                                        CurrentBgSaveTimeSec = persistencestats["rdb_current_bgsave_time_sec"],
+                                        AOFCurrentRewriteTimeSec = persistencestats["aof_current_rewrite_time_sec"],
+                                        AOFEnabled = persistencestats["aof_enabled"],
+                                        AOFLastBgRewriteStatus = persistencestats["aof_last_bgrewrite_status"],
+                                        AOFRewriteInProgress = persistencestats["aof_rewrite_in_progress"],
+                                        AOFRewriteScheduled = persistencestats["aof_rewrite_scheduled"],
+                                        AOFLastRewriteTimeSec = persistencestats["aof_current_rewrite_time_sec"] 
+                                    };
+
         }
 
         #region Classes
@@ -289,6 +324,23 @@ namespace RedisExplorer.Controls
             public string PubsubChannels { get; set; }
             public string PubsubPatterns { get; set; }
             public string LatestForkUsec { get; set; }
+        }
+
+        public class PersistenceStats
+        {
+            public string Loading { get; set; }
+            public string ChangesSinceLastSave { get; set; }
+            public string BgSaveInProgress { get; set; }
+            public string LastSaveTime { get; set; }
+            public string LastBgSaveStatus { get; set; }
+            public string LastBgSaveTimeSec { get; set; }
+            public string CurrentBgSaveTimeSec { get; set; }
+            public string AOFEnabled { get; set; }
+            public string AOFRewriteInProgress { get; set; }
+            public string AOFRewriteScheduled { get; set; }
+            public string AOFLastRewriteTimeSec { get; set; }
+            public string AOFCurrentRewriteTimeSec { get; set; }
+            public string AOFLastBgRewriteStatus { get; set; }
         }
 
         #endregion
