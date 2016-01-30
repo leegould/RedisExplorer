@@ -26,6 +26,8 @@ namespace RedisExplorer.Controls
 
         private PersistenceStats persistenceStatistics;
 
+        private ReplicationStats replicationStatistics;
+
         private string serverName;
 
         #region Properties
@@ -117,6 +119,16 @@ namespace RedisExplorer.Controls
             {
                 persistenceStatistics = value;
                 NotifyOfPropertyChange(() => PersistenceStatistics);
+            }
+        }
+
+        public ReplicationStats ReplicationStatistics
+        {
+            get { return replicationStatistics; }
+            set
+            {
+                replicationStatistics = value;
+                NotifyOfPropertyChange(() => ReplicationStatistics);
             }
         }
 
@@ -341,6 +353,17 @@ namespace RedisExplorer.Controls
             public string AOFLastRewriteTimeSec { get; set; }
             public string AOFCurrentRewriteTimeSec { get; set; }
             public string AOFLastBgRewriteStatus { get; set; }
+        }
+
+        public class ReplicationStats
+        {
+            public string Role { get; set; }
+            public string Slaves { get; set; }
+            public string ReplOffset { get; set; }
+            public string BacklogActive { get; set; }
+            public string BacklogSize { get; set; }
+            public string BacklogFirstByteOffset { get; set; }
+            public string BacklogHistLen { get; set; }
         }
 
         #endregion
