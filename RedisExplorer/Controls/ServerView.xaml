@@ -297,7 +297,22 @@
 
                 </Grid>
             </GroupBox>
-            
+
+            <GroupBox Header="Cluster" BorderBrush="Brown" BorderThickness="2" Margin="5" Background="{StaticResource HeaderBackgroundOpacityMask}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold">Enabled</Label>
+                    <Label Grid.Row="0" Grid.Column="1" x:Name="ClusterStatistics_Enabled"></Label>
+                </Grid>
+            </GroupBox>
+
         </UniformGrid>
 
     </Grid>

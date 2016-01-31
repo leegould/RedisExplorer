@@ -28,6 +28,8 @@ namespace RedisExplorer.Controls
 
         private ReplicationStats replicationStatistics;
 
+        private ClusterStats clusterStatistics;
+
         private string serverName;
 
         #region Properties
@@ -129,6 +131,16 @@ namespace RedisExplorer.Controls
             {
                 replicationStatistics = value;
                 NotifyOfPropertyChange(() => ReplicationStatistics);
+            }
+        }
+
+        public ClusterStats ClusterStatistics
+        {
+            get { return clusterStatistics; }
+            set
+            {
+                clusterStatistics = value;
+                NotifyOfPropertyChange(() => ClusterStatistics);
             }
         }
 
@@ -267,6 +279,25 @@ namespace RedisExplorer.Controls
                                         AOFLastRewriteTimeSec = persistencestats["aof_current_rewrite_time_sec"] 
                                     };
 
+            var replicationstats = serverInfo.FirstOrDefault(x => x.Key.ToLower() == "replication").ToDictionary(x => x.Key, x => x.Value);
+
+            ReplicationStatistics = new ReplicationStats
+            {
+                Role = replicationstats["role"],
+                Slaves = replicationstats["connected_slaves"],
+                ReplOffset = replicationstats["master_repl_offset"],
+                BacklogActive = replicationstats["repl_backlog_active"],
+                BacklogSize = replicationstats["repl_backlog_size"],
+                BacklogFirstByteOffset = replicationstats["repl_backlog_first_byte_offset"],
+                BacklogHistLen = replicationstats["repl_backlog_histlen"]
+            };
+
+            var cluststats = serverInfo.FirstOrDefault(x => x.Key.ToLower() == "cluster").ToDictionary(x => x.Key, x => x.Value);
+
+            ClusterStatistics = new ClusterStats
+            {
+                Enabled = cluststats["cluster_enabled"]
+            };
         }
 
         #region Classes
@@ -364,6 +395,11 @@ namespace RedisExplorer.Controls
             public string BacklogSize { get; set; }
             public string BacklogFirstByteOffset { get; set; }
             public string BacklogHistLen { get; set; }
+        }
+
+        public class ClusterStats
+        {
+            public string Enabled { get; set; }
         }
 
         #endregion
