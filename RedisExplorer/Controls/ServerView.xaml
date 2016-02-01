@@ -313,6 +313,50 @@
                 </Grid>
             </GroupBox>
 
+            <GroupBox Header="Keys" BorderBrush="Indigo" BorderThickness="2" Margin="5" Background="{StaticResource HeaderBackgroundOpacityMask}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold">1</Label>
+                    <Label Grid.Row="0" Grid.Column="1" x:Name="KeySpaceStatistics_Db1"></Label>
+
+                    <Label Grid.Row="1" Grid.Column="0" FontWeight="Bold">2</Label>
+                    <Label Grid.Row="1" Grid.Column="1" x:Name="KeySpaceStatistics_Db2"></Label>
+
+                    <Label Grid.Row="2" Grid.Column="0" FontWeight="Bold">3</Label>
+                    <Label Grid.Row="2" Grid.Column="1" x:Name="KeySpaceStatistics_Db3"></Label>
+
+                    <Label Grid.Row="3" Grid.Column="0" FontWeight="Bold">4</Label>
+                    <Label Grid.Row="3" Grid.Column="1" x:Name="KeySpaceStatistics_Db4"></Label>
+
+                    <Label Grid.Row="4" Grid.Column="0" FontWeight="Bold">5</Label>
+                    <Label Grid.Row="4" Grid.Column="1" x:Name="KeySpaceStatistics_Db5"></Label>
+
+                    <Label Grid.Row="5" Grid.Column="0" FontWeight="Bold">6</Label>
+                    <Label Grid.Row="5" Grid.Column="1" x:Name="KeySpaceStatistics_Db6"></Label>
+                    
+                    <Label Grid.Row="6" Grid.Column="0" FontWeight="Bold">7</Label>
+                    <Label Grid.Row="6" Grid.Column="1" x:Name="KeySpaceStatistics_Db7"></Label>
+                    
+                    <Label Grid.Row="7" Grid.Column="0" FontWeight="Bold">8</Label>
+                    <Label Grid.Row="7" Grid.Column="1" x:Name="KeySpaceStatistics_Db8"></Label>
+                    
+                </Grid>
+            </GroupBox>
+            
         </UniformGrid>
 
     </Grid>

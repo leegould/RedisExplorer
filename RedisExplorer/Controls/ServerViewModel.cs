@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.Composition;
 using System.Linq;
+using System.Reflection.Emit;
 
 using Caliburn.Micro;
 
@@ -29,6 +30,8 @@ namespace RedisExplorer.Controls
         private ReplicationStats replicationStatistics;
 
         private ClusterStats clusterStatistics;
+
+        private KeySpaceStats keySpaceStatistics;
 
         private string serverName;
 
@@ -141,6 +144,16 @@ namespace RedisExplorer.Controls
             {
                 clusterStatistics = value;
                 NotifyOfPropertyChange(() => ClusterStatistics);
+            }
+        }
+
+        public KeySpaceStats KeySpaceStatistics
+        {
+            get { return keySpaceStatistics; }
+            set
+            {
+                keySpaceStatistics = value;
+                NotifyOfPropertyChange(() => KeySpaceStatistics);
             }
         }
 
@@ -292,12 +305,34 @@ namespace RedisExplorer.Controls
                 BacklogHistLen = replicationstats["repl_backlog_histlen"]
             };
 
-            var cluststats = serverInfo.FirstOrDefault(x => x.Key.ToLower() == "cluster").ToDictionary(x => x.Key, x => x.Value);
-
             ClusterStatistics = new ClusterStats
             {
-                Enabled = cluststats["cluster_enabled"]
+                Enabled = false.ToString()
             };
+
+            var cluststats = serverInfo.FirstOrDefault(x => x.Key.ToLower() == "cluster");
+
+            if (cluststats != null)
+            {
+                var cluststatsdict = cluststats.ToDictionary(x => x.Key, x => x.Value);
+
+                ClusterStatistics.Enabled = cluststatsdict["cluster_enabled"];
+            }
+
+            var keyspacestats = serverInfo.FirstOrDefault(x => x.Key.ToLower() == "keyspace").ToDictionary(x => x.Key, x => x.Value);
+
+            KeySpaceStatistics = new KeySpaceStats
+                                 {
+                                     Db1 = keyspacestats.ContainsKey("db1") ? keyspacestats["db1"] : string.Empty,
+                                     Db2 = keyspacestats.ContainsKey("db2") ? keyspacestats["db2"] : string.Empty,
+                                     Db3 = keyspacestats.ContainsKey("db3") ? keyspacestats["db3"] : string.Empty,
+                                     Db4 = keyspacestats.ContainsKey("db4") ? keyspacestats["db4"] : string.Empty,
+                                     Db5 = keyspacestats.ContainsKey("db5") ? keyspacestats["db5"] : string.Empty,
+                                     Db6 = keyspacestats.ContainsKey("db6") ? keyspacestats["db6"] : string.Empty,
+                                     Db7 = keyspacestats.ContainsKey("db7") ? keyspacestats["db7"] : string.Empty,
+                                     Db8 = keyspacestats.ContainsKey("db8") ? keyspacestats["db8"] : string.Empty
+                                 };
+
         }
 
         #region Classes
@@ -400,6 +435,19 @@ namespace RedisExplorer.Controls
         public class ClusterStats
         {
             public string Enabled { get; set; }
+        }
+
+        public class KeySpaceStats
+        {
+            public string Db1 { get; set; }
+            public string Db2 { get; set; }
+            public string Db3 { get; set; }
+            public string Db4 { get; set; }
+            public string Db5 { get; set; }
+            public string Db6 { get; set; }
+            public string Db7 { get; set; }
+            public string Db8 { get; set; }
+            
         }
 
         #endregion
