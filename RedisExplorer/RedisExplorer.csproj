@@ -116,6 +116,7 @@
       <DependentUpon>AddConnectionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\AddConnectionViewModel.cs" />
+    <Compile Include="Controls\BoolToCollapsedVisibilityConverter.cs" />
     <Compile Include="Controls\DefaultView.xaml.cs">
       <DependentUpon>DefaultView.xaml</DependentUpon>
     </Compile>

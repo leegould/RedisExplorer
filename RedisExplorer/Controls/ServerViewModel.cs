@@ -35,6 +35,16 @@ namespace RedisExplorer.Controls
 
         private string serverName;
 
+        public bool Db1IsVisible { get; set; }
+        public bool Db2IsVisible { get; set; }
+        public bool Db3IsVisible { get; set; }
+        public bool Db4IsVisible { get; set; }
+        public bool Db5IsVisible { get; set; }
+        public bool Db6IsVisible { get; set; }
+        public bool Db7IsVisible { get; set; }
+        public bool Db8IsVisible { get; set; }
+
+
         #region Properties
 
         public string ServerName
@@ -333,6 +343,14 @@ namespace RedisExplorer.Controls
                                      Db8 = keyspacestats.ContainsKey("db8") ? keyspacestats["db8"] : string.Empty
                                  };
 
+            Db1IsVisible = keyspacestats.ContainsKey("db1");
+            Db2IsVisible = keyspacestats.ContainsKey("db2");
+            Db3IsVisible = keyspacestats.ContainsKey("db3");
+            Db4IsVisible = keyspacestats.ContainsKey("db4");
+            Db5IsVisible = keyspacestats.ContainsKey("db5");
+            Db6IsVisible = keyspacestats.ContainsKey("db6");
+            Db7IsVisible = keyspacestats.ContainsKey("db7");
+            Db8IsVisible = keyspacestats.ContainsKey("db8");
         }
 
         #region Classes

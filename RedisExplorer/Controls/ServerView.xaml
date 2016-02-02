@@ -3,10 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RedisExplorer.Controls" 
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="600" 
              x:Name="ServerControl">
-    
+
+    <UserControl.Resources>
+        <local:BoolToCollapsedVisibilityConverter x:Key="BooleanToCollapsedVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed"/>
+    </UserControl.Resources>
+
     <Grid Width="{Binding ElementName=ServerControl, Path=ActualWidth}">
         
         <Grid.Resources>
@@ -320,39 +325,39 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold">1</Label>
-                    <Label Grid.Row="0" Grid.Column="1" x:Name="KeySpaceStatistics_Db1"></Label>
+                    <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db1IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">1</Label>
+                    <Label Grid.Row="0" Grid.Column="1" x:Name="KeySpaceStatistics_Db1" Visibility="{Binding Db1IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}"></Label>
 
-                    <Label Grid.Row="1" Grid.Column="0" FontWeight="Bold">2</Label>
-                    <Label Grid.Row="1" Grid.Column="1" x:Name="KeySpaceStatistics_Db2"></Label>
+                    <Label Grid.Row="1" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db2IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">2</Label>
+                    <Label Grid.Row="1" Grid.Column="1" x:Name="KeySpaceStatistics_Db2" Visibility="{Binding Db2IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}"></Label>
 
-                    <Label Grid.Row="2" Grid.Column="0" FontWeight="Bold">3</Label>
-                    <Label Grid.Row="2" Grid.Column="1" x:Name="KeySpaceStatistics_Db3"></Label>
+                    <Label Grid.Row="2" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db3IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">3</Label>
+                    <Label Grid.Row="2" Grid.Column="1" x:Name="KeySpaceStatistics_Db3" Visibility="{Binding Db3IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}"></Label>
 
-                    <Label Grid.Row="3" Grid.Column="0" FontWeight="Bold">4</Label>
-                    <Label Grid.Row="3" Grid.Column="1" x:Name="KeySpaceStatistics_Db4"></Label>
+                    <Label Grid.Row="3" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db4IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">4</Label>
+                    <Label Grid.Row="3" Grid.Column="1" x:Name="KeySpaceStatistics_Db4" Visibility="{Binding Db4IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}"></Label>
 
-                    <Label Grid.Row="4" Grid.Column="0" FontWeight="Bold">5</Label>
-                    <Label Grid.Row="4" Grid.Column="1" x:Name="KeySpaceStatistics_Db5"></Label>
+                    <Label Grid.Row="4" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db5IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">5</Label>
+                    <Label Grid.Row="4" Grid.Column="1" x:Name="KeySpaceStatistics_Db5" Visibility="{Binding Db5IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}"></Label>
 
-                    <Label Grid.Row="5" Grid.Column="0" FontWeight="Bold">6</Label>
-                    <Label Grid.Row="5" Grid.Column="1" x:Name="KeySpaceStatistics_Db6"></Label>
-                    
-                    <Label Grid.Row="6" Grid.Column="0" FontWeight="Bold">7</Label>
-                    <Label Grid.Row="6" Grid.Column="1" x:Name="KeySpaceStatistics_Db7"></Label>
-                    
-                    <Label Grid.Row="7" Grid.Column="0" FontWeight="Bold">8</Label>
-                    <Label Grid.Row="7" Grid.Column="1" x:Name="KeySpaceStatistics_Db8"></Label>
+                    <Label Grid.Row="5" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db6IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">6</Label>
+                    <Label Grid.Row="5" Grid.Column="1" x:Name="KeySpaceStatistics_Db6" Visibility="{Binding Db6IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}"></Label>
+
+                    <Label Grid.Row="6" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db7IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">7</Label>
+                    <Label Grid.Row="6" Grid.Column="1" x:Name="KeySpaceStatistics_Db7" Visibility="{Binding Db7IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}"></Label>
+
+                    <Label Grid.Row="7" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db8IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">8</Label>
+                    <Label Grid.Row="7" Grid.Column="1" x:Name="KeySpaceStatistics_Db8" Visibility="{Binding Db8IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}"></Label>
                     
                 </Grid>
             </GroupBox>
