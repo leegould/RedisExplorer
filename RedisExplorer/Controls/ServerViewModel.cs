@@ -43,7 +43,14 @@ namespace RedisExplorer.Controls
         public bool Db6IsVisible { get; set; }
         public bool Db7IsVisible { get; set; }
         public bool Db8IsVisible { get; set; }
-
+        public bool Db9IsVisible { get; set; }
+        public bool Db10IsVisible { get; set; }
+        public bool Db11IsVisible { get; set; }
+        public bool Db12IsVisible { get; set; }
+        public bool Db13IsVisible { get; set; }
+        public bool Db14IsVisible { get; set; }
+        public bool Db15IsVisible { get; set; }
+        public bool Db16IsVisible { get; set; }
 
         #region Properties
 
@@ -340,7 +347,15 @@ namespace RedisExplorer.Controls
                                      Db5 = keyspacestats.ContainsKey("db5") ? keyspacestats["db5"] : string.Empty,
                                      Db6 = keyspacestats.ContainsKey("db6") ? keyspacestats["db6"] : string.Empty,
                                      Db7 = keyspacestats.ContainsKey("db7") ? keyspacestats["db7"] : string.Empty,
-                                     Db8 = keyspacestats.ContainsKey("db8") ? keyspacestats["db8"] : string.Empty
+                                     Db8 = keyspacestats.ContainsKey("db8") ? keyspacestats["db8"] : string.Empty,
+                                     Db9 = keyspacestats.ContainsKey("db9") ? keyspacestats["db9"] : string.Empty,
+                                     Db10 = keyspacestats.ContainsKey("db10") ? keyspacestats["db10"] : string.Empty,
+                                     Db11 = keyspacestats.ContainsKey("db11") ? keyspacestats["db11"] : string.Empty,
+                                     Db12 = keyspacestats.ContainsKey("db12") ? keyspacestats["db12"] : string.Empty,
+                                     Db13 = keyspacestats.ContainsKey("db13") ? keyspacestats["db13"] : string.Empty,
+                                     Db14 = keyspacestats.ContainsKey("db14") ? keyspacestats["db14"] : string.Empty,
+                                     Db15 = keyspacestats.ContainsKey("db15") ? keyspacestats["db15"] : string.Empty,
+                                     Db16 = keyspacestats.ContainsKey("db16") ? keyspacestats["db16"] : string.Empty
                                  };
 
             Db1IsVisible = keyspacestats.ContainsKey("db1");
@@ -465,7 +480,14 @@ namespace RedisExplorer.Controls
             public string Db6 { get; set; }
             public string Db7 { get; set; }
             public string Db8 { get; set; }
-            
+            public string Db9 { get; set; }
+            public string Db10 { get; set; }
+            public string Db11 { get; set; }
+            public string Db12 { get; set; }
+            public string Db13 { get; set; }
+            public string Db14 { get; set; }
+            public string Db15 { get; set; }
+            public string Db16 { get; set; }
         }
 
         #endregion
