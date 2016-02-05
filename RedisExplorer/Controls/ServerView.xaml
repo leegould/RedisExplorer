@@ -367,28 +367,28 @@
                     <Label Grid.Row="7" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db8IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">8</Label>
                     <Label Grid.Row="7" Grid.Column="1" x:Name="KeySpaceStatistics_Db8" Visibility="{Binding Db8IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}"></Label>
 
-                    <Label Grid.Row="8" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db8IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">9</Label>
+                    <Label Grid.Row="8" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db9IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">9</Label>
                     <Label Grid.Row="8" Grid.Column="1" x:Name="KeySpaceStatistics_Db9" Visibility="{Binding Db9IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}"></Label>
                     
-                    <Label Grid.Row="9" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db8IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">10</Label>
+                    <Label Grid.Row="9" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db10IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">10</Label>
                     <Label Grid.Row="9" Grid.Column="1" x:Name="KeySpaceStatistics_Db10" Visibility="{Binding Db10IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}"></Label>
                     
-                    <Label Grid.Row="10" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db8IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">11</Label>
+                    <Label Grid.Row="10" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db11IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">11</Label>
                     <Label Grid.Row="10" Grid.Column="1" x:Name="KeySpaceStatistics_Db11" Visibility="{Binding Db11IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}"></Label>
                     
-                    <Label Grid.Row="11" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db8IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">12</Label>
+                    <Label Grid.Row="11" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db12IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">12</Label>
                     <Label Grid.Row="11" Grid.Column="1" x:Name="KeySpaceStatistics_Db12" Visibility="{Binding Db12IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}"></Label>
                     
-                    <Label Grid.Row="12" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db8IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">13</Label>
+                    <Label Grid.Row="12" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db13IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">13</Label>
                     <Label Grid.Row="12" Grid.Column="1" x:Name="KeySpaceStatistics_Db13" Visibility="{Binding Db13IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}"></Label>
                     
-                    <Label Grid.Row="13" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db8IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">14</Label>
+                    <Label Grid.Row="13" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db14IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">14</Label>
                     <Label Grid.Row="13" Grid.Column="1" x:Name="KeySpaceStatistics_Db14" Visibility="{Binding Db14IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}"></Label>
                     
-                    <Label Grid.Row="14" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db8IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">15</Label>
+                    <Label Grid.Row="14" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db15IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">15</Label>
                     <Label Grid.Row="14" Grid.Column="1" x:Name="KeySpaceStatistics_Db15" Visibility="{Binding Db15IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}"></Label>
                     
-                    <Label Grid.Row="15" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db8IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">16</Label>
+                    <Label Grid.Row="15" Grid.Column="0" FontWeight="Bold" Visibility="{Binding Db16IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}">16</Label>
                     <Label Grid.Row="15" Grid.Column="1" x:Name="KeySpaceStatistics_Db16" Visibility="{Binding Db16IsVisible, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}"></Label>
 
                 </Grid>

@@ -366,6 +366,14 @@ namespace RedisExplorer.Controls
             Db6IsVisible = keyspacestats.ContainsKey("db6");
             Db7IsVisible = keyspacestats.ContainsKey("db7");
             Db8IsVisible = keyspacestats.ContainsKey("db8");
+            Db9IsVisible = keyspacestats.ContainsKey("db9");
+            Db10IsVisible = keyspacestats.ContainsKey("db10");
+            Db11IsVisible = keyspacestats.ContainsKey("db11");
+            Db12IsVisible = keyspacestats.ContainsKey("db12");
+            Db13IsVisible = keyspacestats.ContainsKey("db13");
+            Db14IsVisible = keyspacestats.ContainsKey("db14");
+            Db15IsVisible = keyspacestats.ContainsKey("db15");
+            Db16IsVisible = keyspacestats.ContainsKey("db16");
         }
 
         #region Classes
