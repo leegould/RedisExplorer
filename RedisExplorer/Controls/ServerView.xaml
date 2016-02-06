@@ -70,8 +70,13 @@
         </Grid.RowDefinitions>
         
         <Label x:Name="ServerName" Grid.Column="0" FontSize="20" FontWeight="Bold" Margin="10,0,10,5">Redis Server</Label>
-        
-        <Button x:Name="ReloadServer" Width="100" Height="25" Margin="10,0,10,5" Grid.Column="1" HorizontalAlignment="Right">Reload</Button>
+
+        <Button x:Name="ReloadServer" Width="100" Height="25" Margin="10,0,10,5" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="Assets/reload.png" Margin="5,0,5,0"></Image>
+                <TextBlock>Reload</TextBlock>
+            </StackPanel>
+        </Button>
 
         <UniformGrid Rows="3" Columns="3" Grid.Row="1">
 
