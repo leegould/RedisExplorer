@@ -35,6 +35,7 @@ namespace RedisExplorer.Controls
 
         private string serverName;
 
+        public bool Db0IsVisible { get; set; }
         public bool Db1IsVisible { get; set; }
         public bool Db2IsVisible { get; set; }
         public bool Db3IsVisible { get; set; }
@@ -340,6 +341,7 @@ namespace RedisExplorer.Controls
 
             KeySpaceStatistics = new KeySpaceStats
                                  {
+                                     Db0 = keyspacestats.ContainsKey("db0") ? keyspacestats["db0"] : string.Empty,
                                      Db1 = keyspacestats.ContainsKey("db1") ? keyspacestats["db1"] : string.Empty,
                                      Db2 = keyspacestats.ContainsKey("db2") ? keyspacestats["db2"] : string.Empty,
                                      Db3 = keyspacestats.ContainsKey("db3") ? keyspacestats["db3"] : string.Empty,
@@ -354,10 +356,10 @@ namespace RedisExplorer.Controls
                                      Db12 = keyspacestats.ContainsKey("db12") ? keyspacestats["db12"] : string.Empty,
                                      Db13 = keyspacestats.ContainsKey("db13") ? keyspacestats["db13"] : string.Empty,
                                      Db14 = keyspacestats.ContainsKey("db14") ? keyspacestats["db14"] : string.Empty,
-                                     Db15 = keyspacestats.ContainsKey("db15") ? keyspacestats["db15"] : string.Empty,
-                                     Db16 = keyspacestats.ContainsKey("db16") ? keyspacestats["db16"] : string.Empty
+                                     Db15 = keyspacestats.ContainsKey("db15") ? keyspacestats["db15"] : string.Empty
                                  };
 
+            Db0IsVisible = keyspacestats.ContainsKey("db0");
             Db1IsVisible = keyspacestats.ContainsKey("db1");
             Db2IsVisible = keyspacestats.ContainsKey("db2");
             Db3IsVisible = keyspacestats.ContainsKey("db3");
@@ -373,7 +375,6 @@ namespace RedisExplorer.Controls
             Db13IsVisible = keyspacestats.ContainsKey("db13");
             Db14IsVisible = keyspacestats.ContainsKey("db14");
             Db15IsVisible = keyspacestats.ContainsKey("db15");
-            Db16IsVisible = keyspacestats.ContainsKey("db16");
         }
 
         #region Classes
@@ -480,6 +481,7 @@ namespace RedisExplorer.Controls
 
         public class KeySpaceStats
         {
+            public string Db0 { get; set; }
             public string Db1 { get; set; }
             public string Db2 { get; set; }
             public string Db3 { get; set; }
@@ -495,7 +497,6 @@ namespace RedisExplorer.Controls
             public string Db13 { get; set; }
             public string Db14 { get; set; }
             public string Db15 { get; set; }
-            public string Db16 { get; set; }
         }
 
         #endregion
