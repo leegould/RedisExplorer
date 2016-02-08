@@ -280,7 +280,7 @@
     <Resource Include="Assets\GitHub-Mark-32px.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\reload.png" />
+    <Resource Include="Assets\reload-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
