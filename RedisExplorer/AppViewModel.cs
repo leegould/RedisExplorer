@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.ComponentModel.Composition;
 using System.Dynamic;
 using System.Windows;
+
 using Caliburn.Micro;
+
 using RedisExplorer.Controls;
 using RedisExplorer.Interface;
 using RedisExplorer.Messages;
@@ -59,6 +60,9 @@ namespace RedisExplorer
             ServerViewModel = new ServerViewModel(eventAggregator);
             ServerViewModel.ConductWith(this);
 
+            DatabaseViewModel = new DatabaseViewModel();
+            DatabaseViewModel.ConductWith(this);
+
             ActivateItem(DefaultViewModel);
 
             LoadServers();
@@ -86,6 +90,8 @@ namespace RedisExplorer
 
         public ServerViewModel ServerViewModel { get; set; }
 
+        public DatabaseViewModel DatabaseViewModel { get; set; }
+
         public string StatusBarTextBlock
         {
             get
@@ -112,7 +118,7 @@ namespace RedisExplorer
         public void AddServer()
         {
             dynamic settings = new ExpandoObject();
-            settings.Width = 300;
+            settings.Width = 350;
             settings.Height = 250;
             settings.WindowStartupLocation = WindowStartupLocation.Manual;
             settings.Title = "Add Server";
@@ -213,6 +219,11 @@ namespace RedisExplorer
                 ActivateItem(ServerViewModel);
                 StatusBarTextBlock = "Connecting to server : " + message.SelectedItem.Display;
             }
+            else if (message.SelectedItem is RedisDatabase)
+            {
+                ActivateItem(DatabaseViewModel);
+                StatusBarTextBlock = "Selected Database : " + message.SelectedItem.Display;
+            }
             else
             {
                 ActivateItem(KeyViewModel);
@@ -222,14 +233,7 @@ namespace RedisExplorer
 
         public void Handle(TreeItemExpandedMessage message)
         {
-            if (message.SelectedItem is RedisServer)
-            {
-                StatusBarTextBlock = "Expanded : " + message.SelectedItem.Display;
-            }
-            else
-            {
-                StatusBarTextBlock = "Expanded : " + message.SelectedItem.Display;
-            }
+            StatusBarTextBlock = "Expanded : " + message.SelectedItem.Display;
         }
     }
 }

@@ -117,6 +117,10 @@
     </Compile>
     <Compile Include="Controls\AddConnectionViewModel.cs" />
     <Compile Include="Controls\BoolToCollapsedVisibilityConverter.cs" />
+    <Compile Include="Controls\DatabaseView.xaml.cs">
+      <DependentUpon>DatabaseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DatabaseViewModel.cs" />
     <Compile Include="Controls\DefaultView.xaml.cs">
       <DependentUpon>DefaultView.xaml</DependentUpon>
     </Compile>
@@ -223,6 +227,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\AddConnectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DatabaseView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

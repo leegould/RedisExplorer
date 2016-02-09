@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="RedisExplorer.Controls.DatabaseView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="600" 
+             x:Name="DatabaseControl">
+    
+    <Grid Width="{Binding ElementName=DatabaseControl, Path=ActualWidth}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+
+            <Label FontSize="24">Database </Label>
+            <Label FontSize="24" x:Name="DbName"></Label>
+            
+        </StackPanel>
+        
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Button x:Name="FlushDb" Width="100" Margin="10">Flush</Button>
+            <Button x:Name="AddKey" Width="100" Margin="10">Add Key</Button>
+        </StackPanel>
+    </Grid>
+</UserControl>
