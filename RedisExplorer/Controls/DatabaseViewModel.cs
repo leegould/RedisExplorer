@@ -11,6 +11,8 @@ namespace RedisExplorer.Controls
     [Export(typeof(DatabaseViewModel))]
     public class DatabaseViewModel : Screen, IDisplayPanel, IHandle<TreeItemSelectedMessage>
     {
+        private RedisDatabase redisDatabase;
+
         private string dbName;
 
         public string DbName
@@ -30,9 +32,33 @@ namespace RedisExplorer.Controls
         {
             if (message != null && message.SelectedItem is RedisDatabase)
             {
-                var redisDatabase = message.SelectedItem as RedisDatabase;
+                redisDatabase = message.SelectedItem as RedisDatabase;
 
                 DbName = redisDatabase.GetDatabaseNumber.ToString();
+            }
+        }
+
+        public void Flush()
+        {
+            if (redisDatabase != null)
+            {
+                redisDatabase.Flush();
+            }
+        }
+
+        public void AddKey()
+        {
+            if (redisDatabase != null)
+            {
+                redisDatabase.Add();
+            }
+        }
+
+        public void Reload()
+        {
+            if (redisDatabase != null)
+            {
+                redisDatabase.Reload();
             }
         }
     }

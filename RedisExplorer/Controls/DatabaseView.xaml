@@ -22,7 +22,8 @@
         </StackPanel>
         
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-            <Button x:Name="FlushDb" Width="100" Margin="10">Flush</Button>
+            <Button x:Name="Reload" Width="100" Margin="10">Reload</Button>
+            <Button x:Name="Flush" Width="100" Margin="10">Flush</Button>
             <Button x:Name="AddKey" Width="100" Margin="10">Add Key</Button>
         </StackPanel>
     </Grid>

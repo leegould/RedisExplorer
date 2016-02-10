@@ -97,7 +97,7 @@ namespace RedisExplorer.Models
             }
         }
 
-        public void Reload(RedisServer server)
+        public void Reload()
         {
             var s = parent.GetServer();
 
@@ -108,7 +108,7 @@ namespace RedisExplorer.Models
             LoadChildren();
         }
 
-        public void Flush(RedisDatabase database)
+        public void Flush()
         {
             var s = parent.GetServer();
             s.FlushDatabase(dbNumber);
