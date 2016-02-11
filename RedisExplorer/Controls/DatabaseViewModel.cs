@@ -28,6 +28,11 @@ namespace RedisExplorer.Controls
             }
         }
 
+        public DatabaseViewModel(IEventAggregator eventAggregator)
+        {
+            eventAggregator.Subscribe(this);
+        }
+
         public void Handle(TreeItemSelectedMessage message)
         {
             if (message != null && message.SelectedItem is RedisDatabase)

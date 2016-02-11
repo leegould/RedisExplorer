@@ -60,7 +60,7 @@ namespace RedisExplorer
             ServerViewModel = new ServerViewModel(eventAggregator);
             ServerViewModel.ConductWith(this);
 
-            DatabaseViewModel = new DatabaseViewModel();
+            DatabaseViewModel = new DatabaseViewModel(eventAggregator);
             DatabaseViewModel.ConductWith(this);
 
             ActivateItem(DefaultViewModel);
