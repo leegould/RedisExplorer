@@ -357,6 +357,7 @@ namespace RedisExplorer.Controls
             item = new RedisKeyString(message.ParentDatabase, eventAggregator) { KeyValue = string.Empty };
             SetDefault();
             KeyNameTextBox = message.KeyBase;
+            DatabaseName = item.DatabaseName;
         }
 
         #endregion
