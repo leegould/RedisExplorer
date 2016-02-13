@@ -106,6 +106,8 @@ namespace RedisExplorer.Models
             Children.Clear();
 
             LoadChildren();
+
+            parent.Reload();
         }
 
         public void Flush()
