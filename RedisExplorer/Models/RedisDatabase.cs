@@ -20,13 +20,16 @@ namespace RedisExplorer.Models
 
         private string urnSeparator { get; set; }
 
-        public RedisDatabase(RedisServer parent, int dbnumber, IEventAggregator eventAggregator) : base(parent, Settings.Default.LazyLoadDatabase, eventAggregator)
+        private int keyCount { get; set; }
+
+        public RedisDatabase(RedisServer parent, int dbnumber, IEventAggregator eventAggregator, int keycount = 0) : base(parent, Settings.Default.LazyLoadDatabase, eventAggregator)
         {
             this.parent = parent;
             this.dbNumber = dbnumber;
             this.eventAggregator = eventAggregator;
             maxKeys = string.IsNullOrEmpty(Settings.Default.MaxKeys) ? 1000 : int.Parse(Settings.Default.MaxKeys);
             urnSeparator = string.IsNullOrEmpty(Settings.Default.UrnSeparator) ? ":" : Settings.Default.UrnSeparator;
+            keyCount = keycount;
         }
 
         public IDatabase GetDatabase(int? dbnum = null)
@@ -37,6 +40,11 @@ namespace RedisExplorer.Models
         public int GetDatabaseNumber
         {
             get { return dbNumber; }
+        }
+
+        public int GetKeyCount
+        {
+            get { return keyCount; }
         }
 
         protected override void LoadChildren()

@@ -18,6 +18,7 @@
 
             <Label FontSize="24">Database </Label>
             <Label FontSize="24" x:Name="DbName"></Label>
+            <Label FontSize="24" x:Name="KeyCount"></Label>
             
         </StackPanel>
         
