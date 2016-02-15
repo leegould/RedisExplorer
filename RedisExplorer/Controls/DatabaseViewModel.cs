@@ -13,6 +13,8 @@ namespace RedisExplorer.Controls
     {
         private RedisDatabase redisDatabase;
 
+        private string keyCount;
+
         private string dbName;
 
         public string DbName
@@ -28,6 +30,19 @@ namespace RedisExplorer.Controls
             }
         }
 
+        public string KeyCount
+        {
+            get
+            {
+                return keyCount;
+            }
+            set
+            {
+                keyCount = value;
+                NotifyOfPropertyChange(() => KeyCount);
+            }
+        }
+
         public DatabaseViewModel(IEventAggregator eventAggregator)
         {
             eventAggregator.Subscribe(this);
@@ -40,6 +55,7 @@ namespace RedisExplorer.Controls
                 redisDatabase = message.SelectedItem as RedisDatabase;
 
                 DbName = redisDatabase.GetDatabaseNumber.ToString();
+                KeyCount = redisDatabase.GetKeyCount.ToString();
             }
         }
 
