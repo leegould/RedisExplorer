@@ -157,9 +157,12 @@ namespace RedisExplorer.Models
 
         public bool CanDelete
         {
-            get { return !HasChildren; }
+            get
+            {
+                return true; //!HasChildren; }
+            }
         }
-        
+
         public virtual bool Save()
         {
             return false;
@@ -179,16 +182,24 @@ namespace RedisExplorer.Models
 
         public bool Delete()
         {
-            var key = KeyName;
-            var db = Database;
-
-            var result = db.KeyExists(key) && db.KeyDelete(key);
-
-            if (result)
+            if (!HasChildren)
             {
-                eventAggregator.PublishOnUIThread(new KeyDeletedMessage { Urn = KeyName });
+                var key = KeyName;
+                var db = Database;
+
+                var result = db.KeyExists(key) && db.KeyDelete(key);
+
+                if (result)
+                {
+                    eventAggregator.PublishOnUIThread(new KeyDeletedMessage { Urn = KeyName });
+                }
+                return result;
             }
-            return result;
+            else
+            {
+                // TODO : deleting from a folder urn part.
+            }
+            return false;
         }
 
         public virtual void Reload()
