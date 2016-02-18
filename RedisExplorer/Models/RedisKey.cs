@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+
 using Caliburn.Micro;
 using RedisExplorer.Messages;
 using StackExchange.Redis;
@@ -195,9 +197,19 @@ namespace RedisExplorer.Models
                 }
                 return result;
             }
-            else
+
+            var parentdb = GetParentDatabase;
+            var s = parentdb.Parent as RedisServer;
+            if (s != null)
             {
-                // TODO : deleting from a folder urn part.
+                var keys = s.GetServer().Keys(pattern: Display + "*", database: parentdb.GetDatabaseNumber).ToList();
+                var result = Database.KeyDelete(keys.ToArray());
+
+                if (result > 0)
+                {
+                    eventAggregator.PublishOnUIThread(new KeysDeletedMessage { Keys = keys.Select(x => x.ToString()).ToList() });                        
+                }
+                return result > 0;
             }
             return false;
         }

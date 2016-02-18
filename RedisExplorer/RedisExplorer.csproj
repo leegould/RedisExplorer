@@ -172,6 +172,7 @@
     <Compile Include="Messages\FlushDbMessage.cs" />
     <Compile Include="Messages\InfoNotValidMessage.cs" />
     <Compile Include="Messages\KeyDeletedMessage.cs" />
+    <Compile Include="Messages\KeysDeletedMessage.cs" />
     <Compile Include="Messages\RedisKeyAddedMessage.cs" />
     <Compile Include="Messages\RedisKeyReloadMessage.cs" />
     <Compile Include="Messages\RedisKeyUpdatedMessage.cs" />
