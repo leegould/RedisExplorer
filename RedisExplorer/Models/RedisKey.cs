@@ -186,30 +186,25 @@ namespace RedisExplorer.Models
         {
             if (!HasChildren)
             {
-                var key = KeyName;
-                var db = Database;
-
-                var result = db.KeyExists(key) && db.KeyDelete(key);
-
-                if (result)
+                if (Database.KeyExists(KeyName) && Database.KeyDelete(KeyName))
                 {
                     eventAggregator.PublishOnUIThread(new KeyDeletedMessage { Urn = KeyName });
+                    return true;
                 }
-                return result;
             }
 
             var parentdb = GetParentDatabase;
-            var s = parentdb.Parent as RedisServer;
-            if (s != null)
+            var server = parentdb.Parent as RedisServer;
+            if (server != null)
             {
-                var keys = s.GetServer().Keys(pattern: Display + "*", database: parentdb.GetDatabaseNumber).ToList();
+                var keys = server.GetServer().Keys(parentdb.GetDatabaseNumber, Display + "*").ToList();
                 var result = Database.KeyDelete(keys.ToArray());
 
                 if (result > 0)
                 {
-                    eventAggregator.PublishOnUIThread(new KeysDeletedMessage { Keys = keys.Select(x => x.ToString()).ToList() });                        
+                    eventAggregator.PublishOnUIThread(new KeysDeletedMessage { Keys = keys.Select(x => x.ToString()).ToList() });
+                    return true;
                 }
-                return result > 0;
             }
             return false;
         }
