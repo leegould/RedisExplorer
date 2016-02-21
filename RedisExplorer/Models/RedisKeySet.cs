@@ -78,11 +78,11 @@ namespace RedisExplorer.Models
 
                 saved = true;
 
-                var itemintree = (RedisKeySet)Parent.Children.FirstOrDefault(x => x.IsSelected);
-                if (itemintree != null)
-                {
-                    itemintree.KeyValue = KeyValue;
-                }
+                //var itemintree = (RedisKeySet)Parent.Children.FirstOrDefault(x => x.IsSelected);
+                //if (itemintree != null)
+                //{
+                //    itemintree.KeyValue = KeyValue;
+                //}
             }
 
             return saved;

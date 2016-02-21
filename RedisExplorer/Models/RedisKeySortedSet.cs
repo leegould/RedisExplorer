@@ -46,11 +46,11 @@ namespace RedisExplorer.Models
 
             Database.SortedSetAdd(KeyName, KeyValue.ToArray()); 
                 
-            var itemintree = (RedisKeySortedSet)Parent.Children.FirstOrDefault(x => x.IsSelected);
-            if (itemintree != null)
-            {
-                itemintree.KeyValue = KeyValue;
-            }
+            //var itemintree = (RedisKeySortedSet)Parent.Children.FirstOrDefault(x => x.IsSelected);
+            //if (itemintree != null)
+            //{
+            //    itemintree.KeyValue = KeyValue;
+            //}
 
             return true;
         }

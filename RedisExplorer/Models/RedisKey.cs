@@ -2,6 +2,7 @@
 using System.Linq;
 
 using Caliburn.Micro;
+using Microsoft.Windows.Shell;
 using RedisExplorer.Messages;
 using StackExchange.Redis;
 
@@ -178,7 +179,7 @@ namespace RedisExplorer.Models
             }
             else
             {
-                eventAggregator.PublishOnUIThread(new RedisKeyUpdatedMessage { Urn = KeyName });
+                eventAggregator.PublishOnUIThread(new RedisKeyUpdatedMessage { Key = this });
             }
         }
 

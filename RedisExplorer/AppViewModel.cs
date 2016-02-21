@@ -189,7 +189,7 @@ namespace RedisExplorer
 
         public void Handle(RedisKeyUpdatedMessage message)
         {
-            StatusBarTextBlock = "Updated Key : " + message.Urn;
+            StatusBarTextBlock = "Updated Key : " + message.Key.KeyName;
         }
 
         public void Handle(ReloadKeyMessage message)

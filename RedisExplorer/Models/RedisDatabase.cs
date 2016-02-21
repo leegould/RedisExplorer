@@ -8,7 +8,7 @@ using StackExchange.Redis;
 
 namespace RedisExplorer.Models
 {
-    public class RedisDatabase : TreeViewItem
+    public class RedisDatabase : TreeViewItem //, IHandle<RedisKeyUpdatedMessage>
     {
         private IEventAggregator eventAggregator { get; set; }
 
@@ -27,6 +27,7 @@ namespace RedisExplorer.Models
             this.parent = parent;
             this.dbNumber = dbnumber;
             this.eventAggregator = eventAggregator;
+            //eventAggregator.Subscribe(this);
             maxKeys = string.IsNullOrEmpty(Settings.Default.MaxKeys) ? 1000 : int.Parse(Settings.Default.MaxKeys);
             urnSeparator = string.IsNullOrEmpty(Settings.Default.UrnSeparator) ? ":" : Settings.Default.UrnSeparator;
             keyCount = keycount;
@@ -107,15 +108,9 @@ namespace RedisExplorer.Models
 
         public void Reload()
         {
-            var s = parent.GetServer();
-
             eventAggregator.PublishOnUIThread(new DatabaseReloadMessage { DbNumber = dbNumber });
 
-            Children.Clear();
-
-            LoadChildren();
-
-            parent.Reload();
+            ReloadParent();
         }
 
         public void Flush()
@@ -132,6 +127,20 @@ namespace RedisExplorer.Models
         public void Add()
         {
             eventAggregator.PublishOnUIThread(new AddKeyMessage { ParentDatabase = this });
+        }
+
+        //public void Handle(RedisKeyUpdatedMessage message)
+        //{
+        //    ReloadParent();
+        //}
+
+        private void ReloadParent()
+        {
+            Children.Clear();
+
+            LoadChildren();
+
+            parent.Reload();
         }
     }
 }

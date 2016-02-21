@@ -54,11 +54,11 @@ namespace RedisExplorer.Models
                 Database.ListRightPush(KeyName, keyvalue);
             }
 
-            var itemintree = (RedisKeyList)Parent.Children.FirstOrDefault(x => x.IsSelected);
-            if (itemintree != null)
-            {
-                itemintree.KeyValue = KeyValue;
-            }
+            //var itemintree = (RedisKeyList)Parent.Children.FirstOrDefault(x => x.IsSelected);
+            //if (itemintree != null)
+            //{
+            //    itemintree.KeyValue = KeyValue;
+            //}
 
             return true;
         }

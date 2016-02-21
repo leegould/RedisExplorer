@@ -253,7 +253,7 @@ namespace RedisExplorer.Controls
                 case RedisType.String:
                     UpdateKeyValue<string, string>(x => x);
                     break;
-                // UpdateItemInTree<string>(); // Not sure needed this before. non ref type?
+                    //UpdateItemInTree<string>(); // Not sure needed this before. non ref type?
                 case RedisType.Set:
                 case RedisType.List:
                     UpdateKeyValue<BindableCollection<NumberedStringWrapper>, List<string>>(x => x.Select(y => y.Item).ToList());
@@ -269,10 +269,10 @@ namespace RedisExplorer.Controls
                     break;
             }
 
-            if (item.GetType() != ActiveItem.GetType())
-            {
-                // TODO : Change Type
-            }
+            //if (item.GetType() != ActiveItem.GetType())
+            //{
+            //    // TODO : Change Type
+            //}
 
             if (item.Save())
             {
@@ -294,15 +294,15 @@ namespace RedisExplorer.Controls
             ((IKeyValue<T>)ActiveItem).KeyValue = value;
         }
 
-        private void UpdateItemInTree<T>()
-        {
-            dynamic treeitem = item.Parent.Children.FirstOrDefault(x => x.IsSelected);
+        //private void UpdateItemInTree<T>()
+        //{
+        //    dynamic treeitem = item.Parent.Children.FirstOrDefault(x => x.IsSelected);
 
-            if (treeitem != null)
-            {
-                treeitem.KeyValue = ((IKeyValue<T>)item).KeyValue;
-            }
-        }
+        //    if (treeitem != null)
+        //    {
+        //        treeitem.KeyValue = ((IKeyValue<T>)item).KeyValue;
+        //    }
+        //}
 
         public void DeleteButton()
         {
