@@ -29,7 +29,7 @@ namespace RedisExplorer.Models
 
         #region Properties
 
-        public string Display { get; set; }
+        public virtual string Display { get; set; }
 
         public TreeViewItem Parent
         {
@@ -39,10 +39,6 @@ namespace RedisExplorer.Models
         public ObservableCollection<TreeViewItem> Children
         {
             get { return children; }
-            //set
-            //{
-            //    children = value;
-            //}
         }
 
         /// <summary>
@@ -103,7 +99,7 @@ namespace RedisExplorer.Models
                     IsExpanded = true;
                 }
                 
-                if (isSelected) // && !HasChildren)
+                if (isSelected)
                 {
                     eventAggregator.PublishOnUIThread(new TreeItemSelectedMessage { SelectedItem = this });
                 }
@@ -120,6 +116,9 @@ namespace RedisExplorer.Models
         {
             this.parent = parent;
             this.eventAggregator = eventAggregator;
+
+            isSelected = false;
+            isExpanded = false;
 
             children = new ObservableCollection<TreeViewItem>();
 

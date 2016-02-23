@@ -8,7 +8,7 @@ using StackExchange.Redis;
 
 namespace RedisExplorer.Models
 {
-    public class RedisDatabase : TreeViewItem, IHandle<RedisKeyUpdatedMessage>
+    public class RedisDatabase : TreeViewItem, IHandle<RedisKeyUpdatedMessage>, IHandle<RedisKeyAddedMessage>
     {
         private IEventAggregator eventAggregator { get; set; }
 
@@ -22,20 +22,36 @@ namespace RedisExplorer.Models
 
         private int keyCount { get; set; }
 
+        private string display { get; set; }
+
         public RedisDatabase(RedisServer parent, int dbnumber, IEventAggregator eventAggregator, int keycount = 0) : base(parent, Settings.Default.LazyLoadDatabase, eventAggregator)
         {
             this.parent = parent;
-            this.dbNumber = dbnumber;
             this.eventAggregator = eventAggregator;
             eventAggregator.Subscribe(this);
+            dbNumber = dbnumber;
             maxKeys = string.IsNullOrEmpty(Settings.Default.MaxKeys) ? 1000 : int.Parse(Settings.Default.MaxKeys);
             urnSeparator = string.IsNullOrEmpty(Settings.Default.UrnSeparator) ? ":" : Settings.Default.UrnSeparator;
             keyCount = keycount;
+            SetDisplay();
         }
 
         public IDatabase GetDatabase(int? dbnum = null)
         {
             return parent.GetDatabase(dbnum ?? dbNumber);
+        }
+
+        public override string Display
+        {
+            get
+            {
+                return display;
+            }
+            set
+            {
+                display = value;
+                NotifyOfPropertyChange(() => Display);
+            }
         }
 
         public int GetDatabaseNumber
@@ -110,9 +126,7 @@ namespace RedisExplorer.Models
         {
             eventAggregator.PublishOnUIThread(new DatabaseReloadMessage { DbNumber = dbNumber });
 
-            ReloadDb();
-
-            parent.Reload(); // For counts
+            ReloadDatabase();
         }
 
         public void Flush()
@@ -121,9 +135,8 @@ namespace RedisExplorer.Models
             s.FlushDatabase(dbNumber);
 
             eventAggregator.PublishOnUIThread(new FlushDbMessage { dbNumber = dbNumber });
-
-            Children.Clear();
-            LoadChildren();
+            
+            ReloadDatabase();
         }
 
         public void Add()
@@ -135,16 +148,26 @@ namespace RedisExplorer.Models
         {
             if (dbNumber == message.Key.DatabaseName)
             {
-                Children.Clear();
-
-                LoadChildren();
-
-                message.Key.IsSelected = false;
-                message.Key.IsSelected = true;
+                ReloadDatabase();
             }
         }
 
-        private void ReloadDb()
+        public void Handle(RedisKeyAddedMessage message)
+        {
+            if (dbNumber == message.Key.DatabaseName)
+            {
+                keyCount += 1;
+                SetDisplay();
+                ReloadDatabase();
+            }
+        }
+
+        private void SetDisplay()
+        {
+            Display = dbNumber + " (" + keyCount + ")";           
+        }
+
+        private void ReloadDatabase()
         {
             Children.Clear();
 

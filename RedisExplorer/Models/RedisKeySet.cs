@@ -70,10 +70,17 @@ namespace RedisExplorer.Models
                 {
                     var oldvalues = Database.SetMembers(KeyName).Select(x => x.ToString()).ToList();
                     var newvalues = KeyValue.Except(oldvalues).ToList();
-                    var removedvalues = KeyValue.Except(newvalues).Except(oldvalues);
+                    var valuestoadd = newvalues.Select(x => (RedisValue)x).ToArray();
+                    var removedvalues = KeyValue.Except(newvalues).Except(oldvalues).Select(x => (RedisValue)x).ToArray();
 
-                    var count = Database.SetAdd(KeyName, newvalues.Select(x => (RedisValue)x).ToArray());
-                    var removed = Database.SetRemove(KeyName, removedvalues.Select(x => (RedisValue) x).ToArray());
+                    if (valuestoadd.Any())
+                    {
+                        Database.SetAdd(KeyName, valuestoadd);
+                    }
+                    if (removedvalues.Any())
+                    {
+                        Database.SetRemove(KeyName, removedvalues);
+                    }
                 }
 
                 saved = true;

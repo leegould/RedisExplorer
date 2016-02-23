@@ -174,7 +174,7 @@ namespace RedisExplorer
 
         public void Handle(RedisKeyAddedMessage message)
         {
-            StatusBarTextBlock = "Added Key : " + message.Urn;
+            StatusBarTextBlock = "Added Key : " + message.Key.KeyName;
         }
 
         public void Handle(ConnectionFailedMessage message)

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Caliburn.Micro;
-using Microsoft.Windows.Shell;
 using RedisExplorer.Messages;
 using StackExchange.Redis;
 
@@ -162,8 +162,13 @@ namespace RedisExplorer.Models
         {
             get
             {
-                return true; //!HasChildren; }
+                return true; 
             }
+        }
+
+        public bool ItemExists()
+        {
+            return Database.KeyExists(KeyName);
         }
 
         public virtual bool Save()
@@ -171,15 +176,15 @@ namespace RedisExplorer.Models
             return false;
         }
 
-        public void NotifyOfSave()
+        public void NotifyOfSave(bool existingKey)
         {
-            if (!Database.KeyExists(KeyName))
+            if (existingKey)
             {
-                eventAggregator.PublishOnUIThread(new RedisKeyAddedMessage { Urn = KeyName });
+                eventAggregator.PublishOnUIThread(new RedisKeyUpdatedMessage { Key = this });
             }
             else
             {
-                eventAggregator.PublishOnUIThread(new RedisKeyUpdatedMessage { Key = this });
+                eventAggregator.PublishOnUIThread(new RedisKeyAddedMessage { Key = this });
             }
         }
 

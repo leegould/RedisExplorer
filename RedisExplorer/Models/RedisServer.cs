@@ -83,22 +83,18 @@ namespace RedisExplorer.Models
                 var databases = server.ConfigGet("databases");
                 if (databases != null)
                 {
-                    int dbcounter = 0;
+                    int dbcounter;
                     if (int.TryParse(databases.First().Value, out dbcounter))
                     {
                         foreach (var dbnumber in Enumerable.Range(0, dbcounter))
                         {
                             var keycount = 0;
-                            var display = dbnumber.ToString();
                             if (info != null && info.Length > 0)
                             {
-                                var dbinfo = info[0].FirstOrDefault(x => x.Key == "db" + display);
+                                var dbinfo = info[0].FirstOrDefault(x => x.Key == "db" + dbnumber);
                                 if (!string.IsNullOrEmpty(dbinfo.Value))
                                 {
-                                    if (int.TryParse(dbinfo.Value.Split(',')[0].Split('=')[1], out keycount))
-                                    {
-                                        display += " (" + keycount + ")";
-                                    }
+                                    int.TryParse(dbinfo.Value.Split(',')[0].Split('=')[1], out keycount);
                                 }
                             }
                             else
@@ -106,10 +102,7 @@ namespace RedisExplorer.Models
                                 eventAggregator.PublishOnUIThread(new InfoNotValidMessage());                                
                             }
 
-                            var db = new RedisDatabase(this, dbnumber, eventAggregator, keycount)
-                                     {
-                                         Display = display
-                                     };
+                            var db = new RedisDatabase(this, dbnumber, eventAggregator, keycount);
 
                             Children.Add(db);
                         }

@@ -8,7 +8,6 @@ using RedisExplorer.Interface;
 using RedisExplorer.Messages;
 using RedisExplorer.Models;
 using StackExchange.Redis;
-using Xceed.Wpf.Toolkit.PropertyGrid.Converters;
 using RedisKey = RedisExplorer.Models.RedisKey;
 
 namespace RedisExplorer.Controls
@@ -253,30 +252,23 @@ namespace RedisExplorer.Controls
                 case RedisType.String:
                     UpdateKeyValue<string, string>(x => x);
                     break;
-                    //UpdateItemInTree<string>(); // Not sure needed this before. non ref type?
                 case RedisType.Set:
                 case RedisType.List:
                     UpdateKeyValue<BindableCollection<NumberedStringWrapper>, List<string>>(x => x.Select(y => y.Item).ToList());
-                    //UpdateItemInTree<List<string>>();
                     break;
                 case RedisType.Hash:
                     UpdateKeyValue<BindableCollection<HashWrapper>, Dictionary<string, string>>(x => x.Where(y => !string.IsNullOrEmpty(y.Key)).ToDictionary(y => y.Key, y => y.Value));
-                    //UpdateItemInTree<Dictionary<string, string>>(); // hmm
                     break;
                 case RedisType.SortedSet:
                     UpdateKeyValue<BindableCollection<ScoreWrapper>, List<SortedSetEntry>>(x => x.Select(y => new SortedSetEntry(y.Item, y.Score)).ToList());
-                    //UpdateItemInTree<List<SortedSetEntry>>(); // hmm
                     break;
             }
 
-            //if (item.GetType() != ActiveItem.GetType())
-            //{
-            //    // TODO : Change Type
-            //}
+            var keyexists = item.ItemExists();
 
             if (item.Save())
             {
-                item.NotifyOfSave();
+                item.NotifyOfSave(keyexists);
             }
         }
 
@@ -293,16 +285,6 @@ namespace RedisExplorer.Controls
         {
             ((IKeyValue<T>)ActiveItem).KeyValue = value;
         }
-
-        //private void UpdateItemInTree<T>()
-        //{
-        //    dynamic treeitem = item.Parent.Children.FirstOrDefault(x => x.IsSelected);
-
-        //    if (treeitem != null)
-        //    {
-        //        treeitem.KeyValue = ((IKeyValue<T>)item).KeyValue;
-        //    }
-        //}
 
         public void DeleteButton()
         {
