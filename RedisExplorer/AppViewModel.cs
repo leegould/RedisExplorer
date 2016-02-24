@@ -204,7 +204,7 @@ namespace RedisExplorer
 
         public void Handle(KeyDeletedMessage message)
         {
-            StatusBarTextBlock = "Deleted Key : " + message.Urn;
+            StatusBarTextBlock = "Deleted Key : " + message.Key.KeyName;
         }
 
         public void Handle(KeysDeletedMessage message)

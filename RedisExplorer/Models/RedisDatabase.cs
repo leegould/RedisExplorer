@@ -8,7 +8,7 @@ using StackExchange.Redis;
 
 namespace RedisExplorer.Models
 {
-    public class RedisDatabase : TreeViewItem, IHandle<RedisKeyUpdatedMessage>, IHandle<RedisKeyAddedMessage>
+    public class RedisDatabase : TreeViewItem, IHandle<RedisKeyUpdatedMessage>, IHandle<RedisKeyAddedMessage>, IHandle<KeyDeletedMessage>, IHandle<KeysDeletedMessage>
     {
         private IEventAggregator eventAggregator { get; set; }
 
@@ -89,31 +89,8 @@ namespace RedisExplorer.Models
             var key = item.Children.FirstOrDefault(x => x.Display == keystr);
             if (key == null)
             {
-                if (ktype == RedisType.String)
-                {
-                    key = new RedisKeyString(item, eventAggregator) { Display = keystr };
-                }
-                else if (ktype == RedisType.Set)
-                {
-                    key = new RedisKeySet(item, eventAggregator) { Display = keystr };
-                }
-                else if (ktype == RedisType.List)
-                {
-                    key = new RedisKeyList(item, eventAggregator) { Display = keystr };
-                }
-                else if (ktype == RedisType.Hash)
-                {
-                    key = new RedisKeyHash(item, eventAggregator) { Display = keystr };
-                }
-                else if (ktype == RedisType.SortedSet)
-                {
-                    key = new RedisKeySortedSet(item, eventAggregator) { Display = keystr };
-                }
-                else
-                {
-                    key = new RedisKeyString(item, eventAggregator) { Display = keystr };
-                }
-                item.Children.Add(key);
+                item.Display = keystr;
+                item.Children.Add(RedisKeyFactory.Get(ktype, item, eventAggregator));
             }
 
             if (urn.Count > 0)
@@ -121,7 +98,7 @@ namespace RedisExplorer.Models
                 AddChildren(key, urn, ktype, eventAggregator);
             }
         }
-
+        
         public void Reload()
         {
             eventAggregator.PublishOnUIThread(new DatabaseReloadMessage { DbNumber = dbNumber });
@@ -154,17 +131,53 @@ namespace RedisExplorer.Models
 
         public void Handle(RedisKeyAddedMessage message)
         {
-            if (dbNumber == message.Key.DatabaseName)
+            ChangeKeyCount(message.Key.DatabaseName, 1);
+        }
+        
+        public void Handle(KeyDeletedMessage message)
+        {
+            ChangeKeyCount(message.Key.DatabaseName, -1);
+        }
+
+        public void Handle(KeysDeletedMessage message)
+        {
+            ChangeKeyCount(message.DatabaseName, -message.Keys.Count);
+        }
+
+
+        private static class RedisKeyFactory
+        {
+            public static RedisKey Get(RedisType redisType, TreeViewItem item, IEventAggregator eventAggregator)
             {
-                keyCount += 1;
-                SetDisplay();
-                ReloadDatabase();
+                RedisKey key;
+                switch (redisType)
+                {
+                    case RedisType.String:
+                        key = new RedisKeyString(item, eventAggregator);
+                        break;
+                    case RedisType.Set:
+                        key = new RedisKeySet(item, eventAggregator);
+                        break;
+                    case RedisType.List:
+                        key = new RedisKeyList(item, eventAggregator);
+                        break;
+                    case RedisType.Hash:
+                        key = new RedisKeyHash(item, eventAggregator);
+                        break;
+                    case RedisType.SortedSet:
+                        key = new RedisKeySortedSet(item, eventAggregator);
+                        break;
+                    default:
+                        key = new RedisKeyString(item, eventAggregator);
+                        break;
+                }
+                return key;
             }
         }
 
         private void SetDisplay()
         {
-            Display = dbNumber + " (" + keyCount + ")";           
+            Display = dbNumber + " (" + keyCount + ")";
         }
 
         private void ReloadDatabase()
@@ -172,6 +185,16 @@ namespace RedisExplorer.Models
             Children.Clear();
 
             LoadChildren();
+        }
+
+        private void ChangeKeyCount(int dbnumber, int keymodifier)
+        {
+            if (dbNumber == dbnumber)
+            {
+                keyCount = keyCount + keymodifier;
+                SetDisplay();
+                ReloadDatabase();
+            }
         }
     }
 }

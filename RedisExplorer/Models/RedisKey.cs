@@ -194,7 +194,7 @@ namespace RedisExplorer.Models
             {
                 if (Database.KeyExists(KeyName) && Database.KeyDelete(KeyName))
                 {
-                    eventAggregator.PublishOnUIThread(new KeyDeletedMessage { Urn = KeyName });
+                    eventAggregator.PublishOnUIThread(new KeyDeletedMessage { Key = this });
                     return true;
                 }
             }
@@ -208,7 +208,7 @@ namespace RedisExplorer.Models
 
                 if (result > 0)
                 {
-                    eventAggregator.PublishOnUIThread(new KeysDeletedMessage { Keys = keys.Select(x => x.ToString()).ToList() });
+                    eventAggregator.PublishOnUIThread(new KeysDeletedMessage { DatabaseName = parentdb.GetDatabaseNumber, Keys = keys.Select(x => x.ToString()).ToList() });
                     return true;
                 }
             }

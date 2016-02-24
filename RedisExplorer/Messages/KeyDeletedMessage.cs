@@ -1,7 +1,9 @@
-﻿namespace RedisExplorer.Messages
+﻿using RedisExplorer.Models;
+
+namespace RedisExplorer.Messages
 {
     public class KeyDeletedMessage
     {
-        public string Urn { get; set; }
+        public RedisKey Key { get; set; }
     }
 }
