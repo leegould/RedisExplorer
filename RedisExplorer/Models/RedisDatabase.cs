@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Caliburn.Micro;
 using RedisExplorer.Messages;
@@ -89,8 +90,9 @@ namespace RedisExplorer.Models
             var key = item.Children.FirstOrDefault(x => x.Display == keystr);
             if (key == null)
             {
-                item.Display = keystr;
-                item.Children.Add(RedisKeyFactory.Get(ktype, item, eventAggregator));
+                key = RedisKeyFactory.Get(ktype, item, eventAggregator);
+                key.Display = keystr;
+                item.Children.Add(key);
             }
 
             if (urn.Count > 0)
@@ -126,7 +128,44 @@ namespace RedisExplorer.Models
             if (dbNumber == message.Key.DatabaseName)
             {
                 ReloadDatabase();
+
+                //RedisKey key = null;
+                //var step = Children;
+                //foreach (var node in message.Key.KeyName.Split(new[] { urnSeparator }, StringSplitOptions.RemoveEmptyEntries).Select(keypart => step.FirstOrDefault(x => x.Display == keypart)))
+                //{
+                //    if (node != null && node.HasChildren)
+                //    {
+                //        step = node.Children;
+                //    }
+                //    else
+                //    {
+                //        key = node as RedisKey;
+                //    }
+                //}
+
+                var key = FindChildNode(Children, message.Key.KeyName.Split(new[] {urnSeparator}, StringSplitOptions.RemoveEmptyEntries).ToList());
+
+                if (key != null)
+                {
+                    key.IsExpanded = true;
+                    key.IsSelected = true;
+                }
             }
+        }
+
+        private TreeViewItem FindChildNode(ObservableCollection<TreeViewItem> items, List<string> path)
+        {
+            var item = items.FirstOrDefault(x => x.Display == path.FirstOrDefault());
+            if (item == null)
+            {
+                return null;
+            }
+            if (!item.HasChildren)
+            {
+                return item;
+            }
+            path.RemoveAt(0);
+            return FindChildNode(item.Children, path);
         }
 
         public void Handle(RedisKeyAddedMessage message)
