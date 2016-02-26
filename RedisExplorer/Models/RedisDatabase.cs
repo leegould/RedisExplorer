@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Caliburn.Micro;
 using RedisExplorer.Messages;
@@ -128,61 +127,50 @@ namespace RedisExplorer.Models
             if (dbNumber == message.Key.DatabaseName)
             {
                 ReloadDatabase();
-
-                //RedisKey key = null;
-                //var step = Children;
-                //foreach (var node in message.Key.KeyName.Split(new[] { urnSeparator }, StringSplitOptions.RemoveEmptyEntries).Select(keypart => step.FirstOrDefault(x => x.Display == keypart)))
-                //{
-                //    if (node != null && node.HasChildren)
-                //    {
-                //        step = node.Children;
-                //    }
-                //    else
-                //    {
-                //        key = node as RedisKey;
-                //    }
-                //}
-
-                var key = FindChildNode(Children, message.Key.KeyName.Split(new[] {urnSeparator}, StringSplitOptions.RemoveEmptyEntries).ToList());
-
-                if (key != null)
-                {
-                    key.IsExpanded = true;
-                    key.IsSelected = true;
-                }
+                
+                ExpandChildNode(Children, message.Key.KeyName.Split(new[] {urnSeparator}, StringSplitOptions.RemoveEmptyEntries).ToList());
             }
-        }
-
-        private TreeViewItem FindChildNode(ObservableCollection<TreeViewItem> items, List<string> path)
-        {
-            var item = items.FirstOrDefault(x => x.Display == path.FirstOrDefault());
-            if (item == null)
-            {
-                return null;
-            }
-            if (!item.HasChildren)
-            {
-                return item;
-            }
-            path.RemoveAt(0);
-            return FindChildNode(item.Children, path);
         }
 
         public void Handle(RedisKeyAddedMessage message)
         {
-            ChangeKeyCount(message.Key.DatabaseName, 1);
+            if (dbNumber == message.Key.DatabaseName)
+            {
+                ChangeKeyCount(1);
+
+                ExpandChildNode(Children, message.Key.KeyName.Split(new[] { urnSeparator }, StringSplitOptions.RemoveEmptyEntries).ToList());
+            }
         }
         
         public void Handle(KeyDeletedMessage message)
         {
-            ChangeKeyCount(message.Key.DatabaseName, -1);
+            if (dbNumber == message.Key.DatabaseName)
+            {
+                ChangeKeyCount(-1);
+
+                var patharr = message.Key.KeyName.Split(new[] { urnSeparator }, StringSplitOptions.RemoveEmptyEntries);
+                ExpandChildNode(Children, patharr.Take(patharr.Length - 1).ToList());
+
+                eventAggregator.PublishOnUIThread(new AddKeyMessage { ParentDatabase = this });
+            }
         }
 
         public void Handle(KeysDeletedMessage message)
         {
-            ChangeKeyCount(message.DatabaseName, -message.Keys.Count);
-        }
+            if (dbNumber == message.DatabaseName)
+            {
+                ChangeKeyCount(-message.Keys.Count);
 
+                var akey = message.Keys.FirstOrDefault();
+                if (akey != null)
+                {
+                    var patharr = akey.Split(new[] { urnSeparator }, StringSplitOptions.RemoveEmptyEntries);
+                    ExpandChildNode(Children, patharr.Take(patharr.Length - 1).ToList());
+
+                    eventAggregator.PublishOnUIThread(new AddKeyMessage { ParentDatabase = this });
+                }
+            }
+        }
 
         private static class RedisKeyFactory
         {
@@ -214,6 +202,30 @@ namespace RedisExplorer.Models
             }
         }
 
+        private static void ExpandChildNode(IEnumerable<TreeViewItem> items, IList<string> path)
+        {
+            var item = items.FirstOrDefault(x => x.Display == path.FirstOrDefault());
+            if (item == null)
+            {
+                return;
+            }
+            if (!item.HasChildren || path.Count == 1)
+            {
+                item.IsExpanded = true;
+                item.IsSelected = true;
+            }
+            path.RemoveAt(0);
+
+            ExpandChildNode(item.Children, path);
+        }
+
+        private void ChangeKeyCount(int keymodifier)
+        {
+            keyCount = keyCount + keymodifier;
+            SetDisplay();
+            ReloadDatabase();
+        }
+
         private void SetDisplay()
         {
             Display = dbNumber + " (" + keyCount + ")";
@@ -224,16 +236,6 @@ namespace RedisExplorer.Models
             Children.Clear();
 
             LoadChildren();
-        }
-
-        private void ChangeKeyCount(int dbnumber, int keymodifier)
-        {
-            if (dbNumber == dbnumber)
-            {
-                keyCount = keyCount + keymodifier;
-                SetDisplay();
-                ReloadDatabase();
-            }
         }
     }
 }
