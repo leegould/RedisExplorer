@@ -9,11 +9,17 @@
                 <!-- Bootstrapper -->
                 <ResourceDictionary>
                     <wpf:AppBootstrapper x:Key="Bootstrapper"/>
+
+                    <LinearGradientBrush x:Key="BackgroundOpacityMask" StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="DarkGray" Offset="0"/>
+                        <GradientStop Color="LightGray" Offset="1"/>
+                    </LinearGradientBrush>
+                    
                 </ResourceDictionary>
 
                 <!-- Common Brushes and styles -->
                 <!--<ResourceDictionary Source="Assets/CommonResources.xaml" />-->
-
+                
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

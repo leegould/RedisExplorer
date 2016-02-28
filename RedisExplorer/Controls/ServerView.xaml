@@ -55,10 +55,6 @@
                 </Setter>
             </Style>
 
-            <LinearGradientBrush x:Key="HeaderBackgroundOpacityMask" StartPoint="0,0" EndPoint="0,1">
-                <GradientStop Color="DarkGray" Offset="0"/>
-                <GradientStop Color="LightGray" Offset="1"/>
-            </LinearGradientBrush>
         </Grid.Resources>
         
         <Grid.ColumnDefinitions>
@@ -80,7 +76,7 @@
 
         <UniformGrid Rows="3" Columns="3" Grid.Row="1">
 
-            <GroupBox Header="Server" BorderBrush="DodgerBlue" BorderThickness="2" Margin="5" Background="{StaticResource HeaderBackgroundOpacityMask}">
+            <GroupBox Header="Server" BorderBrush="DodgerBlue" BorderThickness="2" Margin="5" Background="{StaticResource BackgroundOpacityMask}">
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -120,7 +116,7 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="Clients" BorderBrush="ForestGreen" BorderThickness="2" Margin="5" Background="{StaticResource HeaderBackgroundOpacityMask}" >
+            <GroupBox Header="Clients" BorderBrush="ForestGreen" BorderThickness="2" Margin="5" Background="{StaticResource BackgroundOpacityMask}" >
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
@@ -148,7 +144,7 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="Memory" BorderBrush="Purple" BorderThickness="2" Margin="5" Background="{StaticResource HeaderBackgroundOpacityMask}">
+            <GroupBox Header="Memory" BorderBrush="Purple" BorderThickness="2" Margin="5" Background="{StaticResource BackgroundOpacityMask}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
@@ -180,7 +176,7 @@
 
             </GroupBox>
 
-            <GroupBox Header="CPU" BorderBrush="DarkRed" BorderThickness="2" Margin="5" Background="{StaticResource HeaderBackgroundOpacityMask}">
+            <GroupBox Header="CPU" BorderBrush="DarkRed" BorderThickness="2" Margin="5" Background="{StaticResource BackgroundOpacityMask}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
@@ -207,7 +203,7 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="Persistence" BorderBrush="YellowGreen" BorderThickness="2" Margin="5" Background="{StaticResource HeaderBackgroundOpacityMask}">
+            <GroupBox Header="Persistence" BorderBrush="YellowGreen" BorderThickness="2" Margin="5" Background="{StaticResource BackgroundOpacityMask}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
@@ -243,7 +239,7 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="Stats" BorderBrush="Gold" BorderThickness="2" Margin="5" Background="{StaticResource HeaderBackgroundOpacityMask}">
+            <GroupBox Header="Stats" BorderBrush="Gold" BorderThickness="2" Margin="5" Background="{StaticResource BackgroundOpacityMask}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
@@ -275,7 +271,7 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="Replication" BorderBrush="DarkOrange" BorderThickness="2" Margin="5" Background="{StaticResource HeaderBackgroundOpacityMask}">
+            <GroupBox Header="Replication" BorderBrush="DarkOrange" BorderThickness="2" Margin="5" Background="{StaticResource BackgroundOpacityMask}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
@@ -308,7 +304,7 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="Cluster" BorderBrush="Brown" BorderThickness="2" Margin="5" Background="{StaticResource HeaderBackgroundOpacityMask}">
+            <GroupBox Header="Cluster" BorderBrush="Brown" BorderThickness="2" Margin="5" Background="{StaticResource BackgroundOpacityMask}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
@@ -323,7 +319,7 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="Keys" BorderBrush="Indigo" BorderThickness="2" Margin="5" Background="{StaticResource HeaderBackgroundOpacityMask}">
+            <GroupBox Header="Keys" BorderBrush="Indigo" BorderThickness="2" Margin="5" Background="{StaticResource BackgroundOpacityMask}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50"/>
