@@ -6,7 +6,7 @@
              mc:Ignorable="d"                                      
              d:DesignHeight="300" d:DesignWidth="300" x:Name="keysortedsetcontrol">
 
-    <DataGrid ItemsSource="{Binding KeyValue}" Margin="0" AutoGenerateColumns="False" CanUserAddRows="True" HorizontalAlignment="Stretch"  Width="{Binding ElementName=keysortedsetcontrol, Path=ActualWidth}" BorderBrush="Orange" BorderThickness="1">
+    <DataGrid Background="{StaticResource BackgroundOpacityMask}" ItemsSource="{Binding KeyValue}" Margin="0" AutoGenerateColumns="False" CanUserAddRows="True" HorizontalAlignment="Stretch"  Width="{Binding ElementName=keysortedsetcontrol, Path=ActualWidth}" BorderBrush="Orange" BorderThickness="1">
         <DataGrid.Columns>
             <DataGridTextColumn Header="Row"  IsReadOnly="True" Binding="{Binding Path=RowNumber}" Width="Auto"></DataGridTextColumn>
             <DataGridTextColumn Header="Score" Binding="{Binding Path=Score}" Width="Auto"></DataGridTextColumn>

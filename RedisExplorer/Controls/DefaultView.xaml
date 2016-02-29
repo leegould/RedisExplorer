@@ -7,8 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              x:Name="Defaultcontrol">
-    
-    <Grid Width="{Binding ElementName=Defaultcontrol, Path=ActualWidth}">
+
+    <Grid Background="{StaticResource BackgroundOpacityMask}" Width="{Binding ElementName=Defaultcontrol, Path=ActualWidth}">
         <Grid.Resources>
             <Style x:Key="HyperlinkButton" TargetType="Button">
                 <Setter Property="Template">

@@ -31,7 +31,7 @@
             </MenuItem>
         </Menu>
 
-        <Grid Background="DarkGray" DockPanel.Dock="Top">
+        <Grid Background="{StaticResource BackgroundOpacityMask}" DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250"/>
                 <ColumnDefinition Width="*"/>
