@@ -19,8 +19,8 @@ namespace RedisExplorer.Controls
         static GreyableImage()
         {
             // Override the metadata of the IsEnabled and Source property.
-            IsEnabledProperty.OverrideMetadata(typeof(GreyableImage), new FrameworkPropertyMetadata(true, new PropertyChangedCallback(OnAutoGreyScaleImageIsEnabledPropertyChanged)));
-            SourceProperty.OverrideMetadata(typeof(GreyableImage), new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnAutoGreyScaleImageSourcePropertyChanged)));
+            IsEnabledProperty.OverrideMetadata(typeof(GreyableImage), new FrameworkPropertyMetadata(true, OnAutoGreyScaleImageIsEnabledPropertyChanged));
+            SourceProperty.OverrideMetadata(typeof(GreyableImage), new FrameworkPropertyMetadata(null, OnAutoGreyScaleImageSourcePropertyChanged));
         }
 
         protected static GreyableImage GetImageWithSource(DependencyObject source)
@@ -39,7 +39,7 @@ namespace RedisExplorer.Controls
         /// </summary>
         /// <param name="source">The source.</param>
         /// <param name="args">The <see cref="System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
-        protected static void OnAutoGreyScaleImageSourcePropertyChanged(DependencyObject source, DependencyPropertyChangedEventArgs ars)
+        protected static void OnAutoGreyScaleImageSourcePropertyChanged(DependencyObject source, DependencyPropertyChangedEventArgs args)
         {
             var image = GetImageWithSource(source);
             if (image != null)
@@ -67,7 +67,7 @@ namespace RedisExplorer.Controls
             {
                 if (!isEnabled)
                 {
-                    BitmapSource bitmapImage = null;
+                    BitmapSource bitmapImage;
 
                     if (greyScaleImg.Source is FormatConvertedBitmap)
                     {

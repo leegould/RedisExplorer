@@ -11,7 +11,6 @@ namespace RedisExplorer.Controls
     public class KeyStringViewModel : Screen, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IValueItem, IKeyValue<string>, IHandle<RedisKeyReloadMessage>
     {
         private string keyValue;
-        private readonly IEventAggregator eventAggregator;
 
         public string KeyValue
         {
@@ -28,7 +27,6 @@ namespace RedisExplorer.Controls
 
         public KeyStringViewModel(IEventAggregator eventAggregator)
         {
-            this.eventAggregator = eventAggregator;
             eventAggregator.Subscribe(this);
         }
 

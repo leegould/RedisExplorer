@@ -64,9 +64,9 @@ namespace RedisExplorer.Controls
         public AddConnectionViewModel(IEventAggregator eventAggregator)
         {
             this.eventAggregator = eventAggregator;
-            this.NameTextBox = "Redis Server";
-            this.AddressTextBox = "localhost";
-            this.PortTextBox = "6379";
+            NameTextBox = "Redis Server";
+            AddressTextBox = "localhost";
+            PortTextBox = "6379";
         }
 
         #region Button Actions

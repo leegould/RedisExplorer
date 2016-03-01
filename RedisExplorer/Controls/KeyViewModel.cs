@@ -13,7 +13,7 @@ using RedisKey = RedisExplorer.Models.RedisKey;
 namespace RedisExplorer.Controls
 {
     [Export(typeof(KeyViewModel))]
-    public class KeyViewModel : Conductor<IValueItem>.Collection.OneActive, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IDisplayPanel
+    public sealed class KeyViewModel : Conductor<IValueItem>.Collection.OneActive, IHandle<TreeItemSelectedMessage>, IHandle<AddKeyMessage>, IDisplayPanel
     {
         #region Members
 
@@ -353,17 +353,17 @@ namespace RedisExplorer.Controls
 
         #region Private methods
 
-        private void DisplayItem(RedisKey item)
+        private void DisplayItem(RedisKey displayitem)
         {
-            if (item != null)
+            if (displayitem != null)
             {
-                DatabaseName = item.DatabaseName;
+                DatabaseName = displayitem.DatabaseName;
 
-                KeyNameTextBox = item.KeyName;
+                KeyNameTextBox = displayitem.KeyName;
                 
-                SelectedType = item.KeyType;
+                SelectedType = displayitem.KeyType;
 
-                var ttl = item.TTL;
+                var ttl = displayitem.TTL;
                 if (ttl.HasValue)
                 {
                     TTLDateTimePicker = DateTime.Now + ttl.Value;
