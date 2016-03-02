@@ -10,6 +10,7 @@
 
     <UserControl.Resources>
         <local:BoolToCollapsedVisibilityConverter x:Key="BooleanToCollapsedVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed"/>
+        
     </UserControl.Resources>
 
     <Grid Width="{Binding ElementName=ServerControl, Path=ActualWidth}">
@@ -69,8 +70,12 @@
 
         <Button x:Name="ReloadServer" Width="100" Height="25" Margin="10,0,10,5" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">
             <StackPanel Orientation="Horizontal">
-                <Image Source="/Assets/reload-icon.png" Margin="0,0,5,0"></Image>
-                <TextBlock Margin="0,0,5,0">Reload</TextBlock>
+                <Rectangle Width="8" Height="10">
+                    <Rectangle.Fill>
+                        <VisualBrush Visual="{StaticResource appbar_refresh}"></VisualBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <TextBlock Margin="5,0,5,0">Reload</TextBlock>
             </StackPanel>
         </Button>
 

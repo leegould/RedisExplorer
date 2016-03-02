@@ -6,10 +6,24 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
 
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <!-- Accent and AppTheme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+
+                <!-- theme resource -->
+                <!-- change "BaseLight" to the theme you want -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
+
                 <!-- Bootstrapper -->
                 <ResourceDictionary>
                     <wpf:AppBootstrapper x:Key="Bootstrapper"/>
-
+                    
                     <LinearGradientBrush x:Key="BackgroundOpacityMask" StartPoint="0,0" EndPoint="0,1">
                         <GradientStop Color="DarkGray" Offset="0"/>
                         <GradientStop Color="LightGray" Offset="1"/>
