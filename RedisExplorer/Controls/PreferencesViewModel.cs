@@ -17,6 +17,8 @@ namespace RedisExplorer.Controls
 
         private bool lazyLoadDatabaseCheckBox { get; set; }
 
+        private string themeTextBox { get; set; }
+
         public string MaxKeysTextBox
         {
             get { return maxKeysTextBox; }
@@ -67,6 +69,16 @@ namespace RedisExplorer.Controls
             }
         }
 
+        public string ThemeTextBox
+        {
+            get { return themeTextBox; }
+            set
+            {
+                themeTextBox = value;
+                NotifyOfPropertyChange(() => ThemeTextBox);
+            }
+        }
+
         public PreferencesViewModel(IEventAggregator eventAggregator)
         {
             eventAggregator.Subscribe(this);
@@ -75,6 +87,7 @@ namespace RedisExplorer.Controls
             OneClickCheckBox = Settings.Default.OneClick;
             LazyLoadServerCheckBox = Settings.Default.LazyLoadServer;
             LazyLoadDatabaseCheckBox = Settings.Default.LazyLoadDatabase;
+            ThemeTextBox = Settings.Default.Theme;
         }
 
         public void SaveButton()
@@ -84,6 +97,7 @@ namespace RedisExplorer.Controls
             Settings.Default.OneClick = OneClickCheckBox;
             Settings.Default.LazyLoadServer = LazyLoadServerCheckBox;
             Settings.Default.LazyLoadDatabase = LazyLoadDatabaseCheckBox;
+            Settings.Default.Theme = ThemeTextBox;
             Settings.Default.Save();
 
             TryClose();

@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="350" d:DesignWidth="300"
+      d:DesignHeight="450" d:DesignWidth="300"
 	Title="PreferencesView">
 
     <StackPanel >
@@ -50,6 +50,21 @@
                 <CheckBox Grid.Column="1" Grid.Row="2" Margin="5" x:Name="LazyLoadDatabaseCheckBox">
                     <TextBlock>Lazy load Databases</TextBlock>
                 </CheckBox>
+            </Grid>
+        </GroupBox>
+        
+        <GroupBox Margin="10" Header="Theme">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="Label"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label>Theme</Label>
+                <TextBox x:Name="ThemeTextBox" Grid.Column="1" Margin="2"></TextBox>
             </Grid>
         </GroupBox>
         
