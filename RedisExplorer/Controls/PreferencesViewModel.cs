@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.Composition;
+using System.Windows;
 using Caliburn.Micro;
+using MahApps.Metro;
 using RedisExplorer.Properties;
 
 namespace RedisExplorer.Controls
@@ -99,6 +101,8 @@ namespace RedisExplorer.Controls
             Settings.Default.LazyLoadDatabase = LazyLoadDatabaseCheckBox;
             Settings.Default.Theme = ThemeTextBox;
             Settings.Default.Save();
+
+            ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent("Green"), ThemeManager.GetAppTheme(Settings.Default.Theme));
 
             TryClose();
         }

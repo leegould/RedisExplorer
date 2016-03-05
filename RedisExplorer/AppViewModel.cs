@@ -4,7 +4,7 @@ using System.Dynamic;
 using System.Windows;
 
 using Caliburn.Micro;
-
+using MahApps.Metro;
 using RedisExplorer.Controls;
 using RedisExplorer.Interface;
 using RedisExplorer.Messages;
@@ -46,6 +46,7 @@ namespace RedisExplorer
         {
             DisplayName = "Redis Explorer";
 
+
             this.eventAggregator = eventAggregator;
             eventAggregator.Subscribe(this);
             this.windowManager = windowManager;
@@ -65,7 +66,16 @@ namespace RedisExplorer
 
             ActivateItem(DefaultViewModel);
 
+            SetTheme();
+
             LoadServers();
+        }
+
+        private void SetTheme()
+        {
+            ThemeManager.ChangeAppStyle(Application.Current,
+                                        ThemeManager.GetAccent(Settings.Default.Accent),
+                                        ThemeManager.GetAppTheme(Settings.Default.Theme));
         }
 
         private void LoadServers()

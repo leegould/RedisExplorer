@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Windows;
 
 using Caliburn.Micro;
-
+using MahApps.Metro;
 using RedisExplorer.Interface;
+using RedisExplorer.Properties;
 
 namespace RedisExplorer
 {
@@ -47,8 +48,13 @@ namespace RedisExplorer
 
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
+            // get the theme from the window
+            //var theme = ThemeManager.DetectAppStyle(Application.Current);
 
-
+            // now set the Red accent and dark theme
+            //ThemeManager.ChangeAppStyle(Application.Current,
+            //                            ThemeManager.GetAccent(Settings.Default.Accent),
+            //                            ThemeManager.GetAppTheme(Settings.Default.Theme));
             DisplayRootViewFor<IApp>(); 
         }
     }
