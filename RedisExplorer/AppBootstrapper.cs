@@ -52,9 +52,10 @@ namespace RedisExplorer
             //var theme = ThemeManager.DetectAppStyle(Application.Current);
 
             // now set the Red accent and dark theme
-            //ThemeManager.ChangeAppStyle(Application.Current,
-            //                            ThemeManager.GetAccent(Settings.Default.Accent),
-            //                            ThemeManager.GetAppTheme(Settings.Default.Theme));
+            ThemeManager.ChangeAppStyle(Application.Current,
+                                        ThemeManager.GetAccent(Settings.Default.Accent),
+                                        ThemeManager.GetAppTheme(Settings.Default.Theme));
+
             DisplayRootViewFor<IApp>(); 
         }
     }

@@ -61,10 +61,14 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <Label>Theme</Label>
-                <TextBox x:Name="ThemeTextBox" Grid.Column="1" Margin="2"></TextBox>
+                <ComboBox x:Name="Themes" Grid.Column="1" Margin="2"/>
+
+                <Label Grid.Row="1">Accent</Label>
+                <ComboBox x:Name="Accents" Grid.Row="1" Grid.Column="1" Margin="2"/>
             </Grid>
         </GroupBox>
         

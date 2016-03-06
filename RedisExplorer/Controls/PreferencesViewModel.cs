@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Composition;
+﻿using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Windows;
 using Caliburn.Micro;
 using MahApps.Metro;
@@ -19,7 +20,9 @@ namespace RedisExplorer.Controls
 
         private bool lazyLoadDatabaseCheckBox { get; set; }
 
-        private string themeTextBox { get; set; }
+        private string selectedTheme { get; set; }
+
+        private string selectedAccent { get; set; }
 
         public string MaxKeysTextBox
         {
@@ -71,13 +74,39 @@ namespace RedisExplorer.Controls
             }
         }
 
-        public string ThemeTextBox
+        public List<string> Themes
         {
-            get { return themeTextBox; }
+            get
+            {
+                return new List<string> { "BaseLight", "BaseDark" };
+            }
+        }
+
+        public string SelectedTheme
+        {
+            get { return selectedTheme; }
             set
             {
-                themeTextBox = value;
-                NotifyOfPropertyChange(() => ThemeTextBox);
+                selectedTheme = value;
+                NotifyOfPropertyChange(() => SelectedTheme);
+            }
+        }
+
+        public List<string> Accents
+        {
+            get
+            {
+                return new List<string> { "Red", "Green", "Blue", "Purple" };
+            }
+        }
+
+        public string SelectedAccent
+        {
+            get { return selectedAccent; }
+            set
+            {
+                selectedAccent = value;
+                NotifyOfPropertyChange(() => SelectedAccent);
             }
         }
 
@@ -89,7 +118,8 @@ namespace RedisExplorer.Controls
             OneClickCheckBox = Settings.Default.OneClick;
             LazyLoadServerCheckBox = Settings.Default.LazyLoadServer;
             LazyLoadDatabaseCheckBox = Settings.Default.LazyLoadDatabase;
-            ThemeTextBox = Settings.Default.Theme;
+            SelectedTheme = Settings.Default.Theme;
+            SelectedAccent = Settings.Default.Accent;
         }
 
         public void SaveButton()
@@ -99,10 +129,13 @@ namespace RedisExplorer.Controls
             Settings.Default.OneClick = OneClickCheckBox;
             Settings.Default.LazyLoadServer = LazyLoadServerCheckBox;
             Settings.Default.LazyLoadDatabase = LazyLoadDatabaseCheckBox;
-            Settings.Default.Theme = ThemeTextBox;
+            Settings.Default.Theme = SelectedTheme;
+            Settings.Default.Accent = SelectedAccent;
             Settings.Default.Save();
 
-            ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent("Green"), ThemeManager.GetAppTheme(Settings.Default.Theme));
+            ThemeManager.ChangeAppStyle(Application.Current, 
+                                        ThemeManager.GetAccent(SelectedAccent), 
+                                        ThemeManager.GetAppTheme(SelectedTheme));
 
             TryClose();
         }

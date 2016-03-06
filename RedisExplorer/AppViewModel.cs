@@ -46,6 +46,7 @@ namespace RedisExplorer
         {
             DisplayName = "Redis Explorer";
 
+            //SetTheme();
 
             this.eventAggregator = eventAggregator;
             eventAggregator.Subscribe(this);
@@ -66,17 +67,16 @@ namespace RedisExplorer
 
             ActivateItem(DefaultViewModel);
 
-            SetTheme();
 
             LoadServers();
         }
 
-        private void SetTheme()
-        {
-            ThemeManager.ChangeAppStyle(Application.Current,
-                                        ThemeManager.GetAccent(Settings.Default.Accent),
-                                        ThemeManager.GetAppTheme(Settings.Default.Theme));
-        }
+        //private void SetTheme()
+        //{
+        //    ThemeManager.ChangeAppStyle(Application.Current,
+        //                                ThemeManager.GetAccent(Settings.Default.Accent),
+        //                                ThemeManager.GetAppTheme(Settings.Default.Theme));
+        //}
 
         private void LoadServers()
         {
@@ -140,7 +140,7 @@ namespace RedisExplorer
         {
             dynamic settings = new ExpandoObject();
             settings.Width = 300;
-            settings.Height = 350;
+            settings.Height = 450;
             settings.WindowStartupLocation = WindowStartupLocation.Manual;
             settings.Title = "Preferences";
 
