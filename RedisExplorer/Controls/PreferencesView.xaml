@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="300"
+      d:DesignHeight="500" d:DesignWidth="450"
 	Title="PreferencesView">
 
     <StackPanel >
@@ -15,8 +15,8 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="25"></RowDefinition>
-                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
                 </Grid.RowDefinitions>
                 
                 <Label>Max Keys</Label>
@@ -34,9 +34,9 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="25"></RowDefinition>
-                    <RowDefinition Height="25"></RowDefinition>
-                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <CheckBox Grid.Column="1" Margin="5" x:Name="OneClickCheckBox">
@@ -60,8 +60,8 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="25"></RowDefinition>
-                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <Label>Theme</Label>
@@ -74,6 +74,7 @@
         
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,20,0,0">
             <Button Height="25" Width="75" Name="CancelButton" Content="Cancel" Margin="0,0,20,0"></Button>
+            <Button Height="25" Width="75" Name="ApplyButton" Content="Apply" Margin="0,0,20,0"></Button>
             <Button Height="25" Width="75" Name="SaveButton" Content="Save" Margin="0,0,20,0"></Button>
         </StackPanel>
     </StackPanel>

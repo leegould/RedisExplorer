@@ -10,6 +10,8 @@ namespace RedisExplorer.Controls
     [Export(typeof(PreferencesViewModel))]
     public class PreferencesViewModel : Screen
     {
+        #region Members
+
         private string maxKeysTextBox { get; set; }
 
         private string urnSeparatorTextBox { get; set; }
@@ -23,6 +25,10 @@ namespace RedisExplorer.Controls
         private string selectedTheme { get; set; }
 
         private string selectedAccent { get; set; }
+
+        #endregion
+
+        #region Properties
 
         public string MaxKeysTextBox
         {
@@ -96,7 +102,7 @@ namespace RedisExplorer.Controls
         {
             get
             {
-                return new List<string> { "Red", "Green", "Blue", "Purple" };
+                return new List<string> { "Red", "Green", "Blue", "Purple", "Orange", "Lime", "Emerald", "Teal", "Cyan", "Cobalt", "Indigo", "Violet", "Pink", "Magenta", "Crimson", "Amber", "Yellow", "Brown", "Olive", "Steel", "Mauve", "Taupe", "Sienna" };
             }
         }
 
@@ -109,6 +115,8 @@ namespace RedisExplorer.Controls
                 NotifyOfPropertyChange(() => SelectedAccent);
             }
         }
+
+        #endregion
 
         public PreferencesViewModel(IEventAggregator eventAggregator)
         {
@@ -124,14 +132,7 @@ namespace RedisExplorer.Controls
 
         public void SaveButton()
         {
-            Settings.Default.MaxKeys = MaxKeysTextBox;
-            Settings.Default.UrnSeparator = UrnSeparatorTextBox;
-            Settings.Default.OneClick = OneClickCheckBox;
-            Settings.Default.LazyLoadServer = LazyLoadServerCheckBox;
-            Settings.Default.LazyLoadDatabase = LazyLoadDatabaseCheckBox;
-            Settings.Default.Theme = SelectedTheme;
-            Settings.Default.Accent = SelectedAccent;
-            Settings.Default.Save();
+            SaveSettings();
 
             ThemeManager.ChangeAppStyle(Application.Current, 
                                         ThemeManager.GetAccent(SelectedAccent), 
@@ -140,9 +141,35 @@ namespace RedisExplorer.Controls
             TryClose();
         }
 
+        public void ApplyButton()
+        {
+            SaveSettings();
+
+            ChangeTheme();
+        }
+
         public void CancelButton()
         {
             TryClose();
+        }
+
+        private void ChangeTheme()
+        {
+            ThemeManager.ChangeAppStyle(Application.Current,
+                ThemeManager.GetAccent(SelectedAccent),
+                ThemeManager.GetAppTheme(SelectedTheme));
+        }
+
+        private void SaveSettings()
+        {
+            Settings.Default.MaxKeys = MaxKeysTextBox;
+            Settings.Default.UrnSeparator = UrnSeparatorTextBox;
+            Settings.Default.OneClick = OneClickCheckBox;
+            Settings.Default.LazyLoadServer = LazyLoadServerCheckBox;
+            Settings.Default.LazyLoadDatabase = LazyLoadDatabaseCheckBox;
+            Settings.Default.Theme = SelectedTheme;
+            Settings.Default.Accent = SelectedAccent;
+            Settings.Default.Save();
         }
     }
 }

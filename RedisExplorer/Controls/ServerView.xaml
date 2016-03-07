@@ -15,49 +15,6 @@
 
     <Grid Width="{Binding ElementName=ServerControl, Path=ActualWidth}">
         
-        <Grid.Resources>
-            <BorderGapMaskConverter x:Key="BorderGapMaskConverter"/>
-            <Style TargetType="{x:Type GroupBox}">
-                <Setter Property="BorderBrush" Value="#D5DFE5" />
-                <Setter Property="BorderThickness" Value="1" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type GroupBox}">
-                            <Grid SnapsToDevicePixels="true">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="6" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="6" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="6" />
-                                </Grid.RowDefinitions>
-                                <Border CornerRadius="4" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="4" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="Transparent" Background="{TemplateBinding Background}" />
-                                <Border Name="Header" Padding="3,1,3,0" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
-                                    <ContentPresenter ContentSource="Header" RecognizesAccessKey="true" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                </Border>
-                                <ContentPresenter Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                <Border Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="4"  BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="3">
-                                    <Border.OpacityMask>
-                                        <MultiBinding Converter="{StaticResource BorderGapMaskConverter}" ConverterParameter="7">
-                                            <Binding ElementName="Header" Path="ActualWidth" />
-                                            <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}" />
-                                            <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}" />
-                                        </MultiBinding>
-                                    </Border.OpacityMask>
-                                </Border>
-                            </Grid>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
-        </Grid.Resources>
-        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
@@ -81,8 +38,7 @@
 
         <UniformGrid Rows="3" Columns="3" Grid.Row="1">
 
-            <GroupBox Header="Server" BorderBrush="DodgerBlue" BorderThickness="2" Margin="5" Background="{StaticResource BackgroundOpacityMask}">
-
+            <GroupBox Header="Server">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
@@ -121,7 +77,7 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="Clients" BorderBrush="ForestGreen" BorderThickness="2" Margin="5" Background="{StaticResource BackgroundOpacityMask}" >
+            <GroupBox Header="Clients" >
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
@@ -149,7 +105,7 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="Memory" BorderBrush="Purple" BorderThickness="2" Margin="5" Background="{StaticResource BackgroundOpacityMask}">
+            <GroupBox Header="Memory">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
@@ -181,7 +137,7 @@
 
             </GroupBox>
 
-            <GroupBox Header="CPU" BorderBrush="DarkRed" BorderThickness="2" Margin="5" Background="{StaticResource BackgroundOpacityMask}">
+            <GroupBox Header="CPU">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
@@ -208,7 +164,7 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="Persistence" BorderBrush="YellowGreen" BorderThickness="2" Margin="5" Background="{StaticResource BackgroundOpacityMask}">
+            <GroupBox Header="Persistence">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
@@ -244,7 +200,7 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="Stats" BorderBrush="Gold" BorderThickness="2" Margin="5" Background="{StaticResource BackgroundOpacityMask}">
+            <GroupBox Header="Stats">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
@@ -276,7 +232,7 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="Replication" BorderBrush="DarkOrange" BorderThickness="2" Margin="5" Background="{StaticResource BackgroundOpacityMask}">
+            <GroupBox Header="Replication">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
@@ -309,7 +265,7 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="Cluster" BorderBrush="Brown" BorderThickness="2" Margin="5" Background="{StaticResource BackgroundOpacityMask}">
+            <GroupBox Header="Cluster">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
@@ -324,7 +280,7 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="Keys" BorderBrush="Indigo" BorderThickness="2" Margin="5" Background="{StaticResource BackgroundOpacityMask}">
+            <GroupBox Header="Keys">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50"/>

@@ -128,8 +128,8 @@ namespace RedisExplorer
         public void AddServer()
         {
             dynamic settings = new ExpandoObject();
-            settings.Width = 350;
-            settings.Height = 250;
+            settings.Width = 400;
+            settings.Height = 275;
             settings.WindowStartupLocation = WindowStartupLocation.Manual;
             settings.Title = "Add Server";
 
@@ -139,8 +139,8 @@ namespace RedisExplorer
         public void Preferences()
         {
             dynamic settings = new ExpandoObject();
-            settings.Width = 300;
-            settings.Height = 450;
+            settings.Width = 400;
+            settings.Height = 550;
             settings.WindowStartupLocation = WindowStartupLocation.Manual;
             settings.Title = "Preferences";
 
