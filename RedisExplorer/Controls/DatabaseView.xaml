@@ -31,9 +31,36 @@
 
         <GroupBox Grid.Row="2" Header="Actions">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button x:Name="Reload" Width="100" Margin="10">Reload</Button>
-                <Button x:Name="Flush" Width="100" Margin="10">Flush</Button>
-                <Button x:Name="AddKey" Width="100" Margin="10">Add Key</Button>
+                <Button x:Name="Reload" Width="100" Height="30" Margin="10" Style="{DynamicResource AccentedSquareButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="8" Height="10">
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_refresh}"></VisualBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock Margin="5,0,5,0">Reload</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="Flush" Width="100" Height="30" Margin="10" Style="{DynamicResource AccentedSquareButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="8" Height="10">
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_delete}"></VisualBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock Margin="5,0,5,0">Delete</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="AddKey" Width="100" Height="30" Margin="10" Style="{DynamicResource AccentedSquareButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="8" Height="10">
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_add}"></VisualBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock Margin="5,0,5,0">Add</TextBlock>
+                    </StackPanel>
+                </Button>
             </StackPanel>
         </GroupBox>
     </Grid>

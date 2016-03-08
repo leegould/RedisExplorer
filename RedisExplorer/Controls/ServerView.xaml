@@ -25,7 +25,7 @@
         
         <Label x:Name="ServerName" Grid.Column="0" FontSize="20" FontWeight="Bold" Margin="10,0,10,5">Redis Server</Label>
 
-        <Button x:Name="ReloadServer" Width="100" Height="25" Margin="10,0,10,5" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">
+        <Button x:Name="ReloadServer" Width="100" Height="30" Margin="10,5,5,5" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Style="{DynamicResource AccentedSquareButtonStyle}">
             <StackPanel Orientation="Horizontal">
                 <Rectangle Width="8" Height="10">
                     <Rectangle.Fill>
