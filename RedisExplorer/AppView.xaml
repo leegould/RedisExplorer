@@ -68,7 +68,7 @@
                                 </ContextMenu>
                             </StackPanel.ContextMenu>
                             <controls:GreyableImage Source="Assets/redis-icon.png" Width="15" Height="15" Margin="3,1" IsEnabled="{Binding IsConnected}"/>
-                            <!--<Image Name="img" Width="15" Height="15" Margin="3,1" Source="Assets/redis-icon.png"/>-->
+                            
                             <TextBlock Text="{Binding Display}" />
                         </StackPanel>
                     </HierarchicalDataTemplate>
@@ -84,7 +84,13 @@
                                     <MenuItem Header="Add Key" cal:Message.Attach="[Event Click] = [Action Add]"></MenuItem>
                                 </ContextMenu>
                             </StackPanel.ContextMenu>
-                            <Image Name="img" Width="14" Height="14" Margin="3,2" Source="Assets/database-icon.png"/>
+                            
+                            <Rectangle Width="15" Height="15" Margin="3,2">
+                                <Rectangle.Fill>
+                                    <VisualBrush Visual="{StaticResource appbar_database}"></VisualBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            
                             <TextBlock Text="{Binding Display}" />
                         </StackPanel>
                     </HierarchicalDataTemplate>
@@ -100,20 +106,28 @@
                                     <MenuItem Header="Add Key" cal:Message.Attach="[Event Click] = [Action Add]"></MenuItem>
                                 </ContextMenu>
                             </StackPanel.ContextMenu>
-                            <Image Name="img" Width="15" Height="15" Margin="3,1">
-                                <Image.Resources>
-                                    <Style TargetType="{x:Type Image}">
+
+                            <Rectangle Width="15" Height="15" Margin="3,2">
+                                <Rectangle.Style>
+                                    <Style TargetType="{x:Type Rectangle}">
+                                        <Setter Property="Fill">
+                                            <Setter.Value>
+                                                <VisualBrush Visual="{StaticResource appbar_folder}"></VisualBrush>
+                                            </Setter.Value>
+                                        </Setter>
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding HasChildren}" Value="true">
-                                                <Setter Property="Image.Source" Value="Assets/folder-icon.png" />
-                                            </DataTrigger>
                                             <DataTrigger Binding="{Binding HasChildren}" Value="false">
-                                                <Setter Property="Image.Source" Value="Assets/key-icon.png" />
+                                                <Setter Property="Fill">
+                                                    <Setter.Value>
+                                                        <VisualBrush Visual="{StaticResource appbar_key}"></VisualBrush>
+                                                    </Setter.Value>
+                                                </Setter>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
-                                </Image.Resources>
-                            </Image>
+                                </Rectangle.Style>
+                            </Rectangle>
+
                             <TextBlock Text="{Binding Display}" />
                         </StackPanel>
                     </HierarchicalDataTemplate>
