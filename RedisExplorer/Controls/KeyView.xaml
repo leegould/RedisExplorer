@@ -43,12 +43,12 @@
             
             <Label>Expires</Label>
             <xctk:DateTimePicker x:Name="TTLDateTimePicker" Value="{Binding TTLDateTimePicker}" MinWidth="200" Grid.Column="1"/>
-            
-            <Button x:Name="ClearButton" Grid.Column="2" Margin="5,0">Clear</Button>
-            
-            <Button x:Name="OneHourButton" Grid.Column="3" Margin="5,0">1 Hour</Button>
-            
-            <Button x:Name="TwentyFourHoursButton" Grid.Column="4" Margin="5,0">1 Day</Button>
+
+            <Button x:Name="ClearButton" Grid.Column="2" Margin="5,0" Style="{DynamicResource AccentedSquareButtonStyle}">Clear</Button>
+
+            <Button x:Name="OneHourButton" Grid.Column="3" Margin="5,0" Style="{DynamicResource AccentedSquareButtonStyle}">1 Hour</Button>
+
+            <Button x:Name="TwentyFourHoursButton" Grid.Column="4" Margin="5,0" Style="{DynamicResource AccentedSquareButtonStyle}">1 Day</Button>
 
             <StackPanel Orientation="Horizontal" Grid.Column="5" HorizontalAlignment="Right" Margin="5,0">
                 <Label MinWidth="80">Database</Label>
