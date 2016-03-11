@@ -80,13 +80,7 @@ namespace RedisExplorer.Controls
             }
         }
 
-        public List<string> Themes
-        {
-            get
-            {
-                return new List<string> { "BaseLight", "BaseDark" };
-            }
-        }
+        public List<string> Themes => new List<string> { "BaseLight", "BaseDark" };
 
         public string SelectedTheme
         {
@@ -98,13 +92,7 @@ namespace RedisExplorer.Controls
             }
         }
 
-        public List<string> Accents
-        {
-            get
-            {
-                return new List<string> { "Red", "Green", "Blue", "Purple", "Orange", "Lime", "Emerald", "Teal", "Cyan", "Cobalt", "Indigo", "Violet", "Pink", "Magenta", "Crimson", "Amber", "Yellow", "Brown", "Olive", "Steel", "Mauve", "Taupe", "Sienna" };
-            }
-        }
+        public List<string> Accents => new List<string> { "Red", "Green", "Blue", "Purple", "Orange", "Lime", "Emerald", "Teal", "Cyan", "Cobalt", "Indigo", "Violet", "Pink", "Magenta", "Crimson", "Amber", "Yellow", "Brown", "Olive", "Steel", "Mauve", "Taupe", "Sienna" };
 
         public string SelectedAccent
         {

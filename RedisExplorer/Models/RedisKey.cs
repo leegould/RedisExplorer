@@ -68,10 +68,7 @@ namespace RedisExplorer.Models
             }
         }
 
-        public int DatabaseName
-        {
-            get { return GetParentDatabase.GetDatabaseNumber; }            
-        }
+        public int DatabaseName => GetParentDatabase.GetDatabaseNumber;
 
         public void ChangeDatabase(int dbNumber)
         {
@@ -157,13 +154,7 @@ namespace RedisExplorer.Models
             }
         }
 
-        public bool CanDelete
-        {
-            get
-            {
-                return true; 
-            }
-        }
+        public bool CanDelete => true;
 
         public bool ItemExists()
         {
@@ -216,7 +207,7 @@ namespace RedisExplorer.Models
 
         public virtual void Reload()
         {
-            var db = Database;
+            //var db = Database;
 
             KeyType = RedisType.None;
             TTL = null;

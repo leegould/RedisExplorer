@@ -181,10 +181,7 @@ namespace RedisExplorer.Controls
 
         public void ReloadServer()
         {
-            if (redisServer != null)
-            {
-                redisServer.Reload();
-            }
+            redisServer?.Reload();
         }
 
         public ServerViewModel(IEventAggregator eventAggregator)
@@ -194,7 +191,7 @@ namespace RedisExplorer.Controls
 
         public void Handle(TreeItemSelectedMessage message)
         {
-            if (message != null && message.SelectedItem is RedisServer)
+            if (message?.SelectedItem is RedisServer)
             {
                 redisServer = message.SelectedItem as RedisServer;
 

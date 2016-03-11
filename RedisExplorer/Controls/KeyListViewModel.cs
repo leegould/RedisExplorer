@@ -44,7 +44,7 @@ namespace RedisExplorer.Controls
 
         public void Handle(TreeItemSelectedMessage message)
         {
-            if (message != null && message.SelectedItem is RedisKeyList && !message.SelectedItem.HasChildren)
+            if (message?.SelectedItem is RedisKeyList && !message.SelectedItem.HasChildren)
             {
                 DisplayValue((RedisKeyList)message.SelectedItem);
             }

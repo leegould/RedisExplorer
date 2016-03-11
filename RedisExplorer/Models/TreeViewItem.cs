@@ -19,8 +19,6 @@ namespace RedisExplorer.Models
         static readonly TreeViewItem DummyChild = new TreeViewItem();
 
         private readonly IEventAggregator eventAggregator;
-        readonly ObservableCollection<TreeViewItem> children;
-        readonly TreeViewItem parent;
 
         bool isExpanded;
         bool isSelected;
@@ -31,31 +29,16 @@ namespace RedisExplorer.Models
 
         public virtual string Display { get; set; }
 
-        public TreeViewItem Parent
-        {
-            get { return parent; }
-        }
+        public TreeViewItem Parent { get; }
 
-        public ObservableCollection<TreeViewItem> Children
-        {
-            get { return children; }
-        }
+        public ObservableCollection<TreeViewItem> Children { get; }
 
         /// <summary>
         /// Property to indicate if has children - not including dummy children.
         /// </summary>
-        public bool HasChildren
-        {
-            get
-            {
-                return Children.Count > 1 || Children.Count == 1 && Children[0] != DummyChild;
-            }
-        }
+        public bool HasChildren => Children.Count > 1 || Children.Count == 1 && Children[0] != DummyChild;
 
-        public bool HasDummyChild
-        {
-            get { return Children.Count == 1 && Children[0] == DummyChild; }
-        }
+        public bool HasDummyChild => Children.Count == 1 && Children[0] == DummyChild;
 
         public bool IsExpanded
         {
@@ -66,9 +49,9 @@ namespace RedisExplorer.Models
                 
                 isExpanded = value;
 
-                if (isExpanded && parent != null)
+                if (isExpanded && Parent != null)
                 {
-                    parent.IsExpanded = true;
+                    Parent.IsExpanded = true;
                 }
 
                 if (HasDummyChild)
@@ -114,17 +97,17 @@ namespace RedisExplorer.Models
 
         protected TreeViewItem(TreeViewItem parent, bool lazyLoadChildren, IEventAggregator eventAggregator)
         {
-            this.parent = parent;
+            this.Parent = parent;
             this.eventAggregator = eventAggregator;
 
             isSelected = false;
             isExpanded = false;
 
-            children = new ObservableCollection<TreeViewItem>();
+            Children = new ObservableCollection<TreeViewItem>();
 
             if (lazyLoadChildren)
             {
-                children.Add(DummyChild);
+                Children.Add(DummyChild);
             }
         }
 

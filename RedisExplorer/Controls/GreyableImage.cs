@@ -26,12 +26,8 @@ namespace RedisExplorer.Controls
         protected static GreyableImage GetImageWithSource(DependencyObject source)
         {
             var image = source as GreyableImage;
-            if (image == null)
-            {
-                return null;
-            }
 
-            return image.Source == null ? null : image;
+            return image?.Source == null ? null : image;
         }
 
         /// <summary>

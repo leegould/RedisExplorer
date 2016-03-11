@@ -54,15 +54,9 @@ namespace RedisExplorer.Models
             }
         }
 
-        public int GetDatabaseNumber
-        {
-            get { return dbNumber; }
-        }
+        public int GetDatabaseNumber => dbNumber;
 
-        public int GetKeyCount
-        {
-            get { return keyCount; }
-        }
+        public int GetKeyCount => keyCount;
 
         protected override void LoadChildren()
         {

@@ -30,7 +30,7 @@ namespace RedisExplorer.Controls
 
         public void Handle(TreeItemSelectedMessage message)
         {
-            if (message != null && message.SelectedItem is RedisKeySortedSet && !message.SelectedItem.HasChildren)
+            if (message?.SelectedItem is RedisKeySortedSet && !message.SelectedItem.HasChildren)
             {
                 DisplayValue((RedisKeySortedSet)message.SelectedItem);
             }

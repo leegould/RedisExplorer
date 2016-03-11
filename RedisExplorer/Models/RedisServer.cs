@@ -59,7 +59,7 @@ namespace RedisExplorer.Models
         public IServer GetServer()
         {
             // TODO : this just gets first one
-            return Connection != null ? Connection.GetEndPoints().Select(endpoint => Connection.GetServer(endpoint)).FirstOrDefault() : null;
+            return Connection?.GetEndPoints().Select(endpoint => Connection.GetServer(endpoint)).FirstOrDefault();
         }
 
         public IGrouping<string, KeyValuePair<string, string>>[] GetServerInfo()

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Specialized;
 using System.ComponentModel.Composition;
 using System.Dynamic;
+using System.Linq;
 using System.Windows;
 
 using Caliburn.Micro;
@@ -83,10 +84,8 @@ namespace RedisExplorer
             Servers.Clear();
             if (Settings.Default.Servers != null)
             {
-                foreach (var connection in Settings.Default.Servers)
+                foreach (var conn in from string connection in Settings.Default.Servers select new RedisConnection(connection) into server select new RedisServer(server.Name, server.Address + ",keepAlive = 180,allowAdmin=true", eventAggregator))
                 {
-                    var server = new RedisConnection(connection);
-                    var conn = new RedisServer(server.Name, server.Address + ",keepAlive = 180,allowAdmin=true", eventAggregator);
                     Servers.Add(conn);
                 }
             }

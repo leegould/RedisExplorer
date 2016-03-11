@@ -27,14 +27,7 @@ namespace RedisExplorer.Models
 
                 var key = KeyName;
                 var db = Database;
-                if (db.KeyExists(key))
-                {
-                    keyValue = db.ListRange(key).Select(x => x.ToString()).ToList();
-                }
-                else
-                {
-                    keyValue = new List<string>();
-                }
+                keyValue = db.KeyExists(key) ? db.ListRange(key).Select(x => x.ToString()).ToList() : new List<string>();
 
                 return keyValue;
             }

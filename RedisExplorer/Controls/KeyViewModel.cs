@@ -211,18 +211,9 @@ namespace RedisExplorer.Controls
             DatabaseName = 1;
         }
 
-        public IEnumerable<RedisType> RedisTypeValues
-        {
-            get
-            {
-                return Enum.GetValues(typeof(RedisType)).Cast<RedisType>();
-            }
-        }
+        public IEnumerable<RedisType> RedisTypeValues => Enum.GetValues(typeof(RedisType)).Cast<RedisType>();
 
-        public IEnumerable<int> DatabaseNames
-        {
-            get { return Enumerable.Range(1, 16); }  // TODO : if there are different number of dbs
-        } 
+        public IEnumerable<int> DatabaseNames => Enumerable.Range(1, 16);
 
         #region Button Actions
 
@@ -288,11 +279,7 @@ namespace RedisExplorer.Controls
 
         public void DeleteButton()
         {
-            if (item == null)
-            {
-                return;
-            }
-            item.Delete();
+            item?.Delete();
         }
 
         public void ReloadButton()
@@ -331,9 +318,9 @@ namespace RedisExplorer.Controls
 
         public void Handle(TreeItemSelectedMessage message)
         {
-            if (message != null && message.SelectedItem is RedisKey && !message.SelectedItem.HasChildren)
+            if (message?.SelectedItem is RedisKey && !message.SelectedItem.HasChildren)
             {
-                item = message.SelectedItem as RedisKey;
+                item = (RedisKey) message.SelectedItem;
 
                 resetValue = false;
                 

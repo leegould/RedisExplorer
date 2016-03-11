@@ -50,7 +50,7 @@ namespace RedisExplorer.Controls
 
         public void Handle(TreeItemSelectedMessage message)
         {
-            if (message != null && message.SelectedItem is RedisDatabase)
+            if (message?.SelectedItem is RedisDatabase)
             {
                 redisDatabase = message.SelectedItem as RedisDatabase;
 
@@ -61,26 +61,17 @@ namespace RedisExplorer.Controls
 
         public void Flush()
         {
-            if (redisDatabase != null)
-            {
-                redisDatabase.Flush();
-            }
+            redisDatabase?.Flush();
         }
 
         public void AddKey()
         {
-            if (redisDatabase != null)
-            {
-                redisDatabase.Add();
-            }
+            redisDatabase?.Add();
         }
 
         public void Reload()
         {
-            if (redisDatabase != null)
-            {
-                redisDatabase.Reload();
-            }
+            redisDatabase?.Reload();
         }
     }
 }
