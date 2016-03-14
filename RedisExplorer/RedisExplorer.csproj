@@ -291,17 +291,7 @@
     <Resource Include="redis.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\database-icon.png" />
-    <Resource Include="Assets\key-icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\folder-icon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Assets\GitHub-Mark-32px.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\reload-icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\WindowsIcons-license.txt" />
