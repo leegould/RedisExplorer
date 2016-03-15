@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="500">
+             d:DesignHeight="300" d:DesignWidth="600">
     <Grid>
         
         <Grid.ColumnDefinitions>
@@ -33,9 +33,9 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50"></ColumnDefinition>
                 <ColumnDefinition Width="200"></ColumnDefinition>
-                <ColumnDefinition Width="50"></ColumnDefinition>
-                <ColumnDefinition Width="50"></ColumnDefinition>
-                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="75"></ColumnDefinition>
+                <ColumnDefinition Width="75"></ColumnDefinition>
+                <ColumnDefinition Width="75"></ColumnDefinition>
                 <!--<ColumnDefinition Width="80"></ColumnDefinition>
                 <ColumnDefinition Width="50"></ColumnDefinition>-->
                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -44,11 +44,17 @@
             <Label>Expires</Label>
             <xctk:DateTimePicker x:Name="TTLDateTimePicker" Value="{Binding TTLDateTimePicker}" MinWidth="200" Grid.Column="1"/>
 
-            <Button x:Name="ClearButton" Grid.Column="2" Margin="5,0" Style="{DynamicResource AccentedSquareButtonStyle}">Clear</Button>
+            <Button x:Name="ClearButton" Grid.Column="2" Margin="5,0" Style="{DynamicResource AccentedSquareButtonStyle}">
+                <TextBlock>Clear</TextBlock>
+            </Button>
 
-            <Button x:Name="OneHourButton" Grid.Column="3" Margin="5,0" Style="{DynamicResource AccentedSquareButtonStyle}">1 Hour</Button>
+            <Button x:Name="OneHourButton" Grid.Column="3" Margin="5,0" Style="{DynamicResource AccentedSquareButtonStyle}">
+                <TextBlock>1 Hour</TextBlock>
+            </Button>
 
-            <Button x:Name="TwentyFourHoursButton" Grid.Column="4" Margin="5,0" Style="{DynamicResource AccentedSquareButtonStyle}">1 Day</Button>
+            <Button x:Name="TwentyFourHoursButton" Grid.Column="4" Margin="5,0" Style="{DynamicResource AccentedSquareButtonStyle}">
+                <TextBlock>1 Day</TextBlock>
+            </Button>
 
             <StackPanel Orientation="Horizontal" Grid.Column="5" HorizontalAlignment="Right" Margin="5,0">
                 <Label MinWidth="80">Database</Label>
