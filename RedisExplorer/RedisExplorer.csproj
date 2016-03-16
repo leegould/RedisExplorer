@@ -285,7 +285,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\redis-icon.png" />
+    <Resource Include="Assets\redis-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="redis.ico" />
