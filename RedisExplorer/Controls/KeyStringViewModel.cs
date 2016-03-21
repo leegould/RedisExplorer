@@ -36,7 +36,7 @@ namespace RedisExplorer.Controls
         {
             if (message?.SelectedItem is RedisKeyString && !message.SelectedItem.HasChildren)
             {
-                DisplayStringValue(message.SelectedItem as RedisKeyString);
+                DisplayStringValue((RedisKeyString) message.SelectedItem);
             }
         }
 
@@ -50,7 +50,7 @@ namespace RedisExplorer.Controls
             var redisKeyString = message.Item as RedisKeyString;
             if (redisKeyString != null)
             {
-                KeyValue = (redisKeyString.KeyValue);
+                DisplayStringValue(redisKeyString);
             }
         }
 
@@ -60,18 +60,20 @@ namespace RedisExplorer.Controls
 
         private void DisplayStringValue(RedisKeyString item)
         {
-            if (item != null)
+            if (item == null)
             {
-                var value = item.KeyValue;
+                return;
+            }
 
-                try
-                {
-                    KeyValue = JObject.Parse(value).ToString(Formatting.Indented);
-                }
-                catch (JsonReaderException)
-                {
-                    KeyValue = value;
-                }
+            var value = item.KeyValue;
+
+            try
+            {
+                KeyValue = JObject.Parse(value).ToString(Formatting.Indented);
+            }
+            catch (JsonReaderException)
+            {
+                KeyValue = value;
             }
         }
 

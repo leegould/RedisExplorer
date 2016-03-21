@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+
+  <Product Id="*" Name="Redis Explorer" Language="1033" Version="1.0.0.0" Manufacturer="Redis Explorer" UpgradeCode="A8BE4DB2-6A11-4CCC-96AE-657D7C1E0187">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <Media Id="1" Cabinet="redisexplorer.cab" EmbedCab="yes" />
+
+    <Feature Id="ProductFeature" Title="Redis Explorer" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentRef Id="ProgramMenuDir"/>
+    </Feature>
+
+    <Icon Id="icon.ico" SourceFile="..\RedisExplorer\Assets\redis-icon.png"/>
+    <Property Id="ARPPRODUCTICON" Value="icon.ico" />
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="RedisExplorer" />
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="Redis Explorer">
+
+          <Component Id="ProgramMenuDir" Guid="{A118046E-FEC6-46A4-A4CB-39FEC6D1823D}">
+            <RemoveFolder Id="ProgramMenuDir" On="uninstall"/>
+            <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\Installer" Type="integer" Value="1" Name="installed" KeyPath="yes" />
+          </Component>
+          
+        </Directory>
+      </Directory>
+    </Directory>
+  </Fragment>
+
+  <!--<Fragment>
+    <Component Id="executable" Guid="{7B30C885-B7F8-4BA0-9B16-8BD596D1E21F}" Directory="INSTALLFOLDER">
+      <File Id="" Source="..\RedisExplorer\bin\Release\RedisExplorer.exe" KeyPath="yes" Checksum="yes">
+
+        <Shortcut Id="startMenuShotcut" Directory="ApplicationProgramsFolder"
+                    Name="Redis Explorer" WorkingDirectory="INSTALLFOLDER"
+                    Icon="icon.ico" IconIndex="0" Advertise="yes">
+        </Shortcut>
+        
+      </File>
+    </Component>
+  </Fragment>-->
+  
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+
+      <Component Id="executable" Guid="{7B30C885-B7F8-4BA0-9B16-8BD596D1E21F}" Directory="INSTALLFOLDER">
+        <File Id="" Source="..\RedisExplorer\bin\Release\RedisExplorer.exe" KeyPath="yes" Checksum="yes">
+
+          <Shortcut Id="startMenuShotcut" Directory="ApplicationProgramsFolder"
+                      Name="Redis Explorer" WorkingDirectory="INSTALLFOLDER"
+                      Icon="icon.ico" IconIndex="0" Advertise="yes">
+          </Shortcut>
+
+        </File>
+      </Component>
+
+      <Component Id="ProductComponent" Guid="{1C791AE4-C2F6-4B6C-ACE5-54ADF2970073}">
+        <File Id="" Source="..\RedisExplorer\bin\Release\RedisExplorer.exe.config"/>
+        <File Id="" Source="..\RedisExplorer\bin\Release\StackExchange.Redis.dll"/>
+        <File Id="" Source="..\RedisExplorer\bin\Release\Caliburn.Micro.Platform.dll"/>
+        <File Id="" Source="..\RedisExplorer\bin\Release\Caliburn.Micro.dll"/>
+        <File Id="" Source="..\RedisExplorer\bin\Release\Newtonsoft.Json.dll"/>
+        <File Id="" Source="..\RedisExplorer\bin\Release\MahApps.Metro.dll"/>
+        <File Id="" Source="..\RedisExplorer\bin\Release\Xceed.Wpf.AvalonDock.dll"/>
+        <File Id="" Source="..\RedisExplorer\bin\Release\System.Windows.Interactivity.dll"/>
+        <File Id="" Source="..\RedisExplorer\bin\Release\Xceed.Wpf.AvalonDock.Themes.Aero.dll"/>
+        <File Id="" Source="..\RedisExplorer\bin\Release\Xceed.Wpf.AvalonDock.Themes.Metro.dll"/>
+        <File Id="" Source="..\RedisExplorer\bin\Release\Xceed.Wpf.AvalonDock.Themes.VS2010.dll"/>
+        <File Id="" Source="..\RedisExplorer\bin\Release\Xceed.Wpf.DataGrid.dll"/>
+        <File Id="" Source="..\RedisExplorer\bin\Release\Xceed.Wpf.Toolkit.dll"/>
+      </Component>
+      
+    </ComponentGroup>
+  </Fragment>
+
+  <!--<Fragment>
+    <ComponentGroup Id="ShortcutComponents" Directory="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcut" Guid="{E1573CDC-389F-4897-8767-AED445D17B07}">
+        <Shortcut Id="ApplicationStartMenuShortcut"
+              Name="Redis Explorer"
+              Description="A Desktop Redis Client"
+              Target="[#executable]"
+              WorkingDirectory="INSTALLFOLDER" />
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\Microsoft\RedisExplorer" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </ComponentGroup>
+  </Fragment>-->
+  
+</Wix>
