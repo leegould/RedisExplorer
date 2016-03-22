@@ -33,6 +33,9 @@
   <ItemGroup>
     <Compile Include="RedisExplorerInstaller.wxs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="icon.ico" />
+  </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.

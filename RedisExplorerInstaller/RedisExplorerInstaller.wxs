@@ -12,7 +12,7 @@
       <ComponentRef Id="ProgramMenuDir"/>
     </Feature>
 
-    <Icon Id="icon.ico" SourceFile="..\RedisExplorer\Assets\redis-icon.png"/>
+    <Icon Id="icon.ico" SourceFile="icon.ico"/>
     <Property Id="ARPPRODUCTICON" Value="icon.ico" />
   </Product>
 
@@ -34,19 +34,6 @@
     </Directory>
   </Fragment>
 
-  <!--<Fragment>
-    <Component Id="executable" Guid="{7B30C885-B7F8-4BA0-9B16-8BD596D1E21F}" Directory="INSTALLFOLDER">
-      <File Id="" Source="..\RedisExplorer\bin\Release\RedisExplorer.exe" KeyPath="yes" Checksum="yes">
-
-        <Shortcut Id="startMenuShotcut" Directory="ApplicationProgramsFolder"
-                    Name="Redis Explorer" WorkingDirectory="INSTALLFOLDER"
-                    Icon="icon.ico" IconIndex="0" Advertise="yes">
-        </Shortcut>
-        
-      </File>
-    </Component>
-  </Fragment>-->
-  
   <Fragment>
     <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
 
