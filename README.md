@@ -2,6 +2,14 @@
 
 # RedisExplorer
 
-A simple desktop wcf caliburn micro Redis browser, built on the excellent redis lib from stack overflow.
+A simple desktop Redis client.
 
-![RedisExplorer](/RedisExplorer/Assets/screenshot1.png)
+Built using caliburn micro, the redis lib from stack overflow, newtonsoft for json, and mahapps styling.
+
+---
+
+![RedisExplorer - Selecting a database](/RedisExplorer/Assets/screenshot1.png)
+
+---
+
+![RedisExplorer - Selecting a key](/RedisExplorer/Assets/screenshot2.png)
