@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisExplorer", "RedisExplorer\RedisExplorer.csproj", "{40C37D45-2DDB-482F-A893-4748B92D8D3F}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "RedisExplorerSetup", "RedisExplorerSetup\RedisExplorerSetup.vdproj", "{B5CF8FD0-6819-4FEF-95FD-11E152086CE3}"
-EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "RedisExplorerInstaller", "RedisExplorerInstaller\RedisExplorerInstaller.wixproj", "{FEEAA91E-2A74-4B9A-B272-D1670069B4CC}"
 EndProject
 Global
@@ -25,12 +23,6 @@ Global
 		{40C37D45-2DDB-482F-A893-4748B92D8D3F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{40C37D45-2DDB-482F-A893-4748B92D8D3F}.Release|x86.ActiveCfg = Release|Any CPU
 		{40C37D45-2DDB-482F-A893-4748B92D8D3F}.Release|x86.Build.0 = Release|Any CPU
-		{B5CF8FD0-6819-4FEF-95FD-11E152086CE3}.Debug|Any CPU.ActiveCfg = Debug
-		{B5CF8FD0-6819-4FEF-95FD-11E152086CE3}.Debug|x86.ActiveCfg = Debug
-		{B5CF8FD0-6819-4FEF-95FD-11E152086CE3}.Debug|x86.Build.0 = Debug
-		{B5CF8FD0-6819-4FEF-95FD-11E152086CE3}.Release|Any CPU.ActiveCfg = Release
-		{B5CF8FD0-6819-4FEF-95FD-11E152086CE3}.Release|x86.ActiveCfg = Release
-		{B5CF8FD0-6819-4FEF-95FD-11E152086CE3}.Release|x86.Build.0 = Release
 		{FEEAA91E-2A74-4B9A-B272-D1670069B4CC}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{FEEAA91E-2A74-4B9A-B272-D1670069B4CC}.Debug|x86.ActiveCfg = Debug|x86
 		{FEEAA91E-2A74-4B9A-B272-D1670069B4CC}.Debug|x86.Build.0 = Debug|x86
