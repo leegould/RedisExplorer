@@ -2,6 +2,8 @@
 
 # RedisExplorer
 
+[Download Latest Release](/RedisExplorer/releases/latest)
+
 A simple desktop Redis client.
 
 Built using caliburn micro, the redis lib from stack overflow, newtonsoft for json, and mahapps styling.
