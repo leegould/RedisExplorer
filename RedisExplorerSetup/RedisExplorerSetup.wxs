@@ -39,12 +39,10 @@
 
       <Component Id="executable" Guid="{7B30C885-B7F8-4BA0-9B16-8BD596D1E21F}">
         <File Source="..\RedisExplorer\bin\Release\RedisExplorer.exe" KeyPath="yes" Checksum="yes">
-
           <Shortcut Id="startMenuShotcut" Directory="ApplicationProgramsFolder"
                       Name="Redis Explorer" WorkingDirectory="INSTALLFOLDER"
                       Icon="icon.ico" IconIndex="0" Advertise="yes">
           </Shortcut>
-
         </File>
       </Component>
 
