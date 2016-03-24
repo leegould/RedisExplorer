@@ -2,7 +2,7 @@
 
 # RedisExplorer
 
-[Download Latest Release](/RedisExplorer/releases/latest)
+[Download Latest Release](/leegould/RedisExplorer/releases)
 
 A simple desktop Redis client.
 
