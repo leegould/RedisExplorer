@@ -63,21 +63,13 @@ namespace RedisExplorer.Controls
             {
                 if (!isEnabled)
                 {
-                    BitmapSource bitmapImage;
-
                     if (greyScaleImg.Source is FormatConvertedBitmap)
                     {
                         // Already grey !
                         return;
                     }
-                    if (greyScaleImg.Source is BitmapSource)
-                    {
-                        bitmapImage = (BitmapSource)greyScaleImg.Source;
-                    }
-                    else // trying string 
-                    {
-                        bitmapImage = new BitmapImage(new Uri(greyScaleImg.Source.ToString()));
-                    }
+                    var image = greyScaleImg.Source as BitmapSource;
+                    var bitmapImage = image ?? new BitmapImage(new Uri(greyScaleImg.Source.ToString()));
                     var conv = new FormatConvertedBitmap(bitmapImage, PixelFormats.Gray32Float, null, 0);
                     greyScaleImg.Source = conv;
 

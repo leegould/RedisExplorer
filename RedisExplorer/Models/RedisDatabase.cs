@@ -106,7 +106,7 @@ namespace RedisExplorer.Models
             var s = parent.GetServer();
             s.FlushDatabase(dbNumber);
 
-            eventAggregator.PublishOnUIThread(new FlushDbMessage { dbNumber = dbNumber });
+            eventAggregator.PublishOnUIThread(new FlushDbMessage { DbNumber = dbNumber });
             
             ReloadDatabase();
         }

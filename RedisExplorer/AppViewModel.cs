@@ -5,7 +5,6 @@ using System.Linq;
 using System.Windows;
 
 using Caliburn.Micro;
-using MahApps.Metro;
 using RedisExplorer.Controls;
 using RedisExplorer.Interface;
 using RedisExplorer.Messages;

@@ -29,11 +29,11 @@ namespace RedisExplorer.Controls
         private DateTime? ttlDateTimePicker;
         private RedisType selectedType;
 
-        private KeyStringViewModel keyStringViewModel { get; set; }
-        public KeySetViewModel keySetViewModel { get; set; }
-        public KeyListViewModel keyListViewModel { get; set; }
-        public KeyHashViewModel keyHashViewModel { get; set; }
-        public KeySortedSetViewModel keySortedSetViewModel { get; set; }
+        private KeyStringViewModel keyStringViewModel;
+        private KeySetViewModel keySetViewModel;
+        private KeyListViewModel keyListViewModel;
+        private KeyHashViewModel keyHashViewModel;
+        private KeySortedSetViewModel keySortedSetViewModel;
         
         #endregion
 
@@ -263,12 +263,12 @@ namespace RedisExplorer.Controls
             }
         }
 
-        private void UpdateKeyValue<DisplayType, BaseType>(Func<DisplayType, BaseType> selector)
+        private void UpdateKeyValue<TDisplayType, TBaseType>(Func<TDisplayType, TBaseType> selector)
         {
-            var value = ((IKeyValue<DisplayType>)ActiveItem).KeyValue;
+            var value = ((IKeyValue<TDisplayType>)ActiveItem).KeyValue;
             if (value != null)
             {
-                ((IKeyValue<BaseType>) item).KeyValue = selector(value); 
+                ((IKeyValue<TBaseType>) item).KeyValue = selector(value); 
             }
         }
 

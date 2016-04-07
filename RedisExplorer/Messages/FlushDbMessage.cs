@@ -2,6 +2,6 @@
 {
     public class FlushDbMessage
     {
-        public int dbNumber { get; set; }
+        public int DbNumber { get; set; }
     }
 }

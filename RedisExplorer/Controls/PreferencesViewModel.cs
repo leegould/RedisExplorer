@@ -12,19 +12,13 @@ namespace RedisExplorer.Controls
     {
         #region Members
 
-        private string maxKeysTextBox { get; set; }
-
-        private string urnSeparatorTextBox { get; set; }
-
-        private bool oneClickCheckBox { get; set; }
-
-        private bool lazyLoadServerCheckBox { get; set; }
-
-        private bool lazyLoadDatabaseCheckBox { get; set; }
-
-        private string selectedTheme { get; set; }
-
-        private string selectedAccent { get; set; }
+        private string maxKeysTextBox;
+        private string urnSeparatorTextBox;
+        private bool oneClickCheckBox;
+        private bool lazyLoadServerCheckBox;
+        private bool lazyLoadDatabaseCheckBox;
+        private string selectedTheme;
+        private string selectedAccent;
 
         #endregion
 

@@ -193,7 +193,7 @@ namespace RedisExplorer.Controls
         {
             if (message?.SelectedItem is RedisServer)
             {
-                redisServer = message.SelectedItem as RedisServer;
+                redisServer = (RedisServer) message.SelectedItem;
 
                 DisplayItem();
             }
