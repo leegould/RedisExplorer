@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="450"
-	Title="PreferencesView">
+	  Title="PreferencesView">
 
     <StackPanel >
         <GroupBox Margin="10" Height="Auto" Width="Auto" Header="Query Options">

@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
-
-using Caliburn.Micro;
-
+﻿using Caliburn.Micro;
 using RedisExplorer.Interface;
 using RedisExplorer.Messages;
 using RedisExplorer.Models;
+using RedisExplorer.Models.Classes;
+using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using System.Linq;
 
 namespace RedisExplorer.Controls
 {
@@ -292,16 +291,23 @@ namespace RedisExplorer.Controls
             {
                 var replicationstats = stats.ToDictionary(x => x.Key, x => x.Value);
 
-                ReplicationStatistics = new ReplicationStats
-                                        {
-                                            Role = replicationstats["role"],
-                                            Slaves = replicationstats["connected_slaves"],
-                                            ReplOffset = replicationstats["master_repl_offset"],
-                                            BacklogActive = replicationstats["repl_backlog_active"],
-                                            BacklogSize = replicationstats["repl_backlog_size"],
-                                            BacklogFirstByteOffset = replicationstats["repl_backlog_first_byte_offset"],
-                                            BacklogHistLen = replicationstats["repl_backlog_histlen"]
-                                        };
+                replicationstats.TryGetValue("role", out string role);
+                replicationstats.TryGetValue("connected_slaves", out string slaves);
+                replicationstats.TryGetValue("master_repl_offset", out string replOffset);
+                replicationstats.TryGetValue("repl_backlog_active", out string backlogActive);
+                replicationstats.TryGetValue("repl_backlog_size", out string backlogSize);
+                replicationstats.TryGetValue("repl_backlog_first_byte_offset", out string backlogFirstByteOffset);
+                replicationstats.TryGetValue("repl_backlog_histlen", out string backlogHistLen);
+
+                ReplicationStatistics = new ReplicationStats {
+                    Role = role,
+                    Slaves = slaves,
+                    ReplOffset = replOffset,
+                    BacklogActive = backlogActive,
+                    BacklogSize = backlogSize,
+                    BacklogFirstByteOffset = backlogFirstByteOffset,
+                    BacklogHistLen = backlogHistLen
+                };
             }
         }
 
@@ -362,13 +368,17 @@ namespace RedisExplorer.Controls
             {
                 var cpustatsdict = cpustats.ToDictionary(x => x.Key, x => x.Value);
 
-                CPUStatistics = new CPUStats
-                                {
-                                    UsedCPUSys = cpustatsdict["used_cpu_sys"],
-                                    UsedCPUSysChildren = cpustatsdict["used_cpu_sys_children"],
-                                    UsedCPUUser = cpustatsdict["used_cpu_user"],
-                                    UsedCPUUserChildren = cpustatsdict["used_cpu_user_children"]
-                                };
+                cpustatsdict.TryGetValue("used_cpu_sys", out string usedCPUSys);
+                cpustatsdict.TryGetValue("used_cpu_sys_children", out string usedCPUSysChildren);
+                cpustatsdict.TryGetValue("used_cpu_user", out string usedCPUUser);
+                cpustatsdict.TryGetValue("used_cpu_user_children", out string usedCPUUserChildren);
+
+                CPUStatistics = new CPUStats {
+                    UsedCPUSys = usedCPUSys,
+                    UsedCPUSysChildren = usedCPUSysChildren,
+                    UsedCPUUser = usedCPUUser,
+                    UsedCPUUserChildren = usedCPUUserChildren
+                };
             }
         }
 
@@ -378,17 +388,25 @@ namespace RedisExplorer.Controls
             {
                 var memorystatsdict = memorystats.ToDictionary(x => x.Key, x => x.Value);
 
-                MemoryStatistics = new MemoryStats
-                                   {
-                                       UsedMemory = memorystatsdict["used_memory"],
-                                       UsedMemoryHuman = memorystatsdict["used_memory_human"],
-                                       UsedMemoryLua = memorystatsdict["used_memory_lua"],
-                                       UsedMemoryPeak = memorystatsdict["used_memory_peak"],
-                                       UsedMemoryPeakHuman = memorystatsdict["used_memory_peak_human"],
-                                       UsedMemoryRss = memorystatsdict["used_memory_rss"],
-                                       MemFragmentationRatio = memorystatsdict["mem_fragmentation_ratio"],
-                                       MemAllocator = memorystatsdict["mem_allocator"]
-                                   };
+                memorystatsdict.TryGetValue("used_memory", out string usedMemory);
+                memorystatsdict.TryGetValue("used_memory_human", out string usedMemoryHuman);
+                memorystatsdict.TryGetValue("used_memory_lua", out string usedMemoryLua);
+                memorystatsdict.TryGetValue("used_memory_peak", out string usedMemoryPeak);
+                memorystatsdict.TryGetValue("used_memory_peak_human", out string usedMemoryPeakHuman);
+                memorystatsdict.TryGetValue("used_memory_rss", out string usedMemoryRss);
+                memorystatsdict.TryGetValue("mem_fragmentation_ratio", out string memFragmentationRatio);
+                memorystatsdict.TryGetValue("mem_allocator", out string memAllocator);
+
+                MemoryStatistics = new MemoryStats {
+                    UsedMemory = usedMemory,
+                    UsedMemoryHuman = usedMemoryHuman,
+                    UsedMemoryLua = usedMemoryLua,
+                    UsedMemoryPeak = usedMemoryPeak,
+                    UsedMemoryPeakHuman = usedMemoryPeakHuman,
+                    UsedMemoryRss = usedMemoryRss,
+                    MemFragmentationRatio = memFragmentationRatio,
+                    MemAllocator = memAllocator
+                };
             }
         }
 
@@ -397,14 +415,18 @@ namespace RedisExplorer.Controls
             if (clientstats != null)
             {
                 var clientstatsdict = clientstats.ToDictionary(x => x.Key, x => x.Value);
+                                
+                clientstatsdict.TryGetValue("client_biggest_input_buf", out string biggestInputBuf);
+                clientstatsdict.TryGetValue("client_longest_output_list", out string longestOutputList);
+                clientstatsdict.TryGetValue("blocked_clients", out string blockedClients);
+                clientstatsdict.TryGetValue("connected_clients", out string connectedClients);
 
-                ClientStatistics = new ClientStats
-                                   {
-                                       BiggestInputBuf = clientstatsdict["client_biggest_input_buf"],
-                                       LongestOutputList = clientstatsdict["client_longest_output_list"],
-                                       BlockedClients = clientstatsdict["blocked_clients"],
-                                       ConnectedClients = clientstatsdict["connected_clients"]
-                                   };
+                ClientStatistics = new ClientStats {
+                                                        BiggestInputBuf = biggestInputBuf,
+                                                        LongestOutputList = longestOutputList,
+                                                        BlockedClients = blockedClients,
+                                                        ConnectedClients = connectedClients
+                                                    };
             }
         }
 
@@ -414,154 +436,45 @@ namespace RedisExplorer.Controls
             {
                 var serverstatsdict = serverstats.ToDictionary(x => x.Key, x => x.Value);
 
-                ServerStatistics = new ServerStats
-                                   {
-                                       RedisVersion = serverstatsdict["redis_version"],
-                                       GitSHA1 = serverstatsdict["redis_git_sha1"],
-                                       GitDirty = serverstatsdict["redis_git_dirty"],
-                                       BuildId = serverstatsdict["redis_build_id"],
-                                       Mode = serverstatsdict["redis_mode"],
-                                       ArchBits = serverstatsdict["arch_bits"],
-                                       ConfigFile = serverstatsdict["config_file"],
-                                       GCCVersion =
-                                           serverstatsdict.ContainsKey("gcc_version")
-                                               ? serverstatsdict["gcc_version"]
-                                               : string.Empty,
-                                       HZ = serverstatsdict["hz"],
-                                       LRUClock = serverstatsdict["lru_clock"],
-                                       MultiplexingApi = serverstatsdict["multiplexing_api"],
-                                       OS = serverstatsdict["os"],
-                                       ProcessId = serverstatsdict["process_id"],
-                                       RunId = serverstatsdict["run_id"],
-                                       TCPPort = serverstatsdict["tcp_port"],
-                                       UptimeInDays = serverstatsdict["uptime_in_days"],
-                                       UptimeInSeconds = serverstatsdict["uptime_in_seconds"]
-                                   };
+                serverstatsdict.TryGetValue("redis_version", out string redisVersion);
+                serverstatsdict.TryGetValue("redis_git_sha1", out string gitSHA1);
+                serverstatsdict.TryGetValue("redis_git_dirty", out string gitDirty);
+                serverstatsdict.TryGetValue("redis_build_id", out string buildId);
+                serverstatsdict.TryGetValue("redis_mode", out string mode);
+                serverstatsdict.TryGetValue("arch_bits", out string archBits);
+                serverstatsdict.TryGetValue("config_file", out string configFile);
+                serverstatsdict.TryGetValue("hz", out string hz);
+                serverstatsdict.TryGetValue("lru_clock", out string lrUClock);
+                serverstatsdict.TryGetValue("multiplexing_api", out string multiplexingApi);
+                serverstatsdict.TryGetValue("os", out string os);
+                serverstatsdict.TryGetValue("process_id", out string processId);
+                serverstatsdict.TryGetValue("run_id", out string runId);
+                serverstatsdict.TryGetValue("tcp_port", out string tcpPort);
+                serverstatsdict.TryGetValue("uptime_in_days", out string uptimeInDays);
+                serverstatsdict.TryGetValue("uptime_in_seconds", out string uptimeInSeconds);
+
+                ServerStatistics = new ServerStats {
+                    RedisVersion = redisVersion,
+                    GitSHA1 = gitSHA1,
+                    GitDirty = gitDirty,
+                    BuildId = buildId,
+                    Mode = mode,
+                    ArchBits = archBits,
+                    ConfigFile = configFile,
+                    GCCVersion = serverstatsdict.ContainsKey("gcc_version")
+                            ? serverstatsdict["gcc_version"]
+                            : string.Empty,
+                    HZ = hz,
+                    LRUClock = lrUClock,
+                    MultiplexingApi = multiplexingApi,
+                    OS = os,
+                    ProcessId = processId,
+                    RunId = runId,
+                    TCPPort = tcpPort,
+                    UptimeInDays = uptimeInDays,
+                    UptimeInSeconds = uptimeInSeconds
+                };
             }
         }
-
-        #region Classes
-
-        public class ServerStats
-        {
-            public string RedisVersion { get; set; }
-            public string GitSHA1 { get; set; }
-            public string GitDirty { get; set; }
-            public string BuildId { get; set; }
-            public string Mode { get; set; }
-            public string OS { get; set; }
-            public string ArchBits { get; set; }
-            public string MultiplexingApi { get; set; }
-            public string GCCVersion { get; set; }
-            public string ProcessId { get; set; }
-            public string RunId { get; set; }
-            public string TCPPort { get; set; }
-            public string UptimeInSeconds { get; set; }
-            public string UptimeInDays { get; set; }
-            public string HZ { get; set; }
-            public string LRUClock { get; set; }
-            public string ConfigFile { get; set; }
-        }
-
-        public class ClientStats
-        {
-            public string ConnectedClients { get; set; }
-            public string LongestOutputList { get; set; }
-            public string BiggestInputBuf { get; set; }
-            public string BlockedClients { get; set; }
-        }
-
-        public class MemoryStats
-        {
-            public string UsedMemory { get; set; }
-            public string UsedMemoryHuman { get; set; }
-            public string UsedMemoryRss { get; set; }
-            public string UsedMemoryPeak { get; set; }
-            public string UsedMemoryPeakHuman { get; set; }
-            public string UsedMemoryLua { get; set; }
-            public string MemFragmentationRatio { get; set; }
-            public string MemAllocator { get; set; }
-        }
-
-        public class CPUStats
-        {
-            public string UsedCPUSys { get; set; }
-            public string UsedCPUUser { get; set; }
-            public string UsedCPUSysChildren { get; set; }
-            public string UsedCPUUserChildren { get; set; }
-        }
-
-        public class Stats
-        {
-            public string ConnectionsReceived { get; set; }
-            public string CommandsProcessed { get; set; }
-            public string OpsPerSec { get; set; }
-            public string RejectedConnections { get; set; }
-            public string SyncFull { get; set; }
-            public string SyncPartialOk { get; set; }
-            public string SyncPartialErr { get; set; }
-            public string ExpiredKeys { get; set; }
-            public string EvictedKeys { get; set; }
-            public string KeyspaceHits { get; set; }
-            public string KeyspaceMisses { get; set; }
-            public string PubsubChannels { get; set; }
-            public string PubsubPatterns { get; set; }
-            public string LatestForkUsec { get; set; }
-        }
-
-        public class PersistenceStats
-        {
-            public string Loading { get; set; }
-            public string ChangesSinceLastSave { get; set; }
-            public string BgSaveInProgress { get; set; }
-            public string LastSaveTime { get; set; }
-            public string LastBgSaveStatus { get; set; }
-            public string LastBgSaveTimeSec { get; set; }
-            public string CurrentBgSaveTimeSec { get; set; }
-            public string AOFEnabled { get; set; }
-            public string AOFRewriteInProgress { get; set; }
-            public string AOFRewriteScheduled { get; set; }
-            public string AOFLastRewriteTimeSec { get; set; }
-            public string AOFCurrentRewriteTimeSec { get; set; }
-            public string AOFLastBgRewriteStatus { get; set; }
-        }
-
-        public class ReplicationStats
-        {
-            public string Role { get; set; }
-            public string Slaves { get; set; }
-            public string ReplOffset { get; set; }
-            public string BacklogActive { get; set; }
-            public string BacklogSize { get; set; }
-            public string BacklogFirstByteOffset { get; set; }
-            public string BacklogHistLen { get; set; }
-        }
-
-        public class ClusterStats
-        {
-            public string Enabled { get; set; }
-        }
-
-        public class KeySpaceStats
-        {
-            public string Db0 { get; set; }
-            public string Db1 { get; set; }
-            public string Db2 { get; set; }
-            public string Db3 { get; set; }
-            public string Db4 { get; set; }
-            public string Db5 { get; set; }
-            public string Db6 { get; set; }
-            public string Db7 { get; set; }
-            public string Db8 { get; set; }
-            public string Db9 { get; set; }
-            public string Db10 { get; set; }
-            public string Db11 { get; set; }
-            public string Db12 { get; set; }
-            public string Db13 { get; set; }
-            public string Db14 { get; set; }
-            public string Db15 { get; set; }
-        }
-
-        #endregion
     }
 }

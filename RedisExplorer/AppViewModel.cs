@@ -128,10 +128,10 @@ namespace RedisExplorer
             dynamic settings = new ExpandoObject();
             settings.Width = 400;
             settings.Height = 275;
-            settings.WindowStartupLocation = WindowStartupLocation.Manual;
+            settings.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             settings.Title = "Add Server";
 
-            windowManager.ShowWindow(new AddConnectionViewModel(eventAggregator), null, settings);    
+            windowManager.ShowDialog(new AddConnectionViewModel(eventAggregator), null, settings);
         }
 
         public void Preferences()
@@ -139,10 +139,10 @@ namespace RedisExplorer
             dynamic settings = new ExpandoObject();
             settings.Width = 400;
             settings.Height = 550;
-            settings.WindowStartupLocation = WindowStartupLocation.Manual;
+            settings.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             settings.Title = "Preferences";
 
-            windowManager.ShowWindow(new PreferencesViewModel(eventAggregator), null, settings);    
+            windowManager.ShowDialog(new PreferencesViewModel(eventAggregator), null, settings);    
         }
 
         public void About()

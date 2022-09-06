@@ -187,9 +187,15 @@
     <Compile Include="Messages\ServerReloadMessage.cs" />
     <Compile Include="Messages\TreeItemExpandedMessage.cs" />
     <Compile Include="Messages\TreeItemSelectedMessage.cs" />
+    <Compile Include="Models\Classes\ClientStats.cs" />
+    <Compile Include="Models\Classes\ClusterStats.cs" />
+    <Compile Include="Models\Classes\CPUStats.cs" />
     <Compile Include="Models\HashWrapper.cs" />
+    <Compile Include="Models\Classes\KeySpaceStats.cs" />
     <Compile Include="Models\Maps.cs" />
+    <Compile Include="Models\Classes\MemoryStats.cs" />
     <Compile Include="Models\NumberedStringWrapper.cs" />
+    <Compile Include="Models\Classes\PersistenceStats.cs" />
     <Compile Include="Models\RedisConnection.cs" />
     <Compile Include="Models\RedisDatabase.cs" />
     <Compile Include="Models\RedisKey.cs" />
@@ -199,7 +205,10 @@
     <Compile Include="Models\RedisKeySortedSet.cs" />
     <Compile Include="Models\RedisKeyString.cs" />
     <Compile Include="Models\RedisServer.cs" />
+    <Compile Include="Models\Classes\ReplicationStats.cs" />
     <Compile Include="Models\ScoreWrapper.cs" />
+    <Compile Include="Models\Classes\ServerStats.cs" />
+    <Compile Include="Models\Classes\Stats.cs" />
     <Compile Include="Models\StringWrapper.cs" />
     <Compile Include="Models\TreeViewItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -301,6 +310,7 @@
   <ItemGroup>
     <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
